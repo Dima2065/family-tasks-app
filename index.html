@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Family Tasks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#70c99b">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f7fbff 0%, #eef5f1 100%);
+      margin: 0;
+      min-height: 100vh;
+      padding: 18px;
+      color: #263238;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 8px 0 18px;
+      font-size: 28px;
+      color: #263238;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .mode-label {
+      display: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #e7f6ee;
+      color: #245444;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .mode-label.active {
+      display: inline-flex;
+    }
+
+    .parent-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .logout-button {
+      display: none;
+      padding: 9px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+    }
+
+    .logout-button.active {
+      display: inline-flex;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 430px;
+      min-height: calc(100vh - 36px);
+      margin: 0 auto;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(65, 92, 86, 0.16);
+      backdrop-filter: blur(12px);
+    }
+
+    .child-select,
+    .add-task {
+      display: flex;
+      gap: 10px;
+      margin: 16px 0;
+      align-items: center;
+    }
+
+    .child-select {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .child-row,
+    .child-edit {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    input,
+    select {
+      flex: 1;
+      min-width: 0;
+      padding: 13px 14px;
+      border: 1px solid #d8e4de;
+      border-radius: 16px;
+      font-size: 16px;
+      background: #fbfffd;
+      color: #263238;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #78b99c;
+      box-shadow: 0 0 0 4px rgba(120, 185, 156, 0.16);
+    }
+
+    label {
+      font-weight: bold;
+      color: #526760;
+    }
+
+    #points {
+      margin: 0 0 20px;
+      padding: 16px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #245444;
+      background: #e7f6ee;
+      border-radius: 20px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+
+    .task {
+      background: #ffffff;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 18px rgba(64, 84, 78, 0.08);
+      border: 1px solid #edf3f0;
+    }
+
+    .section-title {
+      margin: 22px 0 10px;
+      font-size: 18px;
+      color: #2f4d43;
+    }
+
+    .reward {
+      background: #ffffff;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 18px rgba(64, 84, 78, 0.08);
+      border: 1px solid #edf3f0;
+    }
+
+    .reward-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .reward-name {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: bold;
+      color: #263238;
+    }
+
+    .reward-cost {
+      margin: 0;
+      font-size: 13px;
+      color: #6c8078;
+    }
+
+    .reward-claimed {
+      opacity: 0.62;
+    }
+
+    .reward-button {
+      padding: 9px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      box-shadow: 0 6px 12px rgba(69, 173, 122, 0.2);
+    }
+
+    .reward-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .reward-edit {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .reward-cost-input {
+      max-width: 92px;
+    }
+
+    .task span,
+    .task-edit-input {
+      flex: 1;
+      line-height: 1.35;
+      font-size: 15px;
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    button {
+      background: linear-gradient(180deg, #70c99b 0%, #45ad7a 100%);
+      color: white;
+      border: none;
+      padding: 13px 16px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      white-space: nowrap;
+      box-shadow: 0 8px 16px rgba(69, 173, 122, 0.26);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .done-button,
+    .icon-button,
+    .secondary-button,
+    .delete-button {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .secondary-button,
+    .icon-button {
+      background: #f2f7f4;
+      color: #557166;
+      box-shadow: none;
+      border: 1px solid #d8e8df;
+    }
+
+    .secondary-button:hover,
+    .icon-button:hover {
+      background: #e5efe9;
+    }
+
+    .delete-button {
+      background: #fff1f1;
+      color: #b44a4a;
+      box-shadow: none;
+      border: 1px solid #f1d1d1;
+    }
+
+    .delete-button:hover {
+      background: #f8e1e1;
+    }
+
+    .child-save-button {
+      padding: 10px 14px;
+      border-radius: 14px;
+    }
+
+    .parent-only {
+      display: none;
+    }
+
+    .parent-mode .parent-only {
+      display: flex;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(69, 173, 122, 0.3);
+    }
+
+    .secondary-button:hover,
+    .icon-button:hover,
+    .delete-button:hover {
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 12px rgba(69, 173, 122, 0.22);
+    }
+
+    button:disabled {
+      background: #b8c5bf;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+      opacity: 0.65;
+    }
+
+    @media (max-width: 420px) {
+      body {
+        padding: 0;
+        background: #f7fbff;
+      }
+
+      .app {
+        min-height: 100vh;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+      }
+
+      .add-task {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .task button,
+      .child-row button,
+      .child-edit .icon-button,
+      .child-edit .delete-button,
+      .child-save-button {
+        width: auto;
+      }
+
+      .task button,
+      .child-row button,
+      .child-edit .icon-button,
+      .child-edit .delete-button {
+        width: 32px;
+      }
+
+      .task {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .reward {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .reward-edit {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .reward-button {
+        width: 100%;
+      }
+
+      .parent-only {
+        display: none;
+      }
+
+      .parent-mode .parent-only {
+        display: flex;
+      }
+
+      .task-actions {
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="app">
+  <div class="top-bar">
+    <span id="parentModeLabel" class="mode-label">Режим родителя</span>
+    <button class="icon-button" onclick="toggleParentMode()" title="Родительский режим">🔒</button>
+  </div>
+
+  <h1>Семейные задачи</h1>
+
+  <div class="parent-actions">
+    <button id="logoutParentButton" class="logout-button" onclick="exitParentMode()">Выйти из родительского режима</button>
+  </div>
+
+  <div class="child-select">
+    <label for="childSelect">Ребенок:</label>
+
+    <div class="child-row" id="childView">
+      <select id="childSelect" onchange="changeChild()"></select>
+      <button class="icon-button parent-only" onclick="startEditChild()" title="Редактировать ребенка">✏️</button>
+      <button class="icon-button parent-only" onclick="addChild()" title="Добавить ребенка">+</button>
+      <button class="delete-button parent-only" onclick="deleteChild()" title="Удалить ребенка">🗑️</button>
+    </div>
+
+    <div class="child-edit" id="childEdit" style="display: none;">
+      <input id="childNameInput" type="text" placeholder="Имя ребенка">
+      <button class="child-save-button" onclick="saveChildName()">Сохранить</button>
+    </div>
+  </div>
+
+  <p id="points">Баллы: 0</p>
+
+  <div class="add-task parent-only">
+    <input id="taskInput" type="text" placeholder="Введите задачу">
+    <button onclick="addTask()">Добавить задачу</button>
+  </div>
+
+  <div id="taskList"></div>
+
+  <h2 class="section-title">Награды</h2>
+  <div id="rewardList"></div>
+</main>
+
+<script>
+  let children = [];
+  let currentChild = "Марта";
+  let points = 0;
+  let tasks = [];
+  let claimedRewards = [];
+  let editingIndex = null;
+  let editingChild = false;
+  let isParentMode = false;
+  let editingRewardId = null;
+
+  const parentPin = "1029";
+  const defaultChildren = ["Марта", "Дима", "Олеся"];
+  const defaultTasks = [
+    { text: "Помыть посуду", done: false },
+    { text: "Убрать комнату", done: false },
+    { text: "Сделать уроки", done: false }
+  ];
+  let rewards = [
+    { id: "youtube30", title: "30 минут YouTube", cost: 50 },
+    { id: "smallGift", title: "Маленький подарок", cost: 100 },
+    { id: "familyCafe", title: "Семейная прогулка/кафе", cost: 200 }
+  ];
+
+  function getStorageKey(child) {
+    return "familyTasks_" + child;
+  }
+
+  function getDefaultTasks() {
+    return defaultTasks.map(function(task) {
+      return { text: task.text, done: task.done };
+    });
+  }
+
+  function loadChildren() {
+    const savedChildren = localStorage.getItem("children");
+    const savedRewards = localStorage.getItem("rewards");
+    const savedParentMode = localStorage.getItem("parentMode");
+
+    if (savedChildren) {
+      children = JSON.parse(savedChildren);
+    } else {
+      children = defaultChildren.slice();
+    }
+
+    if (!Array.isArray(children) || children.length === 0) {
+      children = defaultChildren.slice();
+    }
+
+    if (savedRewards) {
+      rewards = JSON.parse(savedRewards);
+    }
+
+    if (!Array.isArray(rewards) || rewards.length === 0) {
+      rewards = [
+        { id: "youtube30", title: "30 минут YouTube", cost: 50 },
+        { id: "smallGift", title: "Маленький подарок", cost: 100 },
+        { id: "familyCafe", title: "Семейная прогулка/кафе", cost: 200 }
+      ];
+    }
+
+    isParentMode = savedParentMode === "true";
+
+    const savedChild = localStorage.getItem("currentChild");
+
+    if (savedChild && !children.includes(savedChild)) {
+      children.push(savedChild);
+    }
+
+    currentChild = savedChild || children[0];
+
+    if (!children.includes(currentChild)) {
+      currentChild = children[0];
+    }
+
+    saveChildren();
+    updateParentModeView();
+    renderChildren();
+  }
+
+  function saveChildren() {
+    localStorage.setItem("children", JSON.stringify(children));
+    localStorage.setItem("currentChild", currentChild);
+    localStorage.setItem("rewards", JSON.stringify(rewards));
+    localStorage.setItem("parentMode", isParentMode);
+  }
+
+  function renderChildren() {
+    const select = document.getElementById("childSelect");
+    select.innerHTML = "";
+
+    children.forEach(function(child) {
+      const option = document.createElement("option");
+      option.value = child;
+      option.innerText = child;
+      select.appendChild(option);
+    });
+
+    select.value = currentChild;
+    select.disabled = !isParentMode;
+    document.getElementById("childView").style.display = editingChild ? "none" : "flex";
+    document.getElementById("childEdit").style.display = editingChild ? "flex" : "none";
+  }
+
+  function loadData() {
+    const savedData = localStorage.getItem(getStorageKey(currentChild));
+
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      tasks = data.tasks || [];
+      points = data.points || 0;
+      claimedRewards = data.claimedRewards || [];
+    } else {
+      tasks = getDefaultTasks();
+      points = 0;
+      claimedRewards = [];
+    }
+
+    renderTasks();
+    renderRewards();
+    updatePoints();
+  }
+
+  function saveData() {
+    const data = {
+      tasks: tasks,
+      points: points,
+      claimedRewards: claimedRewards
+    };
+
+    localStorage.setItem(getStorageKey(currentChild), JSON.stringify(data));
+    saveChildren();
+  }
+
+  function updatePoints() {
+    document.getElementById("points").innerText = "Баллы: " + points;
+  }
+
+  function updateParentModeView() {
+    document.body.classList.toggle("parent-mode", isParentMode);
+    document.getElementById("parentModeLabel").classList.toggle("active", isParentMode);
+    document.getElementById("logoutParentButton").classList.toggle("active", isParentMode);
+
+    if (!isParentMode) {
+      editingIndex = null;
+      editingChild = false;
+      editingRewardId = null;
+      document.getElementById("taskInput").value = "";
+    }
+  }
+
+  function toggleParentMode() {
+    if (isParentMode) {
+      return;
+    }
+
+    const pin = prompt("Введите PIN-код:");
+
+    if (pin === parentPin) {
+      isParentMode = true;
+      saveChildren();
+      updateParentModeView();
+      renderChildren();
+      renderTasks();
+      renderRewards();
+    } else if (pin !== null) {
+      alert("Неверный PIN-код");
+    }
+  }
+
+  function exitParentMode() {
+    isParentMode = false;
+    saveChildren();
+    updateParentModeView();
+    renderChildren();
+    renderTasks();
+    renderRewards();
+  }
+
+  function changeChild() {
+    if (!isParentMode) {
+      renderChildren();
+      return;
+    }
+
+    currentChild = document.getElementById("childSelect").value;
+    editingIndex = null;
+    editingChild = false;
+    document.getElementById("taskInput").value = "";
+    saveChildren();
+    renderChildren();
+    loadData();
+  }
+
+  function startEditChild() {
+    if (!isParentMode) {
+      return;
+    }
+
+    editingChild = true;
+    document.getElementById("childNameInput").value = currentChild;
+    renderChildren();
+    document.getElementById("childNameInput").focus();
+  }
+
+  function saveChildName() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const input = document.getElementById("childNameInput");
+    const oldName = currentChild;
+    const newName = input.value.trim();
+
+    if (newName === "") {
+      return;
+    }
+
+    if (newName !== oldName && children.includes(newName)) {
+      alert("Такой ребенок уже есть");
+      return;
+    }
+
+    const oldKey = getStorageKey(oldName);
+    const newKey = getStorageKey(newName);
+    const currentData = localStorage.getItem(oldKey) || JSON.stringify({
+      tasks: tasks,
+      points: points,
+      claimedRewards: claimedRewards
+    });
+    const childIndex = children.indexOf(oldName);
+
+    if (childIndex !== -1) {
+      children[childIndex] = newName;
+    }
+
+    currentChild = newName;
+    localStorage.setItem(newKey, currentData);
+
+    if (newKey !== oldKey) {
+      localStorage.removeItem(oldKey);
+    }
+
+    editingChild = false;
+    saveChildren();
+    renderChildren();
+    loadData();
+  }
+
+  function addChild() {
+    if (!isParentMode) {
+      return;
+    }
+
+    let name = prompt("Имя нового ребенка:");
+
+    if (name === null) {
+      return;
+    }
+
+    name = name.trim();
+
+    if (name === "") {
+      return;
+    }
+
+    if (children.includes(name)) {
+      alert("Такой ребенок уже есть");
+      return;
+    }
+
+    children.push(name);
+    currentChild = name;
+    tasks = getDefaultTasks();
+    points = 0;
+    claimedRewards = [];
+    editingIndex = null;
+    editingChild = false;
+
+    saveChildren();
+    saveData();
+    renderChildren();
+    loadData();
+  }
+
+  function deleteChild() {
+    if (!isParentMode) {
+      return;
+    }
+
+    if (children.length === 1) {
+      alert("Нельзя удалить последнего ребенка");
+      return;
+    }
+
+    const confirmed = confirm("Удалить ребенка " + currentChild + " и все его задачи?");
+
+    if (!confirmed) {
+      return;
+    }
+
+    const deletedChild = currentChild;
+    const deletedIndex = children.indexOf(deletedChild);
+    children = children.filter(function(child) {
+      return child !== deletedChild;
+    });
+
+    currentChild = children[deletedIndex] || children[deletedIndex - 1] || children[0];
+    editingIndex = null;
+    editingChild = false;
+
+    localStorage.removeItem(getStorageKey(deletedChild));
+    saveChildren();
+    renderChildren();
+    loadData();
+  }
+
+  function renderTasks() {
+    const taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
+
+    tasks.forEach(function(task, index) {
+      const taskElement = document.createElement("div");
+      taskElement.className = "task";
+
+      if (task.done) {
+        taskElement.style.opacity = "0.5";
+      }
+
+      if (editingIndex === index) {
+        const input = document.createElement("input");
+        input.className = "task-edit-input";
+        input.value = task.text;
+        input.id = "editInput" + index;
+        input.onkeydown = function(event) {
+          if (event.key === "Enter") {
+            saveEdit(index);
+          }
+        };
+
+        taskElement.appendChild(input);
+      } else {
+        const span = document.createElement("span");
+        span.innerText = task.text;
+
+        taskElement.appendChild(span);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "task-actions";
+
+      const doneButton = document.createElement("button");
+      doneButton.className = "done-button";
+      doneButton.innerText = "✔️";
+      doneButton.title = task.done ? "Выполнено" : "Готово";
+      doneButton.disabled = task.done;
+      doneButton.onclick = function() {
+        done(index);
+      };
+
+      actions.appendChild(doneButton);
+
+      if (isParentMode) {
+        const editButton = document.createElement("button");
+        editButton.className = "secondary-button";
+
+        if (editingIndex === index) {
+          editButton.innerText = "✓";
+          editButton.title = "Сохранить";
+          editButton.onclick = function() {
+            saveEdit(index);
+          };
+        } else {
+          editButton.innerText = "✏️";
+          editButton.title = "Редактировать";
+          editButton.onclick = function() {
+            editTask(index);
+          };
+        }
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+        deleteButton.innerText = "🗑️";
+        deleteButton.title = "Удалить";
+        deleteButton.onclick = function() {
+          deleteTask(index);
+        };
+
+        actions.appendChild(editButton);
+        actions.appendChild(deleteButton);
+      }
+
+      taskElement.appendChild(actions);
+      taskList.appendChild(taskElement);
+    });
+
+    if (editingIndex !== null) {
+      const editInput = document.getElementById("editInput" + editingIndex);
+
+      if (editInput) {
+        editInput.focus();
+      }
+    }
+  }
+
+  function renderRewards() {
+    const rewardList = document.getElementById("rewardList");
+    rewardList.innerHTML = "";
+
+    rewards.forEach(function(reward) {
+      const isClaimed = claimedRewards.includes(reward.id);
+      const canClaim = points >= reward.cost && !isClaimed;
+      const rewardElement = document.createElement("div");
+      rewardElement.className = "reward";
+
+      if (isClaimed) {
+        rewardElement.classList.add("reward-claimed");
+      }
+
+      if (editingRewardId === reward.id) {
+        const editBox = document.createElement("div");
+        editBox.className = "reward-edit";
+
+        const titleInput = document.createElement("input");
+        titleInput.id = "rewardTitle" + reward.id;
+        titleInput.value = reward.title;
+
+        const costInput = document.createElement("input");
+        costInput.id = "rewardCost" + reward.id;
+        costInput.className = "reward-cost-input";
+        costInput.type = "number";
+        costInput.min = "1";
+        costInput.value = reward.cost;
+
+        const saveButton = document.createElement("button");
+        saveButton.className = "reward-button";
+        saveButton.innerText = "Сохранить";
+        saveButton.onclick = function() {
+          saveReward(reward.id);
+        };
+
+        editBox.appendChild(titleInput);
+        editBox.appendChild(costInput);
+        editBox.appendChild(saveButton);
+        rewardElement.appendChild(editBox);
+      } else {
+        const info = document.createElement("div");
+        info.className = "reward-info";
+
+        const title = document.createElement("p");
+        title.className = "reward-name";
+        title.innerText = reward.title;
+
+        const cost = document.createElement("p");
+        cost.className = "reward-cost";
+        cost.innerText = reward.cost + " баллов";
+
+        const actions = document.createElement("div");
+        actions.className = "reward-actions";
+
+        const button = document.createElement("button");
+        button.className = "reward-button";
+        button.innerText = isClaimed ? "Получено" : "Получить";
+        button.disabled = !canClaim;
+        button.onclick = function() {
+          claimReward(reward.id);
+        };
+
+        info.appendChild(title);
+        info.appendChild(cost);
+        rewardElement.appendChild(info);
+        actions.appendChild(button);
+
+        if (isParentMode) {
+          const editButton = document.createElement("button");
+          editButton.className = "secondary-button";
+          editButton.innerText = "✏️";
+          editButton.title = "Редактировать награду";
+          editButton.onclick = function() {
+            editReward(reward.id);
+          };
+
+          actions.appendChild(editButton);
+        }
+
+        rewardElement.appendChild(actions);
+      }
+
+      rewardList.appendChild(rewardElement);
+    });
+
+    if (editingRewardId !== null) {
+      const rewardInput = document.getElementById("rewardTitle" + editingRewardId);
+
+      if (rewardInput) {
+        rewardInput.focus();
+      }
+    }
+  }
+
+  function addTask() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const input = document.getElementById("taskInput");
+    const text = input.value.trim();
+
+    if (text === "") {
+      return;
+    }
+
+    tasks.push({ text: text, done: false });
+    input.value = "";
+
+    saveData();
+    renderTasks();
+  }
+
+  function done(index) {
+    if (tasks[index].done) {
+      return;
+    }
+
+    tasks[index].done = true;
+    points += 10;
+
+    saveData();
+    renderTasks();
+    renderRewards();
+    updatePoints();
+  }
+
+  function claimReward(rewardId) {
+    const reward = rewards.find(function(item) {
+      return item.id === rewardId;
+    });
+
+    if (!reward || claimedRewards.includes(rewardId) || points < reward.cost) {
+      return;
+    }
+
+    points -= reward.cost;
+    claimedRewards.push(rewardId);
+
+    saveData();
+    renderRewards();
+    updatePoints();
+  }
+
+  function editReward(rewardId) {
+    if (!isParentMode) {
+      return;
+    }
+
+    editingRewardId = rewardId;
+    renderRewards();
+  }
+
+  function saveReward(rewardId) {
+    if (!isParentMode) {
+      return;
+    }
+
+    const titleInput = document.getElementById("rewardTitle" + rewardId);
+    const costInput = document.getElementById("rewardCost" + rewardId);
+    const title = titleInput.value.trim();
+    const cost = Number(costInput.value);
+
+    if (title === "" || cost <= 0) {
+      return;
+    }
+
+    const reward = rewards.find(function(item) {
+      return item.id === rewardId;
+    });
+
+    if (!reward) {
+      return;
+    }
+
+    reward.title = title;
+    reward.cost = cost;
+    editingRewardId = null;
+
+    saveChildren();
+    renderRewards();
+  }
+
+  function editTask(index) {
+    if (!isParentMode) {
+      return;
+    }
+
+    editingIndex = index;
+    renderTasks();
+  }
+
+  function saveEdit(index) {
+    if (!isParentMode) {
+      return;
+    }
+
+    const input = document.getElementById("editInput" + index);
+    const text = input.value.trim();
+
+    if (text === "") {
+      return;
+    }
+
+    tasks[index].text = text;
+    editingIndex = null;
+
+    saveData();
+    renderTasks();
+  }
+
+  function deleteTask(index) {
+    if (!isParentMode) {
+      return;
+    }
+
+    tasks.splice(index, 1);
+
+    if (editingIndex === index) {
+      editingIndex = null;
+    } else if (editingIndex > index) {
+      editingIndex -= 1;
+    }
+
+    saveData();
+    renderTasks();
+  }
+
+  loadChildren();
+  loadData();
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function() {
+      navigator.serviceWorker.register("service-worker.js");
+    });
+  }
+</script>
+
+</body>
+</html>
