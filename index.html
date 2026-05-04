@@ -17,7 +17,7 @@
       background: linear-gradient(180deg, #f7fbff 0%, #eef5f1 100%);
       margin: 0;
       min-height: 100vh;
-      padding: 18px;
+      padding: 18px 18px 86px;
       color: #263238;
     }
 
@@ -89,6 +89,48 @@
       align-items: center;
     }
 
+    .add-task {
+      gap: 8px;
+      margin: 10px 0;
+      flex-wrap: nowrap;
+    }
+
+    .add-task input,
+    .add-task select {
+      padding: 7px 9px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    #taskInput {
+      flex: 1 1 auto;
+    }
+
+    #taskPointsInput {
+      flex: 0 0 66px;
+      width: 66px;
+      max-width: 66px;
+      padding-left: 4px;
+      padding-right: 4px;
+      text-align: center;
+    }
+
+    #taskCategoryInput {
+      flex: 0 0 120px;
+      width: 120px;
+    }
+
+    .add-task-button {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
     .child-select {
       align-items: stretch;
       flex-direction: column;
@@ -99,6 +141,24 @@
       display: flex;
       gap: 8px;
       align-items: center;
+    }
+
+    .task-points-field {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #6c8078;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .task-points-input {
+      max-width: 82px;
+      text-align: center;
+    }
+
+    .task-category-select {
+      min-width: 0;
     }
 
     input,
@@ -127,28 +187,179 @@
     }
 
     #points {
-      margin: 0 0 20px;
-      padding: 16px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-      color: #245444;
-      background: #e7f6ee;
-      border-radius: 20px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      display: none;
     }
 
     .task {
       background: #ffffff;
-      padding: 10px 12px;
-      margin: 8px 0;
+      padding: 9px 10px;
+      margin: 6px 0;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(64, 84, 78, 0.05);
+      border: 1px solid #edf3f0;
+    }
+
+    .category-card {
+      background: #ffffff;
+      margin: 9px 0;
       border-radius: 16px;
+      box-shadow: 0 8px 18px rgba(64, 84, 78, 0.08);
+      border: 1px solid #edf3f0;
+      overflow: hidden;
+    }
+
+    .category-header {
+      width: 100%;
+      padding: 12px;
+      border-radius: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 8px 18px rgba(64, 84, 78, 0.08);
+      gap: 10px;
+      background: #f6fbf8;
+      color: #2f4d43;
+      box-shadow: none;
+      text-align: left;
+    }
+
+    .category-header:hover {
+      background: #eaf4ee;
+      box-shadow: none;
+    }
+
+    .category-title {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .category-count {
+      color: #6c8078;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .category-tasks {
+      padding: 4px 8px 8px;
+    }
+
+    .category-tasks .task {
+      margin: 6px 0;
+      padding: 8px 9px;
+      box-shadow: none;
+      background: #fbfffd;
+    }
+
+    .task-empty {
+      padding: 14px 12px;
+      margin: 10px 0;
+      border-radius: 16px;
+      background: #f6fbf8;
       border: 1px solid #edf3f0;
+      color: #6c8078;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .task-filters {
+      display: flex;
+      gap: 6px;
+      margin: 10px 0 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .task-filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-button {
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f2f7f4;
+      color: #557166;
+      border: 1px solid #d8e8df;
+      box-shadow: none;
+      font-size: 13px;
+    }
+
+    .filter-button.active {
+      background: #70c99b;
+      color: #ffffff;
+      border-color: #70c99b;
+    }
+
+    .filter-button:hover {
+      box-shadow: none;
+    }
+
+    .parent-filter-block .section-title {
+      margin-top: 8px;
+    }
+
+    .parent-section {
+      margin: 8px 0;
+      overflow: hidden;
+      border: 1px solid #edf3f0;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(64, 84, 78, 0.06);
+    }
+
+    .parent-section-header {
+      width: 100%;
+      padding: 12px;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f6fbf8;
+      color: #2f4d43;
+      box-shadow: none;
+      text-align: left;
+    }
+
+    .parent-section-header:hover {
+      box-shadow: none;
+    }
+
+    .parent-section-body {
+      display: none;
+      padding: 10px;
+    }
+
+    .parent-section.expanded .parent-section-body {
+      display: block;
+    }
+
+    .parent-section .child-select,
+    .parent-section .add-task,
+    .parent-section .add-reward,
+    .parent-section .sync-row,
+    .parent-section .reminder-settings {
+      margin: 0;
+    }
+
+    .parent-section .template-button,
+    .parent-section .sync-button,
+    .parent-section .add-reward button,
+    .parent-section .reminder-settings button {
+      min-height: 38px;
+    }
+
+    .parent-section .template-button + .template-button {
+      margin-top: 8px;
+    }
+
+    .parent-reward-list {
+      margin-top: 8px;
     }
 
     .section-title {
@@ -192,11 +403,46 @@
       opacity: 0.62;
     }
 
+    .reward-just-claimed {
+      animation: rewardPop 0.65s ease;
+      border-color: #70c99b;
+      background: #f0fff7;
+    }
+
+    @keyframes rewardPop {
+      0% {
+        transform: scale(1);
+      }
+
+      45% {
+        transform: scale(1.025);
+        box-shadow: 0 12px 24px rgba(69, 173, 122, 0.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
     .reward-button {
       padding: 9px 12px;
       border-radius: 14px;
       font-size: 13px;
       box-shadow: 0 6px 12px rgba(69, 173, 122, 0.2);
+    }
+
+    .reward-button.locked {
+      background: #d4ded9;
+      color: #6c8078;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .reward-status {
+      color: #45ad7a;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
     }
 
     .reward-actions {
@@ -217,18 +463,216 @@
       max-width: 92px;
     }
 
+    .add-reward {
+      display: flex;
+      gap: 8px;
+      margin: 8px 0 10px;
+      align-items: center;
+    }
+
+    .add-reward input {
+      padding: 8px 9px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .add-reward .reward-cost-input {
+      flex: 0 0 86px;
+      max-width: 86px;
+      text-align: center;
+    }
+
+    .add-reward button {
+      padding: 9px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 8px 0 12px;
+    }
+
+    .ranking-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 14px;
+      border: 1px solid #edf3f0;
+      background: #fbfffd;
+      color: #263238;
+      font-size: 14px;
+    }
+
+    .ranking-item.leader {
+      background: #fff9df;
+      border-color: #f1d985;
+    }
+
+    .ranking-name {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .ranking-points {
+      flex: 0 0 auto;
+      color: #245444;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .history-panel {
+      margin-top: 8px;
+    }
+
+    .history-filters {
+      display: flex;
+      gap: 8px;
+      margin: 8px 0 10px;
+      align-items: center;
+    }
+
+    .history-filters select,
+    .history-filters input {
+      padding: 8px 9px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 10px;
+      border: 1px solid #edf3f0;
+      border-radius: 14px;
+      background: #fbfffd;
+      color: #263238;
+      font-size: 13px;
+    }
+
+    .history-info {
+      min-width: 0;
+    }
+
+    .history-task {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .history-meta,
+    .history-empty {
+      color: #8a9c95;
+      font-size: 12px;
+    }
+
+    .history-points {
+      flex: 0 0 auto;
+      color: #245444;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
     .task span,
-    .task-edit-input {
+    .task-edit-input,
+    .task-content {
       flex: 1;
-      line-height: 1.35;
-      font-size: 15px;
+      line-height: 1.18;
+      font-size: 14px;
+      min-width: 0;
+    }
+
+    .task-title {
+      color: #263238;
+      font-weight: bold;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      word-break: normal;
+    }
+
+    .task-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .task-icon {
+      flex: 0 0 auto;
+      max-width: 24px;
+      margin-top: 0;
+      line-height: 1;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .task-points {
+      color: #6c8078;
+      font-size: 13px;
+    }
+
+    .task-meta {
+      display: block;
+      margin-top: 3px;
+      color: #8a9c95;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .task-completed-at {
+      display: block;
+      margin-top: 2px;
+      color: #6fb28c;
+      font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .task-edit {
+      display: flex;
+      flex: 1;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .task-icon-input {
+      flex: 0 0 44px;
+      width: 44px;
+      max-width: 44px;
+      text-align: center;
+      padding-left: 4px;
+      padding-right: 4px;
     }
 
     .task-actions {
       display: flex;
-      gap: 6px;
-      align-items: center;
+      gap: 4px;
+      align-items: flex-start;
       justify-content: flex-end;
+      flex: 0 0 auto;
     }
 
     button {
@@ -249,15 +693,16 @@
     .icon-button,
     .secondary-button,
     .delete-button {
-      width: 32px;
-      height: 32px;
+      width: 26px;
+      height: 26px;
       padding: 0;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
+      font-size: 13px;
       line-height: 1;
+      box-shadow: none;
     }
 
     .secondary-button,
@@ -287,6 +732,187 @@
     .child-save-button {
       padding: 10px 14px;
       border-radius: 14px;
+    }
+
+    .template-button {
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      box-shadow: 0 6px 12px rgba(69, 173, 122, 0.18);
+    }
+
+    .sync-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .sync-status {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #f2f7f4;
+      color: #557166;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .sync-status.synced {
+      background: #e7f6ee;
+      color: #245444;
+    }
+
+    .sync-status.error {
+      background: #fff1f1;
+      color: #b44a4a;
+    }
+
+    .sync-button {
+      padding: 9px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      box-shadow: 0 6px 12px rgba(69, 173, 122, 0.18);
+    }
+
+    .kid-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin: 0 0 10px;
+      padding: 10px;
+      border-radius: 18px;
+      background: #f6fbf8;
+      border: 1px solid #edf3f0;
+      text-align: center;
+    }
+
+    .kid-summary span {
+      font-size: 18px;
+      font-weight: bold;
+      color: #263238;
+    }
+
+    .kid-summary strong {
+      color: #245444;
+      font-size: 20px;
+    }
+
+    .kid-summary small {
+      color: #6c8078;
+      font-size: 13px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 20;
+      width: min(430px, 100%);
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 1px solid #dfe9e3;
+      box-shadow: 0 -8px 24px rgba(64, 84, 78, 0.12);
+    }
+
+    .bottom-nav button {
+      width: 100%;
+      padding: 9px 4px;
+      border-radius: 14px;
+      background: #f2f7f4;
+      color: #557166;
+      box-shadow: none;
+      font-size: 12px;
+    }
+
+    .bottom-nav button.active {
+      background: #70c99b;
+      color: #ffffff;
+    }
+
+    .progress-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .progress-card {
+      padding: 12px;
+      border-radius: 16px;
+      background: #f6fbf8;
+      border: 1px solid #edf3f0;
+    }
+
+    .progress-card span {
+      display: block;
+      color: #6c8078;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .progress-card strong {
+      color: #245444;
+      font-size: 20px;
+    }
+
+    .reward-progress {
+      height: 8px;
+      margin-top: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e5efe9;
+    }
+
+    .reward-progress-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: #70c99b;
+    }
+
+    .reward-left {
+      display: block;
+      margin-top: 5px;
+      color: #8a9c95;
+      font-size: 12px;
+    }
+
+    .reminder-settings {
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .reminder-settings input[type="time"] {
+      flex: 0 0 82px;
+      max-width: 82px;
+      padding: 7px 8px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .reminder-settings input[type="text"] {
+      padding: 7px 9px;
+      font-size: 13px;
+    }
+
+    .reminder-settings button {
+      padding: 9px 10px;
+      border-radius: 12px;
+      font-size: 13px;
     }
 
     .parent-only {
@@ -324,20 +950,145 @@
 
     @media (max-width: 420px) {
       body {
-        padding: 0;
+        padding: 0 0 96px;
         background: #f7fbff;
       }
 
       .app {
-        min-height: 100vh;
+        width: 100%;
+        min-height: calc(100vh - 96px);
         border-radius: 0;
         border: none;
         box-shadow: none;
+        padding: 10px 10px 18px;
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: 18px;
+      }
+
+      body:not(.parent-mode) .child-select,
+      body:not(.parent-mode) .parent-actions,
+      body:not(.parent-mode) #parentModeLabel,
+      body:not(.parent-mode) #points {
+        display: none;
+      }
+
+      .top-bar {
+        justify-content: flex-end;
+        margin-bottom: 0;
+      }
+
+      .kid-summary span {
+        font-size: 17px;
+      }
+
+      .kid-summary strong {
+        font-size: 20px;
+      }
+
+      .kid-summary small {
+        font-size: 12px;
+      }
+
+      .task-filters {
+        gap: 5px;
+        margin: 6px 0;
+        overflow-x: auto;
+        padding-bottom: 0;
+      }
+
+      body:not(.parent-mode) .filter-button {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      body:not(.parent-mode) .filter-button.more-filter {
+        display: none;
+      }
+
+      .category-card {
+        margin: 7px 0;
+        border-radius: 14px;
+      }
+
+      .category-header {
+        min-height: 40px;
+        padding: 9px 10px;
+        gap: 8px;
+      }
+
+      .category-title {
+        font-size: 13px;
+      }
+
+      .category-count {
+        font-size: 12px;
+      }
+
+      .category-tasks {
+        padding: 3px 6px 7px;
+      }
+
+      .category-tasks .task,
+      .task {
+        gap: 8px;
+        margin: 5px 0;
+        padding: 9px 8px;
+      }
+
+      .task-main {
+        gap: 6px;
+      }
+
+      .task-icon {
+        max-width: 22px;
+        font-size: 16px;
+      }
+
+      .task-title {
+        line-height: 1.2;
+        font-size: 14px;
+      }
+
+      .task-meta {
+        margin-top: 4px;
+        color: #45ad7a;
+        font-size: 13px;
+        font-weight: bold;
       }
 
       .add-task {
+        flex-wrap: wrap;
+      }
+
+      #taskInput {
+        flex: 1 0 100%;
+      }
+
+      #taskPointsInput {
+        flex: 0 0 66px;
+        max-width: 66px;
+      }
+
+      #taskCategoryInput {
+        flex: 1 1 0;
+        width: auto;
+      }
+
+      .add-task-button {
+        flex: 0 0 36px;
+        width: 36px;
+      }
+
+      .task-edit {
         align-items: stretch;
         flex-direction: column;
+      }
+
+      .task-points-input {
+        max-width: 66px;
       }
 
       button {
@@ -356,12 +1107,29 @@
       .child-row button,
       .child-edit .icon-button,
       .child-edit .delete-button {
-        width: 32px;
+        width: 26px;
+      }
+
+      body:not(.parent-mode) .task button.done-button {
+        flex: 0 0 44px;
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        padding: 0;
+        font-size: 20px;
+        color: #ffffff;
+        background: linear-gradient(180deg, #70c99b 0%, #45ad7a 100%);
+      }
+
+      body:not(.parent-mode) .task-actions {
+        flex: 0 0 44px;
+        justify-content: flex-end;
       }
 
       .task {
-        align-items: stretch;
-        flex-direction: column;
+        align-items: flex-start;
+        flex-direction: row;
       }
 
       .reward {
@@ -424,18 +1192,126 @@
   </div>
 
   <p id="points">Баллы: 0</p>
-
-  <div class="add-task parent-only">
-    <input id="taskInput" type="text" placeholder="Введите задачу">
-    <button onclick="addTask()">Добавить задачу</button>
+  <div class="kid-summary">
+    <span id="kidName">Марта</span>
+    <strong id="kidPoints">0 баллов</strong>
+    <small id="tasksLeftToday">0 задач осталось сегодня</small>
   </div>
 
-  <div id="taskList"></div>
+  <section id="todayPanel" class="tab-panel active">
+    <div id="taskList"></div>
+  </section>
 
-  <h2 class="section-title">Награды</h2>
-  <div id="rewardList"></div>
+  <section id="rewardsPanel" class="tab-panel">
+    <h2 class="section-title">Награды</h2>
+    <div id="rewardList"></div>
+  </section>
+
+  <section id="progressPanel" class="tab-panel">
+    <h2 class="section-title">Прогресс</h2>
+    <div class="progress-cards">
+      <div class="progress-card">
+        <span>Сегодня заработано</span>
+        <strong id="earnedToday">0</strong>
+      </div>
+      <div class="progress-card">
+        <span>Всего баллов</span>
+        <strong id="totalProgressPoints">0</strong>
+      </div>
+    </div>
+    <h2 class="section-title">Рейтинг</h2>
+    <div id="rankingList" class="ranking-list"></div>
+    <h2 class="section-title">История</h2>
+    <div id="progressHistoryList" class="history-list"></div>
+  </section>
+
+  <section id="parentPanel" class="tab-panel">
+    <h2 class="section-title">Родитель</h2>
+    <div class="parent-section parent-only expanded" data-section="children">
+      <button class="parent-section-header" onclick="toggleParentSection('children')"><span>Дети</span><b>▲</b></button>
+      <div class="parent-section-body" id="childrenSectionBody"></div>
+    </div>
+
+    <div class="parent-section parent-only expanded" data-section="tasks">
+      <button class="parent-section-header" onclick="toggleParentSection('tasks')"><span>Задачи</span><b>▲</b></button>
+      <div class="parent-section-body">
+        <div class="parent-filter-block">
+          <div id="taskFilters" class="task-filters"></div>
+        </div>
+        <div class="add-task">
+          <input id="taskInput" type="text" placeholder="Введите задачу">
+          <input id="taskPointsInput" class="task-points-input" type="number" min="1" value="10" title="Баллы">
+          <select id="taskCategoryInput" class="task-category-select"></select>
+          <button class="add-task-button" onclick="addTask()" title="Добавить задачу">➕</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="templates">
+      <button class="parent-section-header" onclick="toggleParentSection('templates')"><span>Шаблоны уборки</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <button class="template-button" onclick="loadCleaningTemplate()">Загрузить шаблон уборки дома</button>
+        <button class="template-button" onclick="loadCleaningTemplateForAllChildren()">Загрузить шаблон всем детям</button>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="sync">
+      <button class="parent-section-header" onclick="toggleParentSection('sync')"><span>Синхронизация</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <div class="sync-row">
+          <span id="syncStatus" class="sync-status">Работает локально</span>
+          <button class="sync-button" onclick="syncNow()">Синхронизировать сейчас</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="reminders">
+      <button class="parent-section-header" onclick="toggleParentSection('reminders')"><span>Напоминания</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <div class="reminder-settings">
+          <input id="reminderTimeInput" type="time" value="18:00" title="Время напоминания" onchange="saveReminderSettings()">
+          <input id="reminderTextInput" type="text" value="Пора выполнить задачи" title="Текст напоминания" onchange="saveReminderSettings()">
+          <button onclick="requestNotificationPermission()" title="Включить уведомления">🔔</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="rewards">
+      <button class="parent-section-header" onclick="toggleParentSection('rewards')"><span>Награды</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <div class="add-reward">
+          <input id="rewardNameInput" type="text" placeholder="Название награды">
+          <input id="rewardCostInput" class="reward-cost-input" type="number" min="1" value="30" placeholder="Баллы">
+          <button onclick="addReward()">Добавить</button>
+        </div>
+        <div id="parentRewardList" class="parent-reward-list"></div>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="history">
+      <button class="parent-section-header" onclick="toggleParentSection('history')"><span>История</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <section id="historyScreen" class="history-panel">
+          <div class="history-filters">
+            <select id="historyChildFilter" onchange="renderHistory()"></select>
+            <input id="historyDateFilter" type="date" onchange="renderHistory()">
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+      </div>
+    </div>
+  </section>
 </main>
 
+<nav class="bottom-nav">
+  <button id="tabToday" class="active" onclick="setActiveTab('today')">Сегодня</button>
+  <button id="tabRewards" onclick="setActiveTab('rewards')">Награды</button>
+  <button id="tabProgress" onclick="setActiveTab('progress')">Прогресс</button>
+  <button id="tabParent" onclick="setActiveTab('parent')">Родитель</button>
+</nav>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
   let children = [];
   let currentChild = "Марта";
@@ -446,18 +1322,164 @@
   let editingChild = false;
   let isParentMode = false;
   let editingRewardId = null;
+  let expandedCategories = [];
+  let activeTaskFilter = "all";
+  let activeTab = "today";
+  let taskHistory = [];
+  let justClaimedRewardId = null;
+  let parentSections = ["children", "tasks"];
+  let reminderTimer = null;
+  let cloudDb = null;
+  let cloudReady = false;
+  let cloudSaveTimer = null;
+  let isApplyingCloudData = false;
+  let reminderSettings = {
+    time: "18:00",
+    text: "Пора выполнить задачи",
+    lastShownDate: ""
+  };
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSwL9Von29eA4JVLHDsJqr7rEtoBbqWGw",
+    authDomain: "family-tasks-app-c4e39.firebaseapp.com",
+    projectId: "family-tasks-app-c4e39",
+    storageBucket: "family-tasks-app-c4e39.firebasestorage.app",
+    messagingSenderId: "411455651244",
+    appId: "1:411455651244:web:39c88574ac6b4b5c774e09"
+  };
+  const cloudCollectionName = "familyTasks";
+  const cloudDocumentId = "appState";
   const parentPin = "1029";
-  const defaultChildren = ["Марта", "Дима", "Олеся"];
-  const defaultTasks = [
-    { text: "Помыть посуду", done: false },
-    { text: "Убрать комнату", done: false },
-    { text: "Сделать уроки", done: false }
+  const taskFilters = [
+    { id: "all", label: "Все" },
+    { id: "today", label: "Сегодня" },
+    { id: "daily", label: "Ежедневные" },
+    { id: "fewWeekly", label: "2–3 раза в неделю" },
+    { id: "weekly", label: "1 раз в неделю" },
+    { id: "done", label: "Выполненные" },
+    { id: "todo", label: "Невыполненные" }
   ];
-  let rewards = [
-    { id: "youtube30", title: "30 минут YouTube", cost: 50 },
-    { id: "smallGift", title: "Маленький подарок", cost: 100 },
-    { id: "familyCafe", title: "Семейная прогулка/кафе", cost: 200 }
+  const uncategorizedName = "Без категории";
+  const categoryOrder = [
+    "0 ЭТАЖ — гараж, вход, постирочная",
+    "1 ЭТАЖ — кухня, столовая, гостиная",
+    "1 ЭТАЖ — санузел",
+    "2 ЭТАЖ — спальни и утренний порядок",
+    "2 ЭТАЖ — ванная",
+    "ОБЩИЕ ЗАДАЧИ",
+    "УЧЁБА И РАЗВИТИЕ",
+    "УЛИЦА И ДВОР",
+    uncategorizedName
+  ];
+  const defaultChildren = ["Марта", "Дима", "Алеся"];
+  const taskTemplateUpdates = [
+    {
+      text: "Помыть душ на 1 этаже",
+      points: 50,
+      frequency: "1 раз в неделю",
+      category: "1 этаж"
+    },
+    {
+      text: "Убрать лишние вещи на полке в столовой",
+      points: 10,
+      frequency: "1 раз в неделю",
+      category: "1 этаж — столовая"
+    },
+    {
+      text: "Протереть пыль на полке в столовой",
+      points: 10,
+      frequency: "1 раз в неделю",
+      category: "1 этаж — столовая"
+    },
+    {
+      text: "Вынести био мусор",
+      points: 10,
+      frequency: "ежедневно",
+      category: "общие задачи"
+    },
+    {
+      text: "Общая семейная уборка (помогать что скажут)",
+      points: 30,
+      frequency: "1 раз в неделю",
+      category: "общие задачи",
+      aliases: ["Общая семейная уборка"]
+    }
+  ];
+  const defaultTasks = taskTemplateUpdates.map(function(task) {
+    return {
+      text: task.text,
+      points: task.points,
+      frequency: task.frequency,
+      category: task.category,
+      done: false,
+      lastCompletedAt: null
+    };
+  });
+  let rewards = getDefaultRewards();
+  const cleaningTemplateTasks = [
+    { title: "Разложить обувь аккуратно", points: 5, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "ежедневно" },
+    { title: "Навести порядок возле велосипедов", points: 10, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "2–3 раза в неделю" },
+    { title: "Подмести пол в гараже и у входа", points: 10, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "2–3 раза в неделю" },
+    { title: "Убрать кладовую-постирочную", points: 20, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "1 раз в неделю" },
+    { title: "Протереть стиральную машину", points: 5, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "1 раз в неделю" },
+    { title: "Протереть сушильную машину", points: 5, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "1 раз в неделю" },
+    { title: "Подмести территорию возле гаража и входа", points: 20, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "1 раз в неделю" },
+    { title: "Отнести вещи в постирочную комнату", points: 10, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "ежедневно" },
+    { title: "Рассортировать вещи: белые, чёрные, цветные, джинсы, полотенца", points: 15, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "2–3 раза в неделю" },
+    { title: "Включить стирку", points: 10, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "2–3 раза в неделю" },
+    { title: "Развесить вещи для сушки", points: 15, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "2–3 раза в неделю" },
+    { title: "Положить вещи в сушилку: носки, трусы, бюстгальтеры, мелкие футболки Димы", points: 15, completed: false, category: "0 этаж — гараж, вход, постирочная", frequency: "2–3 раза в неделю" },
+    { title: "Протереть обеденный стол", points: 5, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "ежедневно" },
+    { title: "Протереть кухонный стол", points: 10, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "ежедневно" },
+    { title: "Загрузить посудомойку", points: 10, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "ежедневно" },
+    { title: "Разгрузить посудомойку", points: 10, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "ежедневно" },
+    { title: "Убрать в гостиной пледы и подушки", points: 10, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "ежедневно" },
+    { title: "Убрать игрушки с пола", points: 10, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "ежедневно" },
+    { title: "Протереть плиту", points: 15, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "2–3 раза в неделю" },
+    { title: "Протереть микроволновку", points: 15, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "2–3 раза в неделю" },
+    { title: "Пропылесосить 1 этаж", points: 30, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "2–3 раза в неделю" },
+    { title: "Помыть пол на 1 этаже", points: 40, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "1 раз в неделю" },
+    { title: "Протереть кухонные шкафчики снаружи", points: 20, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "1 раз в неделю" },
+    { title: "Убрать вещи по местам на большой белой полке в гостиной", points: 15, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "1 раз в неделю" },
+    { title: "Протереть пыль на большой белой полке в гостиной", points: 15, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "1 раз в неделю" },
+    { title: "Убрать лишние вещи на полке в столовой", points: 10, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "1 раз в неделю" },
+    { title: "Протереть пыль на полке в столовой", points: 10, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "1 раз в неделю" },
+    { title: "Прибраться в полке с кастрюлями", points: 20, completed: false, category: "1 этаж — кухня, столовая, гостиная", frequency: "1 раз в неделю" },
+    { title: "Протереть раковину на 1 этаже", points: 5, completed: false, category: "санузел 1 этаж", frequency: "ежедневно" },
+    { title: "Протереть зеркало на 1 этаже", points: 5, completed: false, category: "санузел 1 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Помыть унитаз на 1 этаже", points: 40, completed: false, category: "санузел 1 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Помыть душ на 1 этаже", points: 50, completed: false, category: "санузел 1 этаж", frequency: "1 раз в неделю" },
+    { title: "Пропылесосить в туалете на 1 этаже", points: 10, completed: false, category: "санузел 1 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Помыть пол в туалете 1 этажа", points: 30, completed: false, category: "санузел 1 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Умыться", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Почистить зубы", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Переодеться", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Заправить кровать", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Убрать вещи на место", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Разложить одежду", points: 10, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Протереть письменный стол", points: 10, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "2–3 раза в неделю" },
+    { title: "Пропылесосить спальню", points: 15, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "1 раз в неделю" },
+    { title: "Протереть поверхности в спальне", points: 10, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "1 раз в неделю" },
+    { title: "Протереть раковину на 2 этаже", points: 5, completed: false, category: "ванная 2 этаж", frequency: "ежедневно" },
+    { title: "Протереть зеркало на 2 этаже", points: 10, completed: false, category: "ванная 2 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Помыть унитаз на 2 этаже", points: 40, completed: false, category: "ванная 2 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Помыть душ на 2 этаже", points: 40, completed: false, category: "ванная 2 этаж", frequency: "1 раз в неделю" },
+    { title: "Пропылесосить в ванной на 2 этаже", points: 10, completed: false, category: "ванная 2 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Помыть пол в ванной 2 этажа", points: 30, completed: false, category: "ванная 2 этаж", frequency: "2–3 раза в неделю" },
+    { title: "Изучение немецкого языка", points: 20, completed: false, category: "учёба и развитие", frequency: "ежедневно" },
+    { title: "Изучение французского языка", points: 20, completed: false, category: "учёба и развитие", frequency: "ежедневно" },
+    { title: "Изучение английского языка", points: 20, completed: false, category: "учёба и развитие", frequency: "ежедневно" },
+    { title: "Тренировать брата читать", points: 20, completed: false, category: "учёба и развитие", frequency: "2–3 раза в неделю" },
+    { title: "Чтение книг", points: 15, completed: false, category: "учёба и развитие", frequency: "ежедневно" },
+    { title: "Вязание: связать конкретный предмет", points: 50, completed: false, category: "учёба и развитие", frequency: "по факту выполнения" },
+    { title: "Уборка гриль-плаца", points: 30, completed: false, category: "улица и двор", frequency: "1 раз в неделю" },
+    { title: "Уборка Gartenplatz", points: 30, completed: false, category: "улица и двор", frequency: "1 раз в неделю" },
+    { title: "Вынести мусор", points: 10, completed: false, category: "общие задачи", frequency: "ежедневно" },
+    { title: "Вынести био мусор", points: 10, completed: false, category: "общие задачи", frequency: "ежедневно" },
+    { title: "Помочь накрыть на стол", points: 5, completed: false, category: "общие задачи", frequency: "ежедневно" },
+    { title: "Помочь убрать после еды", points: 10, completed: false, category: "общие задачи", frequency: "ежедневно" },
+    { title: "Полить растения", points: 5, completed: false, category: "общие задачи", frequency: "2–3 раза в неделю" },
+    { title: "Общая семейная уборка (помогать что скажут)", points: 30, completed: false, category: "общие задачи", frequency: "1 раз в неделю" }
   ];
 
   function getStorageKey(child) {
@@ -466,7 +1488,1143 @@
 
   function getDefaultTasks() {
     return defaultTasks.map(function(task) {
-      return { text: task.text, done: task.done };
+      return {
+        text: task.text,
+        points: task.points,
+        frequency: task.frequency,
+        category: task.category,
+        icon: task.icon || getTaskIcon(task),
+        done: task.done,
+        lastCompletedAt: task.lastCompletedAt || null,
+        completedPoints: task.completedPoints || null
+      };
+    });
+  }
+
+  function normalizeTasks(taskList) {
+    return taskList.map(function(task) {
+      const taskText = task.text || task.title || "";
+      const taskPoints = Number(task.points || task.reward || 10);
+      const isDone = Boolean(task.done || task.completed);
+
+      return {
+        text: taskText,
+        points: taskPoints > 0 ? taskPoints : 10,
+        frequency: task.frequency || "",
+        category: normalizeCategoryName(task.category),
+        icon: task.icon || getTaskIcon({ text: taskText, title: task.title }),
+        done: isDone,
+        lastCompletedAt: task.lastCompletedAt || (isDone ? getTodayString() : null),
+        completedPoints: isDone ? Number(task.completedPoints || taskPoints) : null
+      };
+    }).filter(function(task) {
+      return task.text.trim() !== "";
+    });
+  }
+
+  function getTodayString() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return year + "-" + month + "-" + day;
+  }
+
+  function parseDateString(dateString) {
+    if (!dateString) {
+      return null;
+    }
+
+    const parts = String(dateString).split("-").map(Number);
+
+    if (parts.length !== 3 || parts.some(function(part) { return !part; })) {
+      return null;
+    }
+
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+  }
+
+  function getDaysSince(dateString) {
+    const completedDate = parseDateString(dateString);
+
+    if (!completedDate) {
+      return 0;
+    }
+
+    const today = parseDateString(getTodayString());
+    const dayMs = 24 * 60 * 60 * 1000;
+
+    return Math.floor((today - completedDate) / dayMs);
+  }
+
+  function shouldResetTask(task) {
+    if (!task.done || !task.lastCompletedAt) {
+      return false;
+    }
+
+    const frequency = String(task.frequency || "").toLowerCase();
+    const daysSinceCompleted = getDaysSince(task.lastCompletedAt);
+
+    if (frequency === "ежедневно") {
+      return daysSinceCompleted >= 1;
+    }
+
+    if (frequency === "2–3 раза в неделю" || frequency === "2-3 раза в неделю") {
+      return daysSinceCompleted >= 2;
+    }
+
+    if (frequency === "1 раз в неделю") {
+      return daysSinceCompleted >= 7;
+    }
+
+    return false;
+  }
+
+  function resetTasksByFrequency(taskList) {
+    let hasChanges = false;
+
+    const resetTasks = taskList.map(function(task) {
+      if (!shouldResetTask(task)) {
+        return task;
+      }
+
+      hasChanges = true;
+
+      return Object.assign({}, task, { done: false, completedPoints: null });
+    });
+
+    return {
+      tasks: resetTasks,
+      hasChanges: hasChanges
+    };
+  }
+
+  function getCompletedAtLabel(task) {
+    if (!task.done || !task.lastCompletedAt) {
+      return "";
+    }
+
+    if (task.lastCompletedAt === getTodayString()) {
+      return "выполнено сегодня";
+    }
+
+    const completedDate = parseDateString(task.lastCompletedAt);
+
+    if (!completedDate) {
+      return "";
+    }
+
+    return "выполнено: " + completedDate.toLocaleDateString("ru-RU");
+  }
+
+  function normalizeTaskName(name) {
+    return String(name || "").trim().toLowerCase();
+  }
+
+  function safeParseJSON(value, fallback) {
+    if (!value) {
+      return fallback;
+    }
+
+    try {
+      const parsedValue = JSON.parse(value);
+      return parsedValue === null ? fallback : parsedValue;
+    } catch (error) {
+      return fallback;
+    }
+  }
+
+  function uniqueList(list) {
+    if (!Array.isArray(list)) {
+      return [];
+    }
+
+    return list
+      .map(function(item) {
+        return String(item || "").trim();
+      })
+      .filter(function(item, index, source) {
+        return item !== "" && source.indexOf(item) === index;
+      });
+  }
+
+  function isFirebaseConfigured() {
+    return Boolean(firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId);
+  }
+
+  function setSyncStatus(message, state) {
+    const syncStatus = document.getElementById("syncStatus");
+
+    if (!syncStatus) {
+      return;
+    }
+
+    syncStatus.innerText = message;
+    syncStatus.classList.toggle("synced", state === "synced");
+    syncStatus.classList.toggle("error", state === "error");
+  }
+
+  function initFirebase() {
+    if (cloudReady) {
+      return true;
+    }
+
+    if (!isFirebaseConfigured() || typeof firebase === "undefined" || !firebase.firestore) {
+      setSyncStatus("Работает локально", "local");
+      return false;
+    }
+
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+
+      cloudDb = firebase.firestore();
+      cloudReady = true;
+      return true;
+    } catch (error) {
+      cloudReady = false;
+      setSyncStatus("Ошибка синхронизации", "error");
+      return false;
+    }
+  }
+
+  function getLocalSnapshot() {
+    const snapshotChildren = uniqueList(safeParseJSON(localStorage.getItem("children"), children.length ? children : defaultChildren.slice()));
+    const childData = {};
+
+    snapshotChildren.forEach(function(child) {
+      const savedData = safeParseJSON(localStorage.getItem(getStorageKey(child)), null);
+      childData[child] = normalizeChildData(savedData || (child === currentChild ? {
+        tasks: tasks,
+        points: points,
+        claimedRewards: claimedRewards,
+        rewards: rewards
+      } : getInitialChildData()));
+    });
+
+    return {
+      children: snapshotChildren,
+      currentChild: localStorage.getItem("currentChild") || currentChild || snapshotChildren[0],
+      childData: childData,
+      rewards: normalizeRewards(safeParseJSON(localStorage.getItem("rewards"), rewards)),
+      parentMode: localStorage.getItem("parentMode") === "true",
+      expandedCategories: uniqueList(safeParseJSON(localStorage.getItem("expandedCategories"), expandedCategories)),
+      activeTaskFilter: localStorage.getItem("activeTaskFilter") || activeTaskFilter,
+      taskHistory: normalizeHistory(safeParseJSON(localStorage.getItem("taskHistory"), taskHistory)),
+      reminderSettings: normalizeReminderSettings(safeParseJSON(localStorage.getItem("taskReminderSettings"), reminderSettings)),
+      categories: categoryOrder.slice(),
+      uncategorizedName: uncategorizedName,
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  function applySnapshotToLocal(snapshot) {
+    if (!snapshot || typeof snapshot !== "object") {
+      return false;
+    }
+
+    const snapshotChildren = uniqueList(snapshot.children);
+    const nextChildren = snapshotChildren.length > 0 ? snapshotChildren : defaultChildren.slice();
+    const nextCurrentChild = snapshot.currentChild && nextChildren.includes(snapshot.currentChild)
+      ? snapshot.currentChild
+      : nextChildren[0];
+    const childData = snapshot.childData && typeof snapshot.childData === "object" ? snapshot.childData : {};
+
+    localStorage.setItem("children", JSON.stringify(nextChildren));
+    localStorage.setItem("currentChild", nextCurrentChild);
+    localStorage.setItem("rewards", JSON.stringify(normalizeRewards(snapshot.rewards)));
+    localStorage.setItem("parentMode", snapshot.parentMode === true ? "true" : "false");
+    localStorage.setItem("expandedCategories", JSON.stringify(uniqueList(snapshot.expandedCategories || []).map(normalizeCategoryName)));
+    localStorage.setItem("activeTaskFilter", snapshot.activeTaskFilter || "all");
+    localStorage.setItem("taskHistory", JSON.stringify(normalizeHistory(snapshot.taskHistory)));
+    localStorage.setItem("taskReminderSettings", JSON.stringify(normalizeReminderSettings(snapshot.reminderSettings)));
+
+    nextChildren.forEach(function(child) {
+      localStorage.setItem(getStorageKey(child), JSON.stringify(normalizeChildData(childData[child] || getInitialChildData())));
+    });
+
+    return true;
+  }
+
+  async function loadFromCloud() {
+    if (!initFirebase()) {
+      return null;
+    }
+
+    try {
+      const doc = await cloudDb.collection(cloudCollectionName).doc(cloudDocumentId).get();
+
+      if (!doc.exists) {
+        setSyncStatus("Работает локально", "local");
+        return null;
+      }
+
+      const data = doc.data();
+
+      if (!data || !Array.isArray(data.children)) {
+        setSyncStatus("Работает локально", "local");
+        return null;
+      }
+
+      setSyncStatus("Синхронизировано", "synced");
+      return data;
+    } catch (error) {
+      setSyncStatus("Ошибка синхронизации", "error");
+      return null;
+    }
+  }
+
+  async function saveToCloud() {
+    if (isApplyingCloudData || !initFirebase()) {
+      return false;
+    }
+
+    try {
+      await cloudDb.collection(cloudCollectionName).doc(cloudDocumentId).set(getLocalSnapshot());
+      setSyncStatus("Синхронизировано", "synced");
+      return true;
+    } catch (error) {
+      setSyncStatus("Ошибка синхронизации", "error");
+      return false;
+    }
+  }
+
+  function scheduleCloudSave() {
+    if (isApplyingCloudData) {
+      return;
+    }
+
+    if (cloudSaveTimer) {
+      clearTimeout(cloudSaveTimer);
+    }
+
+    cloudSaveTimer = setTimeout(function() {
+      saveToCloud();
+    }, 500);
+  }
+
+  async function syncLocalToCloud() {
+    return saveToCloud();
+  }
+
+  async function syncCloudToLocal() {
+    const cloudData = await loadFromCloud();
+
+    if (!cloudData) {
+      return null;
+    }
+
+    isApplyingCloudData = true;
+    applySnapshotToLocal(cloudData);
+    isApplyingCloudData = false;
+    setSyncStatus("Синхронизировано", "synced");
+
+    return cloudData;
+  }
+
+  async function initializeCloudSync() {
+    const cloudData = await syncCloudToLocal();
+
+    if (!cloudData) {
+      await syncLocalToCloud();
+    }
+  }
+
+  async function syncNow() {
+    setSyncStatus("Синхронизация...", "local");
+    const cloudData = await syncCloudToLocal();
+
+    if (!cloudData) {
+      await syncLocalToCloud();
+    }
+
+    loadChildren();
+    loadData();
+  }
+
+  function getInitialChildData() {
+    return {
+      tasks: getDefaultTasks(),
+      points: 0,
+      claimedRewards: [],
+      rewards: getDefaultRewards()
+    };
+  }
+
+  function normalizeChildData(data) {
+    const childData = data && typeof data === "object" ? data : getInitialChildData();
+    const normalizedPoints = Number(childData.points);
+    const hasSavedTaskList = Array.isArray(childData.tasks);
+    const rawTasks = hasSavedTaskList ? childData.tasks : getDefaultTasks();
+    let normalizedTasks = normalizeTasks(rawTasks);
+    const rewardSource = Array.isArray(childData.rewards)
+      ? childData.rewards
+      : (Array.isArray(childData.availableRewards) ? childData.availableRewards : rewards);
+
+    if (rawTasks.length > 0 && normalizedTasks.length === 0) {
+      normalizedTasks = getDefaultTasks();
+    }
+
+    return {
+      tasks: normalizedTasks,
+      points: normalizedPoints > 0 ? normalizedPoints : 0,
+      claimedRewards: Array.isArray(childData.claimedRewards) ? childData.claimedRewards : [],
+      rewards: normalizeRewards(rewardSource)
+    };
+  }
+
+  function getDefaultRewards() {
+    return [
+      { id: "youtube30", title: "30 минут YouTube", cost: 30 },
+      { id: "smallGift", title: "Маленький подарок", cost: 100 },
+      { id: "familyCafe", title: "Семейная прогулка/кафе", cost: 200 }
+    ];
+  }
+
+  function normalizeRewards(rewardList) {
+    const normalizedRewards = Array.isArray(rewardList) ? rewardList
+      .map(function(reward, index) {
+        const title = String(reward && reward.title || "").trim();
+        const cost = Number(reward && reward.cost);
+
+        if (title === "" || cost <= 0) {
+          return null;
+        }
+
+        return {
+          id: String(reward.id || "reward" + index),
+          title: title,
+          cost: cost
+        };
+      })
+      .filter(Boolean)
+      .filter(function(reward, index, source) {
+        return source.findIndex(function(otherReward) {
+          return otherReward.id === reward.id;
+        }) === index;
+      }) : [];
+
+    return Array.isArray(rewardList) ? normalizedRewards : getDefaultRewards();
+  }
+
+  function normalizeHistory(historyList) {
+    if (!Array.isArray(historyList)) {
+      return [];
+    }
+
+    return historyList
+      .map(function(entry) {
+        const child = String(entry && entry.child || "").trim();
+        const task = String(entry && entry.task || "").trim();
+        const points = Number(entry && entry.points);
+        const date = String(entry && entry.date || "").trim();
+
+        if (child === "" || task === "" || points <= 0 || date === "") {
+          return null;
+        }
+
+        return {
+          child: child,
+          task: task,
+          points: points,
+          date: date
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function loadTaskHistory() {
+    taskHistory = normalizeHistory(safeParseJSON(localStorage.getItem("taskHistory"), []));
+  }
+
+  function saveTaskHistory() {
+    localStorage.setItem("taskHistory", JSON.stringify(taskHistory));
+    scheduleCloudSave();
+  }
+
+  function addTaskHistory(task, earnedPoints) {
+    taskHistory.push({
+      child: currentChild,
+      task: task.text,
+      points: earnedPoints,
+      date: getTodayString()
+    });
+
+    saveTaskHistory();
+  }
+
+  function renderHistoryFilters() {
+    const childFilter = document.getElementById("historyChildFilter");
+    const dateFilter = document.getElementById("historyDateFilter");
+
+    if (!childFilter || !dateFilter) {
+      return;
+    }
+
+    const selectedChild = childFilter.value || "all";
+    childFilter.innerHTML = "";
+
+    const allOption = document.createElement("option");
+    allOption.value = "all";
+    allOption.innerText = "Все дети";
+    childFilter.appendChild(allOption);
+
+    children.forEach(function(child) {
+      const option = document.createElement("option");
+      option.value = child;
+      option.innerText = child;
+      childFilter.appendChild(option);
+    });
+
+    childFilter.value = selectedChild === "all" || children.includes(selectedChild) ? selectedChild : "all";
+
+    if (!dateFilter.value) {
+      dateFilter.value = getTodayString();
+    }
+  }
+
+  function renderHistory() {
+    const historyList = document.getElementById("historyList");
+    const childFilter = document.getElementById("historyChildFilter");
+    const dateFilter = document.getElementById("historyDateFilter");
+
+    if (!historyList || !childFilter || !dateFilter) {
+      return;
+    }
+
+    renderHistoryFilters();
+    historyList.innerHTML = "";
+
+    const selectedChild = childFilter.value;
+    const selectedDate = dateFilter.value;
+    const filteredHistory = taskHistory
+      .filter(function(entry) {
+        return (selectedChild === "all" || entry.child === selectedChild) &&
+          (!selectedDate || entry.date === selectedDate);
+      })
+      .slice()
+      .reverse();
+
+    if (filteredHistory.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "history-empty";
+      empty.innerText = "Нет выполненных задач за выбранный день";
+      historyList.appendChild(empty);
+      return;
+    }
+
+    filteredHistory.forEach(function(entry) {
+      const item = document.createElement("div");
+      item.className = "history-item";
+
+      const info = document.createElement("div");
+      info.className = "history-info";
+
+      const taskName = document.createElement("span");
+      taskName.className = "history-task";
+      taskName.innerText = entry.task;
+
+      const meta = document.createElement("span");
+      meta.className = "history-meta";
+      meta.innerText = entry.child + " · " + entry.date;
+
+      const pointsBadge = document.createElement("span");
+      pointsBadge.className = "history-points";
+      pointsBadge.innerText = "+" + entry.points;
+
+      info.appendChild(taskName);
+      info.appendChild(meta);
+      item.appendChild(info);
+      item.appendChild(pointsBadge);
+      historyList.appendChild(item);
+    });
+  }
+
+  function renderProgressHistory() {
+    const progressHistoryList = document.getElementById("progressHistoryList");
+
+    if (!progressHistoryList) {
+      return;
+    }
+
+    progressHistoryList.innerHTML = "";
+
+    const entries = taskHistory
+      .filter(function(entry) {
+        return entry.child === currentChild && entry.date === getTodayString();
+      })
+      .slice()
+      .reverse()
+      .slice(0, 5);
+
+    if (entries.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "history-empty";
+      empty.innerText = "Сегодня ещё нет выполненных задач";
+      progressHistoryList.appendChild(empty);
+      return;
+    }
+
+    entries.forEach(function(entry) {
+      const item = document.createElement("div");
+      item.className = "history-item";
+
+      const info = document.createElement("div");
+      info.className = "history-info";
+
+      const taskName = document.createElement("span");
+      taskName.className = "history-task";
+      taskName.innerText = entry.task;
+
+      const meta = document.createElement("span");
+      meta.className = "history-meta";
+      meta.innerText = entry.date;
+
+      const pointsBadge = document.createElement("span");
+      pointsBadge.className = "history-points";
+      pointsBadge.innerText = "+" + entry.points;
+
+      info.appendChild(taskName);
+      info.appendChild(meta);
+      item.appendChild(info);
+      item.appendChild(pointsBadge);
+      progressHistoryList.appendChild(item);
+    });
+  }
+
+  function normalizeReminderSettings(settings) {
+    const defaultSettings = {
+      time: "18:00",
+      text: "Пора выполнить задачи",
+      lastShownDate: ""
+    };
+    const savedSettings = settings && typeof settings === "object" ? settings : {};
+    const time = /^\d{2}:\d{2}$/.test(savedSettings.time || "") ? savedSettings.time : defaultSettings.time;
+    const text = String(savedSettings.text || "").trim() || defaultSettings.text;
+
+    return {
+      time: time,
+      text: text,
+      lastShownDate: String(savedSettings.lastShownDate || "")
+    };
+  }
+
+  function loadReminderSettings() {
+    reminderSettings = normalizeReminderSettings(safeParseJSON(localStorage.getItem("taskReminderSettings"), reminderSettings));
+    renderReminderSettings();
+  }
+
+  function renderReminderSettings() {
+    const timeInput = document.getElementById("reminderTimeInput");
+    const textInput = document.getElementById("reminderTextInput");
+
+    if (!timeInput || !textInput) {
+      return;
+    }
+
+    timeInput.value = reminderSettings.time;
+    textInput.value = reminderSettings.text;
+  }
+
+  function saveReminderSettings() {
+    const timeInput = document.getElementById("reminderTimeInput");
+    const textInput = document.getElementById("reminderTextInput");
+
+    if (timeInput && textInput) {
+      reminderSettings = normalizeReminderSettings({
+        time: timeInput.value,
+        text: textInput.value,
+        lastShownDate: reminderSettings.lastShownDate
+      });
+    }
+
+    localStorage.setItem("taskReminderSettings", JSON.stringify(reminderSettings));
+    renderReminderSettings();
+    scheduleTaskReminder();
+    scheduleCloudSave();
+  }
+
+  function requestNotificationPermission() {
+    saveReminderSettings();
+
+    if (!("Notification" in window)) {
+      alert("Уведомления не поддерживаются в этом браузере");
+      return;
+    }
+
+    Notification.requestPermission().then(function(permission) {
+      if (permission !== "granted") {
+        alert("Разрешение на уведомления не включено");
+        scheduleTaskReminder();
+        return;
+      }
+
+      checkTaskReminder();
+      scheduleTaskReminder();
+    });
+  }
+
+  function hasIncompleteTasks() {
+    return tasks.some(function(task) {
+      return !task.done;
+    });
+  }
+
+  function getReminderDateForToday() {
+    const parts = reminderSettings.time.split(":").map(Number);
+    const reminderDate = new Date();
+    reminderDate.setHours(parts[0], parts[1], 0, 0);
+
+    return reminderDate;
+  }
+
+  function scheduleTaskReminder() {
+    if (reminderTimer) {
+      clearTimeout(reminderTimer);
+    }
+
+    const now = new Date();
+    let reminderDate = getReminderDateForToday();
+
+    if (reminderDate <= now) {
+      reminderDate.setDate(reminderDate.getDate() + 1);
+    }
+
+    const delay = Math.max(1000, reminderDate - now);
+    reminderTimer = setTimeout(function() {
+      checkTaskReminder();
+      scheduleTaskReminder();
+    }, delay);
+  }
+
+  function checkTaskReminder() {
+    if (reminderSettings.lastShownDate === getTodayString()) {
+      return;
+    }
+
+    if (new Date() < getReminderDateForToday()) {
+      return;
+    }
+
+    if (!hasIncompleteTasks()) {
+      reminderSettings.lastShownDate = getTodayString();
+      saveReminderSettings();
+      return;
+    }
+
+    showTaskReminderNotification();
+  }
+
+  function showTaskReminderNotification() {
+    if (!("Notification" in window) || Notification.permission !== "granted") {
+      return;
+    }
+
+    const title = reminderSettings.text;
+    const options = {
+      body: currentChild + ": есть невыполненные задачи",
+      tag: "family-tasks-daily-reminder",
+      renotify: false
+    };
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then(function(registration) {
+        if (registration.active) {
+          registration.active.postMessage({
+            type: "SHOW_REMINDER",
+            title: title,
+            options: options
+          });
+        } else {
+          registration.showNotification(title, options);
+        }
+      });
+    } else {
+      new Notification(title, options);
+    }
+
+    reminderSettings.lastShownDate = getTodayString();
+    localStorage.setItem("taskReminderSettings", JSON.stringify(reminderSettings));
+  }
+
+  function getTaskIcon(task) {
+    if (task.icon) {
+      return task.icon;
+    }
+
+    const title = normalizeTaskName(task.text || task.title);
+
+    if (title.includes("немец")) return "🇩🇪";
+    if (title.includes("француз")) return "🇫🇷";
+    if (title.includes("англий")) return "🇬🇧";
+    if (title.includes("обув")) return "👟";
+    if (title.includes("велосипед")) return "🚲";
+    if (title.includes("пылесос")) return "🌀";
+    if (title.includes("сушил")) return "🌀";
+    if (title.includes("помыть пол") || title.includes("пол в туалете") || title.includes("пол в ванной")) return "🪣";
+    if (title.includes("подмести")) return "🧹";
+    if (title.includes("кладовую") || title.includes("рассортировать") || title.includes("стирку")) return "🧺";
+    if (title.includes("стиральную") || title.includes("сушильную")) return "🧼";
+    if (title.includes("развесить")) return "👚";
+    if (title.includes("вещи") || title.includes("переодеться") || title.includes("одежд")) return "👕";
+    if (title.includes("обеденный стол") || title.includes("кухонный стол") || title.includes("посудомой") || title.includes("накрыть")) return "🍽️";
+    if (title.includes("плит") || title.includes("гриль")) return "🔥";
+    if (title.includes("микроволнов")) return "📦";
+    if (title.includes("кастрюл")) return "🍳";
+    if (title.includes("плед") || title.includes("подуш")) return "🛋️";
+    if (title.includes("игруш")) return "🧸";
+    if (title.includes("полк")) return "🗄️";
+    if (title.includes("пыль") || title.includes("протереть") || title.includes("после еды") || title.includes("шкафчик") || title.includes("поверхност")) return "🧽";
+    if (title.includes("раковин") || title.includes("умыться")) return "🚰";
+    if (title.includes("зеркал")) return "🪞";
+    if (title.includes("унитаз")) return "🚽";
+    if (title.includes("душ")) return "🚿";
+    if (title.includes("зуб")) return "🪥";
+    if (title.includes("кровать")) return "🛏️";
+    if (title.includes("читать") || title.includes("брата")) return "📖";
+    if (title.includes("книг")) return "📚";
+    if (title.includes("вяз")) return "🧶";
+    if (title.includes("garten") || title.includes("растен")) return "🌿";
+    if (title.includes("территор")) return "🍃";
+    if (title.includes("био мусор")) return "♻️";
+    if (title.includes("мусор")) return "🗑️";
+    if (title.includes("полить")) return "🪴";
+    if (title.includes("семейная уборка")) return "👨‍👩‍👧‍👦";
+
+    return "✅";
+  }
+
+  function normalizeCategoryName(category) {
+    const value = String(category || "").trim();
+    const lowerValue = value.toLowerCase();
+    const categoryAliases = {
+      "0 этаж": "0 ЭТАЖ — гараж, вход, постирочная",
+      "0 этаж — гараж, вход, постирочная": "0 ЭТАЖ — гараж, вход, постирочная",
+      "1 этаж": "1 ЭТАЖ — кухня, столовая, гостиная",
+      "1 этаж — столовая": "1 ЭТАЖ — кухня, столовая, гостиная",
+      "1 этаж — кухня": "1 ЭТАЖ — кухня, столовая, гостиная",
+      "1 этаж — гостиная": "1 ЭТАЖ — кухня, столовая, гостиная",
+      "1 этаж — кухня, столовая, гостиная": "1 ЭТАЖ — кухня, столовая, гостиная",
+      "санузел 1 этаж": "1 ЭТАЖ — санузел",
+      "1 этаж — санузел": "1 ЭТАЖ — санузел",
+      "туалет 1 этаж": "1 ЭТАЖ — санузел",
+      "2 этаж": "2 ЭТАЖ — спальни и утренний порядок",
+      "2 этаж — спальни": "2 ЭТАЖ — спальни и утренний порядок",
+      "2 этаж — спальни и утренний порядок": "2 ЭТАЖ — спальни и утренний порядок",
+      "ванная 2 этаж": "2 ЭТАЖ — ванная",
+      "2 этаж — ванная": "2 ЭТАЖ — ванная",
+      "общие задачи": "ОБЩИЕ ЗАДАЧИ",
+      "учёба и развитие": "УЧЁБА И РАЗВИТИЕ",
+      "учеба и развитие": "УЧЁБА И РАЗВИТИЕ",
+      "улица и двор": "УЛИЦА И ДВОР",
+      "без категории": uncategorizedName
+    };
+
+    if (categoryAliases[lowerValue]) {
+      return categoryAliases[lowerValue];
+    }
+
+    const matchedCategory = categoryOrder.find(function(knownCategory) {
+      return knownCategory.toLowerCase() === lowerValue;
+    });
+
+    if (matchedCategory) {
+      return matchedCategory;
+    }
+
+    return uncategorizedName;
+  }
+
+  function getCategories() {
+    return categoryOrder.slice();
+  }
+
+  function fillCategorySelect(select, selectedCategory) {
+    select.innerHTML = "";
+
+    getCategories().forEach(function(category) {
+      const option = document.createElement("option");
+      option.value = category;
+      option.innerText = category;
+      select.appendChild(option);
+    });
+
+    select.value = normalizeCategoryName(selectedCategory);
+  }
+
+  function updateCategoryInputs() {
+    const taskCategoryInput = document.getElementById("taskCategoryInput");
+
+    if (taskCategoryInput) {
+      fillCategorySelect(taskCategoryInput, uncategorizedName);
+    }
+  }
+
+  function saveExpandedCategories() {
+    localStorage.setItem("expandedCategories", JSON.stringify(expandedCategories));
+    scheduleCloudSave();
+  }
+
+  function toggleCategory(category) {
+    const normalizedCategory = normalizeCategoryName(category);
+
+    if (expandedCategories.includes(normalizedCategory)) {
+      expandedCategories = expandedCategories.filter(function(item) {
+        return item !== normalizedCategory;
+      });
+    } else {
+      expandedCategories.push(normalizedCategory);
+    }
+
+    saveExpandedCategories();
+    renderTasks();
+  }
+
+  function renderTaskFilters() {
+    const filtersContainer = document.getElementById("taskFilters");
+
+    if (!filtersContainer) {
+      return;
+    }
+
+    filtersContainer.innerHTML = "";
+
+    taskFilters.forEach(function(filter) {
+      const button = document.createElement("button");
+      button.className = "filter-button";
+      if (activeTaskFilter === filter.id) {
+        button.classList.add("active");
+      }
+      button.innerText = filter.label;
+      button.onclick = function() {
+        setTaskFilter(filter.id);
+      };
+      filtersContainer.appendChild(button);
+    });
+  }
+
+  function setTaskFilter(filterId) {
+    activeTaskFilter = filterId;
+    localStorage.setItem("activeTaskFilter", activeTaskFilter);
+    scheduleCloudSave();
+    renderTasks();
+  }
+
+  function taskMatchesFilter(task) {
+    const frequency = String(task.frequency || "").toLowerCase();
+
+    if (activeTaskFilter === "today") {
+      return !task.done;
+    }
+
+    if (activeTaskFilter === "daily") {
+      return frequency === "ежедневно";
+    }
+
+    if (activeTaskFilter === "fewWeekly") {
+      return frequency === "2–3 раза в неделю" || frequency === "2-3 раза в неделю";
+    }
+
+    if (activeTaskFilter === "weekly") {
+      return frequency === "1 раз в неделю";
+    }
+
+    if (activeTaskFilter === "done") {
+      return task.done;
+    }
+
+    if (activeTaskFilter === "todo") {
+      return !task.done;
+    }
+
+    return true;
+  }
+
+  function setActiveTab(tabName) {
+    if (tabName === "parent" && !isParentMode) {
+      toggleParentMode();
+
+      if (!isParentMode) {
+        return;
+      }
+    }
+
+    activeTab = tabName;
+    renderTabs();
+  }
+
+  function renderTabs() {
+    ["today", "rewards", "progress", "parent"].forEach(function(tabName) {
+      const panel = document.getElementById(tabName + "Panel");
+      const button = document.getElementById("tab" + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+
+      if (panel) {
+        panel.classList.toggle("active", activeTab === tabName);
+      }
+
+      if (button) {
+        button.classList.toggle("active", activeTab === tabName);
+      }
+    });
+
+    if (activeTab === "progress") {
+      renderHistory();
+      renderRanking();
+      renderProgressHistory();
+    }
+
+    renderRewards();
+
+    placeParentBlocks();
+  }
+
+  function toggleParentSection(sectionName) {
+    if (parentSections.includes(sectionName)) {
+      parentSections = parentSections.filter(function(item) {
+        return item !== sectionName;
+      });
+    } else {
+      parentSections.push(sectionName);
+    }
+
+    renderParentSections();
+  }
+
+  function renderParentSections() {
+    document.querySelectorAll(".parent-section").forEach(function(section) {
+      const sectionName = section.getAttribute("data-section");
+      const isExpanded = parentSections.includes(sectionName);
+      const arrow = section.querySelector(".parent-section-header b");
+
+      section.classList.toggle("expanded", isExpanded);
+
+      if (arrow) {
+        arrow.innerText = isExpanded ? "▲" : "▼";
+      }
+    });
+  }
+
+  function placeParentBlocks() {
+    const childrenBody = document.getElementById("childrenSectionBody");
+    const childSelect = document.querySelector(".child-select");
+
+    if (childrenBody && childSelect && childSelect.parentElement !== childrenBody) {
+      childrenBody.appendChild(childSelect);
+    }
+
+    renderParentSections();
+  }
+
+  function updateKidSummary() {
+    const kidName = document.getElementById("kidName");
+    const kidPoints = document.getElementById("kidPoints");
+    const tasksLeftToday = document.getElementById("tasksLeftToday");
+    const earnedToday = document.getElementById("earnedToday");
+    const totalProgressPoints = document.getElementById("totalProgressPoints");
+    const remainingTasks = tasks.filter(function(task) {
+      return !task.done;
+    }).length;
+    const todayEarned = taskHistory
+      .filter(function(entry) {
+        return entry.child === currentChild && entry.date === getTodayString();
+      })
+      .reduce(function(total, entry) {
+        return total + entry.points;
+      }, 0);
+
+    if (kidName) {
+      kidName.innerText = currentChild;
+    }
+
+    if (kidPoints) {
+      kidPoints.innerText = points + " ⭐";
+    }
+
+    if (tasksLeftToday) {
+      tasksLeftToday.innerText = remainingTasks + " задач осталось сегодня";
+    }
+
+    if (earnedToday) {
+      earnedToday.innerText = todayEarned + " баллов";
+    }
+
+    if (totalProgressPoints) {
+      totalProgressPoints.innerText = points + " баллов";
+    }
+  }
+
+  function applyTaskTemplateUpdates(taskList) {
+    const updatedTasks = taskList.slice();
+
+    taskTemplateUpdates.forEach(function(templateTask) {
+      const namesToMatch = [templateTask.text].concat(templateTask.aliases || []);
+      const matchIndex = updatedTasks.findIndex(function(task) {
+        return namesToMatch.includes(task.text) || namesToMatch
+          .map(normalizeTaskName)
+          .includes(normalizeTaskName(task.text));
+      });
+
+      if (matchIndex === -1) {
+        updatedTasks.push({
+          text: templateTask.text,
+          points: templateTask.points,
+          frequency: templateTask.frequency,
+          category: normalizeCategoryName(templateTask.category),
+          icon: templateTask.icon || getTaskIcon(templateTask),
+          done: false,
+          lastCompletedAt: null,
+          completedPoints: null
+        });
+      } else {
+        updatedTasks[matchIndex] = {
+          text: templateTask.text,
+          points: templateTask.points,
+          frequency: templateTask.frequency,
+          category: normalizeCategoryName(templateTask.category),
+          icon: updatedTasks[matchIndex].icon || templateTask.icon || getTaskIcon(templateTask),
+          done: updatedTasks[matchIndex].done,
+          lastCompletedAt: updatedTasks[matchIndex].lastCompletedAt || null,
+          completedPoints: updatedTasks[matchIndex].completedPoints || null
+        };
+      }
+    });
+
+    return updatedTasks.filter(function(task, index) {
+      const normalizedTaskName = normalizeTaskName(task.text);
+      const isOldAlias = taskTemplateUpdates.some(function(templateTask) {
+        return normalizeTaskName(templateTask.text) !== normalizedTaskName &&
+          (templateTask.aliases || []).map(normalizeTaskName).includes(normalizedTaskName);
+      });
+
+      if (isOldAlias) {
+        return false;
+      }
+
+      return updatedTasks.findIndex(function(otherTask) {
+        return normalizeTaskName(otherTask.text) === normalizeTaskName(task.text);
+      }) === index;
+    });
+  }
+
+  function applyTaskTemplateUpdatesForAllChildren() {
+    children.forEach(function(child) {
+      const storageKey = getStorageKey(child);
+      const savedData = localStorage.getItem(storageKey);
+
+      if (!savedData) {
+        const initialData = getInitialChildData();
+        const resetInitialData = resetTasksByFrequency(applyTaskTemplateUpdates(initialData.tasks));
+        initialData.tasks = resetInitialData.tasks;
+        localStorage.setItem(storageKey, JSON.stringify(initialData));
+        return;
+      }
+
+      const data = normalizeChildData(safeParseJSON(savedData, getInitialChildData()));
+      const resetResult = resetTasksByFrequency(applyTaskTemplateUpdates(data.tasks));
+      data.tasks = resetResult.tasks;
+      localStorage.setItem(storageKey, JSON.stringify(data));
     });
   }
 
@@ -474,30 +2632,22 @@
     const savedChildren = localStorage.getItem("children");
     const savedRewards = localStorage.getItem("rewards");
     const savedParentMode = localStorage.getItem("parentMode");
+    const savedExpandedCategories = localStorage.getItem("expandedCategories");
+    const savedTaskFilter = localStorage.getItem("activeTaskFilter");
 
-    if (savedChildren) {
-      children = JSON.parse(savedChildren);
-    } else {
+    children = uniqueList(safeParseJSON(savedChildren, defaultChildren.slice()));
+
+    if (children.length === 0) {
       children = defaultChildren.slice();
     }
 
-    if (!Array.isArray(children) || children.length === 0) {
-      children = defaultChildren.slice();
-    }
-
-    if (savedRewards) {
-      rewards = JSON.parse(savedRewards);
-    }
-
-    if (!Array.isArray(rewards) || rewards.length === 0) {
-      rewards = [
-        { id: "youtube30", title: "30 минут YouTube", cost: 50 },
-        { id: "smallGift", title: "Маленький подарок", cost: 100 },
-        { id: "familyCafe", title: "Семейная прогулка/кафе", cost: 200 }
-      ];
-    }
+    rewards = normalizeRewards(safeParseJSON(savedRewards, rewards));
 
     isParentMode = savedParentMode === "true";
+    expandedCategories = uniqueList(uniqueList(safeParseJSON(savedExpandedCategories, [])).map(normalizeCategoryName));
+    activeTaskFilter = taskFilters.some(function(filter) {
+      return filter.id === savedTaskFilter;
+    }) ? savedTaskFilter : "today";
 
     const savedChild = localStorage.getItem("currentChild");
 
@@ -511,16 +2661,56 @@
       currentChild = children[0];
     }
 
+    loadTaskHistory();
+    migrateChildNames();
     saveChildren();
+    applyTaskTemplateUpdatesForAllChildren();
+    loadReminderSettings();
     updateParentModeView();
     renderChildren();
+    renderTaskFilters();
+    renderRanking();
+    renderHistory();
+    renderTabs();
   }
 
   function saveChildren() {
+    rewards = normalizeRewards(rewards);
     localStorage.setItem("children", JSON.stringify(children));
     localStorage.setItem("currentChild", currentChild);
     localStorage.setItem("rewards", JSON.stringify(rewards));
     localStorage.setItem("parentMode", isParentMode);
+    scheduleCloudSave();
+  }
+
+  function migrateChildNames() {
+    const oldName = "Олеся";
+    const newName = "Алеся";
+
+    if (!children.includes(oldName)) {
+      return;
+    }
+
+    const oldKey = getStorageKey(oldName);
+    const newKey = getStorageKey(newName);
+    const oldData = localStorage.getItem(oldKey);
+    const newData = localStorage.getItem(newKey);
+
+    children = children.map(function(child) {
+      return child === oldName ? newName : child;
+    }).filter(function(child, index, list) {
+      return list.indexOf(child) === index;
+    });
+
+    if (oldData && !newData) {
+      localStorage.setItem(newKey, oldData);
+    }
+
+    localStorage.removeItem(oldKey);
+
+    if (currentChild === oldName) {
+      currentChild = newName;
+    }
   }
 
   function renderChildren() {
@@ -538,52 +2728,133 @@
     select.disabled = !isParentMode;
     document.getElementById("childView").style.display = editingChild ? "none" : "flex";
     document.getElementById("childEdit").style.display = editingChild ? "flex" : "none";
+    renderHistoryFilters();
+    renderRanking();
+    updateKidSummary();
   }
 
   function loadData() {
     const savedData = localStorage.getItem(getStorageKey(currentChild));
 
     if (savedData) {
-      const data = JSON.parse(savedData);
-      tasks = data.tasks || [];
-      points = data.points || 0;
-      claimedRewards = data.claimedRewards || [];
+      const data = normalizeChildData(safeParseJSON(savedData, getInitialChildData()));
+      tasks = data.tasks;
+      points = data.points;
+      claimedRewards = data.claimedRewards;
+      rewards = data.rewards;
     } else {
       tasks = getDefaultTasks();
       points = 0;
       claimedRewards = [];
+      rewards = getDefaultRewards();
     }
 
+    tasks = applyTaskTemplateUpdates(tasks);
+    const resetResult = resetTasksByFrequency(tasks);
+    tasks = resetResult.tasks;
+    saveData();
     renderTasks();
     renderRewards();
+    renderHistory();
+    renderProgressHistory();
     updatePoints();
+    renderRanking();
+    checkTaskReminder();
+    scheduleTaskReminder();
   }
 
   function saveData() {
     const data = {
       tasks: tasks,
-      points: points,
-      claimedRewards: claimedRewards
+      points: Math.max(0, Number(points) || 0),
+      claimedRewards: Array.isArray(claimedRewards) ? claimedRewards : [],
+      rewards: normalizeRewards(rewards)
     };
 
+    points = data.points;
+    claimedRewards = data.claimedRewards;
+    rewards = data.rewards;
     localStorage.setItem(getStorageKey(currentChild), JSON.stringify(data));
     saveChildren();
+    renderRanking();
+    scheduleCloudSave();
   }
 
   function updatePoints() {
     document.getElementById("points").innerText = "Баллы: " + points;
+    updateKidSummary();
+  }
+
+  function getChildPoints(child) {
+    if (child === currentChild) {
+      return Math.max(0, Number(points) || 0);
+    }
+
+    const savedData = safeParseJSON(localStorage.getItem(getStorageKey(child)), null);
+    const savedPoints = Number(savedData && savedData.points);
+
+    return savedPoints > 0 ? savedPoints : 0;
+  }
+
+  function renderRanking() {
+    const rankingList = document.getElementById("rankingList");
+
+    if (!rankingList) {
+      return;
+    }
+
+    rankingList.innerHTML = "";
+
+    const ranking = children.map(function(child) {
+      return {
+        child: child,
+        points: getChildPoints(child)
+      };
+    }).sort(function(first, second) {
+      return second.points - first.points || first.child.localeCompare(second.child);
+    });
+
+    ranking.forEach(function(item, index) {
+      const row = document.createElement("div");
+      row.className = "ranking-item";
+
+      if (index === 0 && ranking.length > 0) {
+        row.classList.add("leader");
+      }
+
+      const name = document.createElement("span");
+      name.className = "ranking-name";
+      name.innerText = (index === 0 ? "👑 " : "") + item.child;
+
+      const score = document.createElement("span");
+      score.className = "ranking-points";
+      score.innerText = item.points + " баллов";
+
+      row.appendChild(name);
+      row.appendChild(score);
+      rankingList.appendChild(row);
+    });
   }
 
   function updateParentModeView() {
     document.body.classList.toggle("parent-mode", isParentMode);
     document.getElementById("parentModeLabel").classList.toggle("active", isParentMode);
     document.getElementById("logoutParentButton").classList.toggle("active", isParentMode);
+    renderReminderSettings();
+    placeParentBlocks();
+
+    if (!isParentMode && activeTab === "parent") {
+      activeTab = "today";
+    }
+
+    renderTabs();
 
     if (!isParentMode) {
       editingIndex = null;
       editingChild = false;
       editingRewardId = null;
       document.getElementById("taskInput").value = "";
+      document.getElementById("taskPointsInput").value = "10";
     }
   }
 
@@ -625,6 +2896,7 @@
     editingIndex = null;
     editingChild = false;
     document.getElementById("taskInput").value = "";
+    document.getElementById("taskPointsInput").value = "10";
     saveChildren();
     renderChildren();
     loadData();
@@ -712,6 +2984,7 @@
     tasks = getDefaultTasks();
     points = 0;
     claimedRewards = [];
+    rewards = getDefaultRewards();
     editingIndex = null;
     editingChild = false;
 
@@ -755,82 +3028,81 @@
 
   function renderTasks() {
     const taskList = document.getElementById("taskList");
+
+    if (!taskList) {
+      return;
+    }
+
+    updateKidSummary();
     taskList.innerHTML = "";
+    updateCategoryInputs();
+    renderTaskFilters();
+    let visibleTaskCount = 0;
 
-    tasks.forEach(function(task, index) {
-      const taskElement = document.createElement("div");
-      taskElement.className = "task";
+    getCategories().forEach(function(category) {
+      const categoryTasks = tasks
+        .map(function(task, index) {
+          return { task: task, index: index };
+        })
+        .filter(function(item) {
+          const matchesCategory = normalizeCategoryName(item.task.category) === category;
+          const matchesCurrentMode = isParentMode ? taskMatchesFilter(item.task) : !item.task.done;
 
-      if (task.done) {
-        taskElement.style.opacity = "0.5";
+          return matchesCategory && matchesCurrentMode;
+        });
+
+      if (categoryTasks.length === 0) {
+        return;
       }
 
-      if (editingIndex === index) {
-        const input = document.createElement("input");
-        input.className = "task-edit-input";
-        input.value = task.text;
-        input.id = "editInput" + index;
-        input.onkeydown = function(event) {
-          if (event.key === "Enter") {
-            saveEdit(index);
-          }
-        };
+      visibleTaskCount += categoryTasks.length;
+      const completedCount = categoryTasks.filter(function(item) {
+        return item.task.done;
+      }).length;
+      const isExpanded = expandedCategories.includes(category);
+      const categoryCard = document.createElement("div");
+      categoryCard.className = "category-card";
 
-        taskElement.appendChild(input);
-      } else {
-        const span = document.createElement("span");
-        span.innerText = task.text;
-
-        taskElement.appendChild(span);
-      }
-
-      const actions = document.createElement("div");
-      actions.className = "task-actions";
-
-      const doneButton = document.createElement("button");
-      doneButton.className = "done-button";
-      doneButton.innerText = "✔️";
-      doneButton.title = task.done ? "Выполнено" : "Готово";
-      doneButton.disabled = task.done;
-      doneButton.onclick = function() {
-        done(index);
+      const header = document.createElement("button");
+      header.className = "category-header";
+      header.onclick = function() {
+        toggleCategory(category);
       };
 
-      actions.appendChild(doneButton);
+      const title = document.createElement("span");
+      title.className = "category-title";
+      title.innerText = category;
 
-      if (isParentMode) {
-        const editButton = document.createElement("button");
-        editButton.className = "secondary-button";
+      const count = document.createElement("span");
+      count.className = "category-count";
+      count.innerText = completedCount + "/" + categoryTasks.length + " " + (isExpanded ? "▲" : "▼");
 
-        if (editingIndex === index) {
-          editButton.innerText = "✓";
-          editButton.title = "Сохранить";
-          editButton.onclick = function() {
-            saveEdit(index);
-          };
-        } else {
-          editButton.innerText = "✏️";
-          editButton.title = "Редактировать";
-          editButton.onclick = function() {
-            editTask(index);
-          };
-        }
+      header.appendChild(title);
+      header.appendChild(count);
+      categoryCard.appendChild(header);
 
-        const deleteButton = document.createElement("button");
-        deleteButton.className = "delete-button";
-        deleteButton.innerText = "🗑️";
-        deleteButton.title = "Удалить";
-        deleteButton.onclick = function() {
-          deleteTask(index);
-        };
+      if (isExpanded) {
+        const categoryBody = document.createElement("div");
+        categoryBody.className = "category-tasks";
 
-        actions.appendChild(editButton);
-        actions.appendChild(deleteButton);
+        categoryTasks.forEach(function(item) {
+          categoryBody.appendChild(createTaskElement(item.task, item.index));
+        });
+
+        categoryCard.appendChild(categoryBody);
       }
 
-      taskElement.appendChild(actions);
-      taskList.appendChild(taskElement);
+      taskList.appendChild(categoryCard);
     });
+
+    if (visibleTaskCount === 0) {
+      const emptyMessage = document.createElement("div");
+      emptyMessage.className = "task-empty";
+      emptyMessage.innerText = "Нет задач по выбранному фильтру";
+      taskList.appendChild(emptyMessage);
+      editingIndex = null;
+      return;
+    }
 
     if (editingIndex !== null) {
       const editInput = document.getElementById("editInput" + editingIndex);
@@ -841,9 +3113,159 @@
     }
   }
 
+  function createTaskElement(task, index) {
+    const taskElement = document.createElement("div");
+    taskElement.className = "task";
+
+    if (task.done) {
+      taskElement.style.opacity = "0.5";
+    }
+
+    if (editingIndex === index) {
+      const editBox = document.createElement("div");
+      editBox.className = "task-edit";
+
+      const iconInput = document.createElement("input");
+      iconInput.className = "task-icon-input";
+      iconInput.id = "editIconInput" + index;
+      iconInput.value = getTaskIcon(task);
+      iconInput.maxLength = "4";
+
+      const input = document.createElement("input");
+      input.className = "task-edit-input";
+      input.value = task.text;
+      input.id = "editInput" + index;
+      input.onkeydown = function(event) {
+        if (event.key === "Enter") {
+          saveEdit(index);
+        }
+      };
+
+      const pointsField = document.createElement("div");
+      pointsField.className = "task-points-field";
+
+      const pointsInput = document.createElement("input");
+      pointsInput.className = "task-points-input";
+      pointsInput.id = "editPointsInput" + index;
+      pointsInput.type = "number";
+      pointsInput.min = "1";
+      pointsInput.value = task.points;
+      pointsInput.onkeydown = function(event) {
+        if (event.key === "Enter") {
+          saveEdit(index);
+        }
+      };
+
+      const pointsLabel = document.createElement("span");
+      pointsLabel.innerText = "баллы";
+
+      const categorySelect = document.createElement("select");
+      categorySelect.className = "task-category-select";
+      categorySelect.id = "editCategoryInput" + index;
+      fillCategorySelect(categorySelect, task.category);
+
+      editBox.appendChild(iconInput);
+      pointsField.appendChild(pointsInput);
+      pointsField.appendChild(pointsLabel);
+      editBox.appendChild(input);
+      editBox.appendChild(pointsField);
+      editBox.appendChild(categorySelect);
+      taskElement.appendChild(editBox);
+    } else {
+      const main = document.createElement("div");
+      main.className = "task-main";
+
+      const taskIcon = getTaskIcon(task);
+
+      if (taskIcon) {
+        const icon = document.createElement("span");
+        icon.className = "task-icon";
+        icon.innerText = taskIcon;
+        main.appendChild(icon);
+      }
+
+      const content = document.createElement("div");
+      content.className = "task-content";
+
+      const title = document.createElement("span");
+      title.className = "task-title";
+      title.innerText = task.text;
+
+      const meta = document.createElement("span");
+      meta.className = "task-meta";
+      meta.innerText = "+" + task.points + " ⭐" + (task.frequency ? " · " + task.frequency : "");
+
+      content.appendChild(title);
+      content.appendChild(meta);
+
+      const completedAtLabel = getCompletedAtLabel(task);
+
+      if (completedAtLabel) {
+        const completedAt = document.createElement("span");
+        completedAt.className = "task-completed-at";
+        completedAt.innerText = completedAtLabel;
+        content.appendChild(completedAt);
+      }
+
+      main.appendChild(content);
+      taskElement.appendChild(main);
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "task-actions";
+
+    const doneButton = document.createElement("button");
+    doneButton.className = "done-button";
+    doneButton.innerText = task.done ? "↩️" : "✓";
+    doneButton.title = task.done ? "Отменить выполнение" : "Готово";
+    doneButton.onclick = function() {
+      toggleDone(index);
+    };
+
+    actions.appendChild(doneButton);
+
+    if (isParentMode) {
+      const editButton = document.createElement("button");
+      editButton.className = "secondary-button";
+
+      if (editingIndex === index) {
+        editButton.innerText = "✓";
+        editButton.title = "Сохранить";
+        editButton.onclick = function() {
+          saveEdit(index);
+        };
+      } else {
+        editButton.innerText = "✏️";
+        editButton.title = "Редактировать";
+        editButton.onclick = function() {
+          editTask(index);
+        };
+      }
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "delete-button";
+      deleteButton.innerText = "🗑️";
+      deleteButton.title = "Удалить";
+      deleteButton.onclick = function() {
+        deleteTask(index);
+      };
+
+      actions.appendChild(editButton);
+      actions.appendChild(deleteButton);
+    }
+
+    taskElement.appendChild(actions);
+    return taskElement;
+  }
+
   function renderRewards() {
     const rewardList = document.getElementById("rewardList");
+    const parentRewardList = document.getElementById("parentRewardList");
+
     rewardList.innerHTML = "";
+    if (parentRewardList) {
+      parentRewardList.innerHTML = "";
+    }
 
     rewards.forEach(function(reward) {
       const isClaimed = claimedRewards.includes(reward.id);
@@ -853,6 +3275,10 @@
 
       if (isClaimed) {
         rewardElement.classList.add("reward-claimed");
+      }
+
+      if (justClaimedRewardId === reward.id) {
+        rewardElement.classList.add("reward-just-claimed");
       }
 
       if (editingRewardId === reward.id) {
@@ -893,21 +3319,50 @@
         cost.className = "reward-cost";
         cost.innerText = reward.cost + " баллов";
 
+        const progress = document.createElement("div");
+        progress.className = "reward-progress";
+
+        const progressFill = document.createElement("div");
+        progressFill.className = "reward-progress-fill";
+        progressFill.style.width = Math.min(100, Math.round((points / reward.cost) * 100)) + "%";
+
+        const left = document.createElement("span");
+        left.className = "reward-left";
+        left.innerText = points >= reward.cost
+          ? points + " / " + reward.cost + " баллов"
+          : points + " / " + reward.cost + " · осталось " + (reward.cost - points);
+
+        progress.appendChild(progressFill);
+
         const actions = document.createElement("div");
         actions.className = "reward-actions";
 
         const button = document.createElement("button");
         button.className = "reward-button";
-        button.innerText = isClaimed ? "Получено" : "Получить";
-        button.disabled = !canClaim;
+        button.innerText = isClaimed ? "Получено" : (canClaim ? "Получить" : "Не хватает");
+        button.disabled = isClaimed || !canClaim;
+
+        if (!canClaim && !isClaimed) {
+          button.classList.add("locked");
+        }
+
         button.onclick = function() {
           claimReward(reward.id);
         };
 
         info.appendChild(title);
         info.appendChild(cost);
+        info.appendChild(progress);
+        info.appendChild(left);
         rewardElement.appendChild(info);
         actions.appendChild(button);
+
+        if (justClaimedRewardId === reward.id) {
+          const status = document.createElement("span");
+          status.className = "reward-status";
+          status.innerText = "получено";
+          actions.appendChild(status);
+        }
 
         if (isParentMode) {
           const editButton = document.createElement("button");
@@ -919,12 +3374,23 @@
           };
 
           actions.appendChild(editButton);
+
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete-button";
+          deleteButton.innerText = "🗑️";
+          deleteButton.title = "Удалить награду";
+          deleteButton.onclick = function() {
+            deleteReward(reward.id);
+          };
+
+          actions.appendChild(deleteButton);
         }
 
         rewardElement.appendChild(actions);
       }
 
-      rewardList.appendChild(rewardElement);
+      const targetList = activeTab === "parent" && parentRewardList ? parentRewardList : rewardList;
+      targetList.appendChild(rewardElement);
     });
 
     if (editingRewardId !== null) {
@@ -942,31 +3408,184 @@
     }
 
     const input = document.getElementById("taskInput");
+    const pointsInput = document.getElementById("taskPointsInput");
+    const categoryInput = document.getElementById("taskCategoryInput");
     const text = input.value.trim();
+    const taskPoints = Number(pointsInput.value);
+    const taskCategory = normalizeCategoryName(categoryInput.value);
 
-    if (text === "") {
+    if (text === "" || taskPoints <= 0) {
       return;
     }
 
-    tasks.push({ text: text, done: false });
+    const newTask = {
+      text: text,
+      points: taskPoints,
+      frequency: "",
+      category: taskCategory,
+      done: false,
+      lastCompletedAt: null,
+      completedPoints: null
+    };
+    newTask.icon = getTaskIcon(newTask);
+    tasks.push(newTask);
     input.value = "";
+    pointsInput.value = "10";
+    categoryInput.value = uncategorizedName;
 
     saveData();
     renderTasks();
   }
 
-  function done(index) {
-    if (tasks[index].done) {
+  function loadCleaningTemplate() {
+    if (!isParentMode) {
       return;
     }
 
-    tasks[index].done = true;
-    points += 10;
+    const result = mergeCleaningTemplate(tasks);
+    tasks = result.tasks;
+
+    saveData();
+    renderTasks();
+    updateCategoryInputs();
+
+    showTemplateMessage(result);
+  }
+
+  function loadCleaningTemplateForAllChildren() {
+    if (!isParentMode) {
+      return;
+    }
+
+    let addedCount = 0;
+    let updatedCount = 0;
+    let skippedCount = 0;
+
+    children.forEach(function(child) {
+      const storageKey = getStorageKey(child);
+      const savedData = localStorage.getItem(storageKey);
+      const data = normalizeChildData(safeParseJSON(savedData, getInitialChildData()));
+      const result = mergeCleaningTemplate(data.tasks);
+
+      data.tasks = result.tasks;
+      localStorage.setItem(storageKey, JSON.stringify(data));
+
+      addedCount += result.addedCount;
+      updatedCount += result.updatedCount;
+      skippedCount += result.skippedCount;
+
+      if (child === currentChild) {
+        tasks = result.tasks;
+        points = data.points || 0;
+        claimedRewards = data.claimedRewards || [];
+        rewards = data.rewards || getDefaultRewards();
+      }
+    });
+
+    saveChildren();
+    renderTasks();
+    renderRewards();
+    renderRanking();
+    updatePoints();
+
+    showTemplateMessage({ addedCount: addedCount, updatedCount: updatedCount, skippedCount: skippedCount });
+  }
+
+  function mergeCleaningTemplate(taskList) {
+    const mergedTasks = taskList.slice();
+    let addedCount = 0;
+    let updatedCount = 0;
+    let skippedCount = 0;
+
+    cleaningTemplateTasks.forEach(function(templateTask) {
+      const taskIndex = mergedTasks.findIndex(function(task) {
+        return normalizeTaskName(task.text) === normalizeTaskName(templateTask.title);
+      });
+
+      if (taskIndex === -1) {
+        mergedTasks.push({
+          text: templateTask.title,
+          points: templateTask.points,
+          frequency: templateTask.frequency,
+          category: normalizeCategoryName(templateTask.category),
+          icon: templateTask.icon || getTaskIcon(templateTask),
+          done: Boolean(templateTask.completed),
+          lastCompletedAt: null,
+          completedPoints: null
+        });
+        addedCount += 1;
+        return;
+      }
+
+      const currentTask = mergedTasks[taskIndex];
+      const hasChanges = currentTask.text !== templateTask.title ||
+        currentTask.points !== templateTask.points ||
+        currentTask.frequency !== templateTask.frequency ||
+        currentTask.category !== normalizeCategoryName(templateTask.category);
+
+      if (hasChanges) {
+        mergedTasks[taskIndex] = {
+          text: templateTask.title,
+          points: templateTask.points,
+          frequency: templateTask.frequency,
+          category: normalizeCategoryName(templateTask.category),
+          icon: currentTask.icon || templateTask.icon || getTaskIcon(templateTask),
+          done: currentTask.done,
+          lastCompletedAt: currentTask.lastCompletedAt || null,
+          completedPoints: currentTask.completedPoints || null
+        };
+        updatedCount += 1;
+      } else {
+        skippedCount += 1;
+      }
+    });
+
+    return {
+      tasks: mergedTasks,
+      addedCount: addedCount,
+      updatedCount: updatedCount,
+      skippedCount: skippedCount
+    };
+  }
+
+  function showTemplateMessage(result) {
+    if (result.updatedCount > 0) {
+      alert("Шаблон обновлён");
+    } else if (result.addedCount > 0 && result.skippedCount > 0) {
+      alert("Новые задачи добавлены, дубликаты пропущены");
+    } else {
+      alert("Шаблон уборки загружен");
+    }
+  }
+
+  function toggleDone(index) {
+    if (!tasks[index]) {
+      return;
+    }
+
+    const taskPoints = tasks[index].points;
+
+    if (tasks[index].done) {
+      const pointsToRemove = Number(tasks[index].completedPoints || taskPoints);
+      tasks[index].done = false;
+      tasks[index].lastCompletedAt = null;
+      tasks[index].completedPoints = null;
+      points = Math.max(0, points - pointsToRemove);
+    } else {
+      tasks[index].done = true;
+      tasks[index].lastCompletedAt = getTodayString();
+      tasks[index].completedPoints = taskPoints;
+      points += taskPoints;
+      addTaskHistory(tasks[index], taskPoints);
+    }
 
     saveData();
     renderTasks();
     renderRewards();
+    renderHistory();
+    renderProgressHistory();
     updatePoints();
+    scheduleTaskReminder();
   }
 
   function claimReward(rewardId) {
@@ -980,10 +3599,19 @@
 
     points -= reward.cost;
     claimedRewards.push(rewardId);
+    justClaimedRewardId = rewardId;
 
     saveData();
     renderRewards();
+    renderRanking();
     updatePoints();
+
+    setTimeout(function() {
+      if (justClaimedRewardId === rewardId) {
+        justClaimedRewardId = null;
+        renderRewards();
+      }
+    }, 1200);
   }
 
   function editReward(rewardId) {
@@ -992,6 +3620,33 @@
     }
 
     editingRewardId = rewardId;
+    renderRewards();
+  }
+
+  function addReward() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const nameInput = document.getElementById("rewardNameInput");
+    const costInput = document.getElementById("rewardCostInput");
+    const title = nameInput.value.trim();
+    const cost = Number(costInput.value);
+
+    if (title === "" || cost <= 0) {
+      return;
+    }
+
+    rewards.push({
+      id: "reward_" + Date.now(),
+      title: title,
+      cost: cost
+    });
+
+    nameInput.value = "";
+    costInput.value = "30";
+
+    saveData();
     renderRewards();
   }
 
@@ -1021,7 +3676,39 @@
     reward.cost = cost;
     editingRewardId = null;
 
-    saveChildren();
+    saveData();
+    renderRewards();
+  }
+
+  function deleteReward(rewardId) {
+    if (!isParentMode) {
+      return;
+    }
+
+    const reward = rewards.find(function(item) {
+      return item.id === rewardId;
+    });
+
+    if (!reward) {
+      return;
+    }
+
+    if (!confirm("Удалить награду \"" + reward.title + "\"?")) {
+      return;
+    }
+
+    rewards = rewards.filter(function(item) {
+      return item.id !== rewardId;
+    });
+    claimedRewards = claimedRewards.filter(function(id) {
+      return id !== rewardId;
+    });
+
+    if (editingRewardId === rewardId) {
+      editingRewardId = null;
+    }
+
+    saveData();
     renderRewards();
   }
 
@@ -1040,13 +3727,29 @@
     }
 
     const input = document.getElementById("editInput" + index);
-    const text = input.value.trim();
+    const pointsInput = document.getElementById("editPointsInput" + index);
+    const categoryInput = document.getElementById("editCategoryInput" + index);
+    const iconInput = document.getElementById("editIconInput" + index);
 
-    if (text === "") {
+    if (!tasks[index] || !input || !pointsInput || !categoryInput || !iconInput) {
+      editingIndex = null;
+      renderTasks();
+      return;
+    }
+
+    const text = input.value.trim();
+    const taskPoints = Number(pointsInput.value);
+    const taskCategory = normalizeCategoryName(categoryInput.value);
+    const taskIcon = iconInput.value.trim();
+
+    if (text === "" || taskPoints <= 0) {
       return;
     }
 
     tasks[index].text = text;
+    tasks[index].points = taskPoints;
+    tasks[index].category = taskCategory;
+    tasks[index].icon = taskIcon || getTaskIcon({ text: text });
     editingIndex = null;
 
     saveData();
@@ -1056,6 +3759,14 @@
   function deleteTask(index) {
     if (!isParentMode) {
       return;
+    }
+
+    if (!tasks[index]) {
+      return;
+    }
+
+    if (tasks[index].done) {
+      points = Math.max(0, points - Number(tasks[index].completedPoints || tasks[index].points));
     }
 
     tasks.splice(index, 1);
@@ -1070,14 +3781,20 @@
     renderTasks();
   }
 
-  loadChildren();
-  loadData();
+  async function startApp() {
+    setSyncStatus("Работает локально", "local");
+    await initializeCloudSync();
+    loadChildren();
+    loadData();
 
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function() {
-      navigator.serviceWorker.register("service-worker.js");
-    });
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function() {
+        navigator.serviceWorker.register("service-worker.js");
+      });
+    }
   }
+
+  startApp();
 </script>
 
 </body>
