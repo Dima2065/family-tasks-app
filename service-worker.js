@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = "family-tasks-v56";
+const CACHE_NAME = "family-tasks-v57";
 const ASSETS = [
   "./",
   "index.html",
@@ -52,4 +52,3 @@ self.addEventListener("fetch", function(event) {
     })
   );
 });
-

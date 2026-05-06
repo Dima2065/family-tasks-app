@@ -2765,8 +2765,14 @@
     "помыть пол в туалете 1 этажа": "Boden im WC im 1. Stock wischen",
     "умыться": "Gesicht waschen",
     "почистить зубы": "Zähne putzen",
+    "умыться утром": "Morgens Gesicht waschen",
+    "почистить зубы утром": "Morgens Zähne putzen",
+    "умыться вечером": "Abends Gesicht waschen",
+    "почистить зубы вечером": "Abends Zähne putzen",
     "переодеться": "Umziehen",
     "заправить кровать": "Bett machen",
+    "семейное общение 20:00–21:00": "Familienzeit 20:00-21:00",
+    "спать в 21:00": "Um 21:00 schlafen",
     "убрать вещи на место": "Sachen an ihren Platz räumen",
     "разложить одежду": "Kleidung ordentlich hinlegen",
     "протереть письменный стол": "Schreibtisch abwischen",
@@ -2891,14 +2897,16 @@
   };
   const uncategorizedName = "Без категории";
   const defaultCategories = [
-    { id: "cat_floor0", nameRu: "0 ЭТАЖ — гараж, вход, постирочная", nameDe: "0. STOCK — Garage, Eingang, Waschküche", isDefault: true, order: 0 },
-    { id: "cat_floor1_living", nameRu: "1 ЭТАЖ — кухня, столовая, гостиная", nameDe: "1. STOCK — Küche, Esszimmer, Wohnzimmer", isDefault: true, order: 1 },
-    { id: "cat_floor1_bath", nameRu: "1 ЭТАЖ — санузел", nameDe: "1. STOCK — Bad/WC", isDefault: true, order: 2 },
-    { id: "cat_floor2_bedrooms", nameRu: "2 ЭТАЖ — спальни и утренний порядок", nameDe: "2. STOCK — Schlafzimmer und Morgenroutine", isDefault: true, order: 3 },
-    { id: "cat_floor2_bath", nameRu: "2 ЭТАЖ — ванная", nameDe: "2. STOCK — Badezimmer", isDefault: true, order: 4 },
-    { id: "cat_common", nameRu: "ОБЩИЕ ЗАДАЧИ", nameDe: "ALLGEMEINE AUFGABEN", isDefault: true, order: 5 },
-    { id: "cat_learning", nameRu: "УЧЁБА И РАЗВИТИЕ", nameDe: "LERNEN UND ENTWICKLUNG", isDefault: true, order: 6 },
-    { id: "cat_outside", nameRu: "УЛИЦА И ДВОР", nameDe: "DRAUSSEN UND GARTEN", isDefault: true, order: 7 },
+    { id: "cat_morning", nameRu: "УТРО", nameDe: "MORGEN", isDefault: true, order: 0 },
+    { id: "cat_evening", nameRu: "ВЕЧЕР", nameDe: "ABEND", isDefault: true, order: 1 },
+    { id: "cat_floor0", nameRu: "0 ЭТАЖ — гараж, вход, постирочная", nameDe: "0. STOCK — Garage, Eingang, Waschküche", isDefault: true, order: 2 },
+    { id: "cat_floor1_living", nameRu: "1 ЭТАЖ — кухня, столовая, гостиная", nameDe: "1. STOCK — Küche, Esszimmer, Wohnzimmer", isDefault: true, order: 3 },
+    { id: "cat_floor1_bath", nameRu: "1 ЭТАЖ — санузел", nameDe: "1. STOCK — Bad/WC", isDefault: true, order: 4 },
+    { id: "cat_floor2_bedrooms", nameRu: "2 ЭТАЖ — спальни и утренний порядок", nameDe: "2. STOCK — Schlafzimmer und Morgenroutine", isDefault: true, order: 5 },
+    { id: "cat_floor2_bath", nameRu: "2 ЭТАЖ — ванная", nameDe: "2. STOCK — Badezimmer", isDefault: true, order: 6 },
+    { id: "cat_common", nameRu: "ОБЩИЕ ЗАДАЧИ", nameDe: "ALLGEMEINE AUFGABEN", isDefault: true, order: 7 },
+    { id: "cat_learning", nameRu: "УЧЁБА И РАЗВИТИЕ", nameDe: "LERNEN UND ENTWICKLUNG", isDefault: true, order: 8 },
+    { id: "cat_outside", nameRu: "УЛИЦА И ДВОР", nameDe: "DRAUSSEN UND GARTEN", isDefault: true, order: 9 },
     { id: "cat_uncategorized", nameRu: uncategorizedName, nameDe: "Ohne Kategorie", isDefault: true, order: 999 }
   ];
   const categoryOrder = defaultCategories.map(function(category) { return category.nameRu; });
@@ -2927,6 +2935,57 @@
       points: 10,
       frequency: "ежедневно",
       category: "общие задачи"
+    },
+    {
+      text: "Умыться утром",
+      titleDe: "Morgens Gesicht waschen",
+      points: 5,
+      frequency: "ежедневно",
+      category: "утро",
+      aliases: ["Умыться"]
+    },
+    {
+      text: "Почистить зубы утром",
+      titleDe: "Morgens Zähne putzen",
+      points: 5,
+      frequency: "ежедневно",
+      category: "утро",
+      aliases: ["Почистить зубы"]
+    },
+    {
+      text: "Заправить кровать",
+      titleDe: "Bett machen",
+      points: 5,
+      frequency: "ежедневно",
+      category: "утро"
+    },
+    {
+      text: "Умыться вечером",
+      titleDe: "Abends Gesicht waschen",
+      points: 5,
+      frequency: "ежедневно",
+      category: "вечер"
+    },
+    {
+      text: "Почистить зубы вечером",
+      titleDe: "Abends Zähne putzen",
+      points: 5,
+      frequency: "ежедневно",
+      category: "вечер"
+    },
+    {
+      text: "Семейное общение 20:00–21:00",
+      titleDe: "Familienzeit 20:00-21:00",
+      points: 10,
+      frequency: "ежедневно",
+      category: "вечер"
+    },
+    {
+      text: "Спать в 21:00",
+      titleDe: "Um 21:00 schlafen",
+      points: 5,
+      frequency: "ежедневно",
+      category: "вечер"
     },
     {
       text: "Общая семейная уборка (помогать что скажут)",
@@ -2984,10 +3043,14 @@
     { title: "Помыть душ на 1 этаже", points: 50, completed: false, category: "санузел 1 этаж", frequency: "1 раз в неделю" },
     { title: "Пропылесосить в туалете на 1 этаже", points: 10, completed: false, category: "санузел 1 этаж", frequency: "2–3 раза в неделю" },
     { title: "Помыть пол в туалете 1 этажа", points: 30, completed: false, category: "санузел 1 этаж", frequency: "2–3 раза в неделю" },
-    { title: "Умыться", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
-    { title: "Почистить зубы", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Умыться утром", titleDe: "Morgens Gesicht waschen", points: 5, completed: false, category: "утро", frequency: "ежедневно" },
+    { title: "Почистить зубы утром", titleDe: "Morgens Zähne putzen", points: 5, completed: false, category: "утро", frequency: "ежедневно" },
     { title: "Переодеться", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
-    { title: "Заправить кровать", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
+    { title: "Заправить кровать", titleDe: "Bett machen", points: 5, completed: false, category: "утро", frequency: "ежедневно" },
+    { title: "Умыться вечером", titleDe: "Abends Gesicht waschen", points: 5, completed: false, category: "вечер", frequency: "ежедневно" },
+    { title: "Почистить зубы вечером", titleDe: "Abends Zähne putzen", points: 5, completed: false, category: "вечер", frequency: "ежедневно" },
+    { title: "Семейное общение 20:00–21:00", titleDe: "Familienzeit 20:00-21:00", points: 10, completed: false, category: "вечер", frequency: "ежедневно" },
+    { title: "Спать в 21:00", titleDe: "Um 21:00 schlafen", points: 5, completed: false, category: "вечер", frequency: "ежедневно" },
     { title: "Убрать вещи на место", points: 5, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
     { title: "Разложить одежду", points: 10, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "ежедневно" },
     { title: "Протереть письменный стол", points: 10, completed: false, category: "2 этаж — спальни и утренний порядок", frequency: "2–3 раза в неделю" },
@@ -4611,7 +4674,9 @@
     if (title.includes("био мусор")) return "♻️";
     if (title.includes("мусор")) return "🗑️";
     if (title.includes("полить")) return "🪴";
+    if (title.includes("семейное общение")) return "👨‍👩‍👧‍👦";
     if (title.includes("семейная уборка")) return "👨‍👩‍👧‍👦";
+    if (title.includes("спать")) return "🌙";
 
     return "✅";
   }
@@ -4621,6 +4686,8 @@
     const title = String(categoryObject ? categoryObject.nameRu : category || "").toLowerCase();
 
     if (category === "cat_uncategorized") return "📦";
+    if (category === "cat_morning" || title.includes("утро")) return "🌅";
+    if (category === "cat_evening" || title.includes("вечер")) return "🌙";
     if (category === "cat_floor0" || title.includes("0 этаж")) return "🏠";
     if (category === "cat_floor1_bath" || title.includes("1 этаж") && title.includes("санузел")) return "🚿";
     if (category === "cat_floor1_living" || title.includes("1 этаж")) return "🍽️";
@@ -4761,6 +4828,10 @@
     const categoryAliases = {
       "0 этаж": "0 ЭТАЖ — гараж, вход, постирочная",
       "0 этаж — гараж, вход, постирочная": "0 ЭТАЖ — гараж, вход, постирочная",
+      "утро": "УТРО",
+      "утренние задачи": "УТРО",
+      "вечер": "ВЕЧЕР",
+      "вечерние задачи": "ВЕЧЕР",
       "1 этаж": "1 ЭТАЖ — кухня, столовая, гостиная",
       "1 этаж — столовая": "1 ЭТАЖ — кухня, столовая, гостиная",
       "1 этаж — кухня": "1 ЭТАЖ — кухня, столовая, гостиная",
