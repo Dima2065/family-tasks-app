@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,11 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #f7fbff 0%, #eef5f1 100%);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255, 223, 118, 0.36) 0 64px, transparent 65px),
+        radial-gradient(circle at 88% 14%, rgba(164, 213, 255, 0.36) 0 58px, transparent 59px),
+        radial-gradient(circle at 16% 88%, rgba(255, 184, 207, 0.28) 0 72px, transparent 73px),
+        linear-gradient(180deg, #f8fcff 0%, #edf8f1 100%);
       margin: 0;
       min-height: 100vh;
       padding: 18px 18px 86px;
@@ -26,6 +30,7 @@
       margin: 8px 0 18px;
       font-size: 28px;
       color: #263238;
+      letter-spacing: 0;
     }
 
     .top-bar {
@@ -77,7 +82,7 @@
       background: rgba(255, 255, 255, 0.88);
       border: 1px solid rgba(255, 255, 255, 0.75);
       border-radius: 28px;
-      box-shadow: 0 18px 50px rgba(65, 92, 86, 0.16);
+      box-shadow: 0 18px 50px rgba(65, 92, 86, 0.14);
       backdrop-filter: blur(12px);
     }
 
@@ -129,6 +134,96 @@
       align-items: center;
       justify-content: center;
       font-size: 16px;
+    }
+
+    .add-task-form,
+    .task-form,
+    .parent-task-form,
+    .task-input-row {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 100%;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .task-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .task-form-field label {
+      color: #526760;
+      font-size: 12px;
+      font-weight: 700;
+      padding-left: 2px;
+    }
+
+    .task-form-field input,
+    .task-form-field select {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .add-task-form input,
+    .add-task-form select,
+    .task-form input,
+    .task-form select,
+    .parent-task-form input,
+    .parent-task-form select {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .task-form-title {
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .task-form-small {
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .task-form-category {
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .parent-task-form #taskInput,
+    .parent-task-form #taskInputDe,
+    .parent-task-form #taskPointsInput,
+    .parent-task-form #taskCategoryInput,
+    .parent-task-form #taskIconInput {
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .add-task-form button,
+    .task-form button,
+    .parent-task-form button {
+      width: 100%;
+      min-height: 44px;
+      white-space: normal;
+      line-height: 1.2;
+    }
+
+    .parent-task-form .add-task-button {
+      width: 100%;
+      height: auto;
+      min-height: 44px;
+      padding: 11px 14px;
+      border-radius: 14px;
     }
 
     .child-select {
@@ -191,23 +286,25 @@
     }
 
     .task {
-      background: #ffffff;
-      padding: 9px 10px;
-      margin: 6px 0;
-      border-radius: 14px;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfffd 100%);
+      padding: 10px;
+      margin: 7px 0;
+      border-radius: 17px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 6px;
-      box-shadow: 0 2px 8px rgba(64, 84, 78, 0.05);
-      border: 1px solid #edf3f0;
+      box-shadow: 0 5px 14px rgba(64, 84, 78, 0.07);
+      border: 1px solid rgba(223, 237, 230, 0.92);
+      transition: background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
     }
 
     .category-card {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.94);
       margin: 9px 0;
-      border-radius: 16px;
-      box-shadow: 0 8px 18px rgba(64, 84, 78, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(64, 84, 78, 0.08);
       border: 1px solid #edf3f0;
       overflow: hidden;
     }
@@ -220,7 +317,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      background: #f6fbf8;
+      background: linear-gradient(90deg, #f6fbf8 0%, #fffaf0 100%);
       color: #2f4d43;
       box-shadow: none;
       text-align: left;
@@ -236,6 +333,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-weight: 800;
     }
 
     .category-count {
@@ -251,7 +349,7 @@
     .category-tasks .task {
       margin: 6px 0;
       padding: 8px 9px;
-      box-shadow: none;
+      box-shadow: 0 3px 10px rgba(64, 84, 78, 0.05);
       background: #fbfffd;
     }
 
@@ -313,6 +411,11 @@
       box-shadow: 0 4px 12px rgba(64, 84, 78, 0.06);
     }
 
+    #parentPanel .parent-section {
+      width: 100%;
+      flex-direction: column;
+    }
+
     .parent-section-header {
       width: 100%;
       padding: 12px;
@@ -339,18 +442,23 @@
       display: block;
     }
 
+    .inline-control-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
     .parent-section .child-select,
     .parent-section .add-task,
     .parent-section .add-reward,
-    .parent-section .sync-row,
-    .parent-section .reminder-settings {
+    .parent-section .sync-row {
       margin: 0;
     }
 
     .parent-section .template-button,
     .parent-section .sync-button,
-    .parent-section .add-reward button,
-    .parent-section .reminder-settings button {
+    .parent-section .add-reward button {
       min-height: 38px;
     }
 
@@ -362,6 +470,133 @@
       margin-top: 8px;
     }
 
+    .category-manager {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 8px 0 10px;
+    }
+
+    .category-create-form {
+      display: none;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .category-create-form.active {
+      display: flex;
+    }
+
+    .custom-category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .custom-category-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 12px;
+      background: #f7faf8;
+      border: 1px solid #edf3f0;
+      font-size: 13px;
+    }
+
+    .custom-category-name {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #2f4d43;
+      font-weight: bold;
+    }
+
+    .category-management-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .category-management-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 12px;
+      background: #f7faf8;
+      border: 1px solid #edf3f0;
+      font-size: 13px;
+    }
+
+    .category-management-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .category-management-name {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #2f4d43;
+      font-weight: bold;
+    }
+
+    .category-task-count {
+      display: block;
+      margin-top: 2px;
+      color: #8a9c95;
+      font-size: 12px;
+    }
+
+    .category-edit-input {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 9px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .category-header {
+      border: none;
+    }
+
+    .category-toggle-button {
+      flex: 1;
+      min-width: 0;
+      padding: 0;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: transparent;
+      color: inherit;
+      box-shadow: none;
+      text-align: left;
+    }
+
+    .category-toggle-button:hover,
+    .category-toggle-button:active {
+      background: transparent;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .category-actions {
+      display: none;
+      flex: 0 0 auto;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .parent-mode .category-card.custom-category .category-actions {
+      display: flex;
+    }
+
     .section-title {
       margin: 22px 0 10px;
       font-size: 18px;
@@ -369,16 +604,16 @@
     }
 
     .reward {
-      background: #ffffff;
-      padding: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #fffdf5 100%);
+      padding: 13px;
       margin: 8px 0;
-      border-radius: 16px;
+      border-radius: 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 8px 18px rgba(64, 84, 78, 0.08);
-      border: 1px solid #edf3f0;
+      box-shadow: 0 8px 20px rgba(64, 84, 78, 0.08);
+      border: 1px solid #f2ead2;
     }
 
     .reward-info {
@@ -424,6 +659,111 @@
       }
     }
 
+    .reward-firework-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .reward-firework-particle {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      font-size: 20px;
+      line-height: 1;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.7);
+      animation: rewardFireworkParticle 0.95s ease-out forwards;
+      animation-delay: var(--delay, 0ms);
+      will-change: transform, opacity;
+    }
+
+    .task-points-pop {
+      position: absolute;
+      z-index: 4;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #fff5c7;
+      color: #245444;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      box-shadow: 0 8px 18px rgba(177, 143, 37, 0.2);
+      pointer-events: none;
+      animation: taskPointsPop 0.85s ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    .task-star-particle {
+      position: absolute;
+      z-index: 3;
+      color: #ffd24f;
+      font-size: 15px;
+      line-height: 1;
+      opacity: 0;
+      pointer-events: none;
+      animation: taskStarParticle 0.9s ease-out forwards;
+      animation-delay: var(--delay, 0ms);
+      will-change: transform, opacity;
+    }
+
+    @keyframes taskPointsPop {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 10px) scale(0.88);
+      }
+
+      22% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1.05);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -28px) scale(1);
+      }
+    }
+
+    @keyframes taskStarParticle {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+          scale(var(--scale, 1))
+          rotate(var(--rotate, 0deg));
+      }
+    }
+
+    @keyframes rewardFireworkParticle {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+      }
+
+      18% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+          scale(var(--scale, 1))
+          rotate(var(--rotate, 0deg));
+      }
+    }
+
     .reward-button {
       padding: 9px 12px;
       border-radius: 14px;
@@ -443,6 +783,33 @@
       font-size: 12px;
       font-weight: bold;
       white-space: nowrap;
+    }
+
+    .reward-requests-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .reward-request-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 14px;
+      background: #fbfffd;
+      border: 1px solid #edf3f0;
+      font-size: 13px;
+    }
+
+    .reward-request-title {
+      font-weight: bold;
+      color: #2f4d43;
+    }
+
+    .reward-request-meta {
+      color: #6c8078;
+      font-size: 12px;
     }
 
     .reward-actions {
@@ -511,6 +878,7 @@
     .ranking-item.leader {
       background: #fff9df;
       border-color: #f1d985;
+      box-shadow: 0 8px 18px rgba(241, 217, 133, 0.18);
     }
 
     .ranking-name {
@@ -609,6 +977,12 @@
       word-break: normal;
     }
 
+    .translation-warning {
+      color: #d17b35;
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
     .task-main {
       display: flex;
       align-items: flex-start;
@@ -634,8 +1008,9 @@
     .task-meta {
       display: block;
       margin-top: 3px;
-      color: #8a9c95;
+      color: #3f9f70;
       font-size: 12px;
+      font-weight: 800;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -651,11 +1026,118 @@
       white-space: nowrap;
     }
 
+    .task.task-done {
+      background: #f3faf6;
+      border-color: #e4f1ea;
+    }
+
+    .task.task-just-done {
+      animation: taskDonePop 0.5s ease;
+      border-color: #a7dfc2;
+    }
+
+    .task-earned-pop {
+      position: absolute;
+      right: 56px;
+      top: 10px;
+      z-index: 2;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #fff5c7;
+      color: #2f4d43;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(177, 143, 37, 0.18);
+      animation: floatPoints 0.85s ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes taskDonePop {
+      0% {
+        transform: scale(1);
+      }
+
+      45% {
+        transform: scale(1.018);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatPoints {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.96);
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-18px) scale(1.04);
+      }
+    }
+
     .task-edit {
       display: flex;
       flex: 1;
       gap: 8px;
       align-items: center;
+    }
+
+    .task-edit-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .task-edit-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .task-edit-field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #526760;
+      padding-left: 2px;
+    }
+
+    .task-edit-field input,
+    .task-edit-field select {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .task-edit-actions {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      width: 100%;
+      padding-top: 2px;
+    }
+
+    .task-edit-actions button {
+      flex: 1;
+      width: auto !important;
+      height: auto !important;
+      min-height: 44px;
+      padding: 13px 16px !important;
+      border-radius: 12px;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .task-editing .task-actions {
+      display: none;
     }
 
     .task-icon-input {
@@ -741,15 +1223,22 @@
       box-shadow: 0 6px 12px rgba(69, 173, 122, 0.18);
     }
 
-    .sync-row {
+    .sync-section,
+    .sync-controls,
+    .sync-row,
+    .sync-actions {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
       gap: 8px;
       margin: 10px 0;
     }
 
     .sync-status {
-      flex: 1;
+      width: 100%;
+      max-width: 100%;
       min-width: 0;
       padding: 8px 10px;
       border-radius: 999px;
@@ -770,38 +1259,69 @@
     }
 
     .sync-button {
+      width: 100%;
+      max-width: 100%;
+      min-height: 44px;
       padding: 9px 10px;
       border-radius: 12px;
       font-size: 13px;
       box-shadow: 0 6px 12px rgba(69, 173, 122, 0.18);
+      white-space: normal;
+      line-height: 1.25;
     }
 
     .kid-summary {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      margin: 0 0 10px;
-      padding: 10px;
-      border-radius: 18px;
-      background: #f6fbf8;
-      border: 1px solid #edf3f0;
+      gap: 4px;
+      margin: 0 0 12px;
+      padding: 14px 12px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 223, 118, 0.42), transparent 36%),
+        radial-gradient(circle at 88% 18%, rgba(164, 213, 255, 0.32), transparent 34%),
+        linear-gradient(135deg, #f0fff7 0%, #fff9e8 100%);
+      border: 1px solid #e0f0e7;
+      box-shadow: 0 10px 24px rgba(64, 84, 78, 0.09);
       text-align: center;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
     .kid-summary span {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
       color: #263238;
     }
 
     .kid-summary strong {
       color: #245444;
-      font-size: 20px;
+      font-size: 25px;
+      line-height: 1;
     }
 
     .kid-summary small {
       color: #6c8078;
       font-size: 13px;
+      font-weight: 700;
+    }
+
+    .kid-summary.points-bump {
+      animation: pointsBump 0.5s ease;
+    }
+
+    @keyframes pointsBump {
+      0% {
+        transform: scale(1);
+      }
+
+      45% {
+        transform: scale(1.025);
+        box-shadow: 0 14px 28px rgba(69, 173, 122, 0.16);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     .tab-panel {
@@ -823,38 +1343,88 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 4px;
       padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.97);
       border-top: 1px solid #dfe9e3;
-      box-shadow: 0 -8px 24px rgba(64, 84, 78, 0.12);
+      box-shadow: 0 -8px 24px rgba(64, 84, 78, 0.11);
     }
 
     .bottom-nav button {
       width: 100%;
-      padding: 9px 4px;
-      border-radius: 14px;
-      background: #f2f7f4;
+      min-height: 44px;
+      padding: 8px 4px;
+      border-radius: 16px;
+      background: #f2f8f5;
       color: #557166;
       box-shadow: none;
       font-size: 12px;
     }
 
     .bottom-nav button.active {
-      background: #70c99b;
+      background: linear-gradient(180deg, #83d9ac 0%, #53ba84 100%);
       color: #ffffff;
+      box-shadow: 0 8px 16px rgba(69, 173, 122, 0.22);
+    }
+
+    .update-banner {
+      position: fixed;
+      left: 50%;
+      bottom: calc(76px + env(safe-area-inset-bottom));
+      z-index: 30;
+      width: calc(100% - 24px);
+      max-width: 430px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      transform: translateX(-50%);
+      border: 1px solid #d8e8df;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 12px 28px rgba(64, 84, 78, 0.18);
+    }
+
+    .update-banner.active {
+      display: flex;
+    }
+
+    .update-banner-text {
+      flex: 1;
+      min-width: 0;
+      color: #2f4d43;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .update-banner button {
+      flex: 0 0 auto;
+      min-height: 40px;
+      padding: 9px 11px;
+      border-radius: 14px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .update-later-button {
+      background: #f2f7f4;
+      color: #557166;
+      box-shadow: none;
+      border: 1px solid #d8e8df;
     }
 
     .progress-cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
       margin-bottom: 10px;
     }
 
     .progress-card {
       padding: 12px;
-      border-radius: 16px;
-      background: #f6fbf8;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f6fbf8 100%);
       border: 1px solid #edf3f0;
+      box-shadow: 0 6px 16px rgba(64, 84, 78, 0.06);
     }
 
     .progress-card span {
@@ -880,39 +1450,380 @@
     .reward-progress-fill {
       height: 100%;
       border-radius: inherit;
-      background: #70c99b;
+      background: linear-gradient(90deg, #70c99b 0%, #ffd966 100%);
     }
 
     .reward-left {
       display: block;
       margin-top: 5px;
+      color: #3f9f70;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    #parentPanel .reward-left {
       color: #8a9c95;
+      font-weight: 600;
+    }
+
+    #parentPanel .reward,
+    #parentPanel .task,
+    #parentPanel .category-card,
+    #parentPanel .progress-card {
+      background: #ffffff;
+      border-color: #edf3f0;
+      box-shadow: 0 4px 12px rgba(64, 84, 78, 0.06);
+    }
+
+    body:not(.parent-tab) {
+      background:
+        radial-gradient(circle at 9% 9%, rgba(255, 221, 105, 0.55) 0 54px, transparent 55px),
+        radial-gradient(circle at 92% 12%, rgba(143, 209, 255, 0.52) 0 64px, transparent 65px),
+        radial-gradient(circle at 10% 80%, rgba(255, 175, 210, 0.44) 0 76px, transparent 77px),
+        radial-gradient(circle at 88% 76%, rgba(185, 160, 255, 0.28) 0 72px, transparent 73px),
+        linear-gradient(160deg, #fff8de 0%, #ecfbff 36%, #f5efff 70%, #ecfff5 100%);
+    }
+
+    body:not(.parent-tab)::before {
+      content: "⭐ ✨ ○";
+      position: fixed;
+      left: 8px;
+      top: 78px;
+      z-index: -1;
+      color: rgba(255, 190, 67, 0.28);
+      font-size: 34px;
+      letter-spacing: 18px;
+      pointer-events: none;
+    }
+
+    body:not(.parent-tab)::after {
+      content: "";
+      position: fixed;
+      right: -42px;
+      top: 210px;
+      z-index: -1;
+      width: 132px;
+      height: 132px;
+      border-radius: 44% 56% 52% 48%;
+      background: rgba(122, 206, 255, 0.22);
+      box-shadow:
+        -260px 280px 0 rgba(255, 178, 210, 0.18),
+        -36px 420px 0 rgba(255, 226, 118, 0.2);
+      pointer-events: none;
+    }
+
+    body:not(.parent-tab) .app {
+      background: rgba(255, 255, 255, 0.82);
+      border-color: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 22px 58px rgba(90, 108, 126, 0.16);
+    }
+
+    body.parent-tab {
+      background: linear-gradient(180deg, #f8fcff 0%, #edf8f1 100%);
+    }
+
+    body.parent-tab .app {
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 18px 50px rgba(65, 92, 86, 0.12);
+    }
+
+    body:not(.parent-tab) .kid-summary {
+      position: relative;
+      overflow: hidden;
+      gap: 5px;
+      padding: 18px 14px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 13% 18%, rgba(255, 236, 124, 0.7), transparent 34%),
+        radial-gradient(circle at 90% 14%, rgba(151, 218, 255, 0.55), transparent 30%),
+        radial-gradient(circle at 82% 86%, rgba(255, 174, 209, 0.45), transparent 34%),
+        linear-gradient(135deg, #dffff0 0%, #fff4bd 52%, #f2e7ff 100%);
+      border: 1px solid rgba(255, 255, 255, 0.88);
+      box-shadow: 0 16px 34px rgba(86, 123, 109, 0.18);
+    }
+
+    body:not(.parent-tab) .kid-summary::after {
+      content: "⭐";
+      position: absolute;
+      right: 16px;
+      top: 13px;
+      opacity: 0.32;
+      font-size: 48px;
+      transform: rotate(9deg);
+    }
+
+    body:not(.parent-tab) .kid-summary span {
+      color: #24453a;
+      font-size: 22px;
+    }
+
+    body:not(.parent-tab) .kid-summary strong {
+      color: #155b3e;
+      font-size: 32px;
+      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.55);
+    }
+
+    body:not(.parent-tab) .kid-summary small {
+      color: #496b60;
+      font-size: 14px;
+    }
+
+    body:not(.parent-tab) .kid-summary.points-bump {
+      animation: playfulPointsBump 0.55s ease;
+    }
+
+    @keyframes playfulPointsBump {
+      0% { transform: scale(1); }
+      42% { transform: scale(1.035) rotate(-0.4deg); }
+      100% { transform: scale(1); }
+    }
+
+    body:not(.parent-tab) .category-card {
+      margin: 10px 0;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 10px 24px rgba(86, 108, 99, 0.12);
+      animation: kidCardIn 0.28s ease both;
+    }
+
+    body:not(.parent-tab) .category-header {
+      padding: 13px;
+      background:
+        linear-gradient(90deg, rgba(224, 255, 239, 0.95) 0%, rgba(255, 247, 203, 0.92) 52%, rgba(235, 242, 255, 0.95) 100%);
+      color: #24453a;
+    }
+
+    body:not(.parent-tab) .category-title {
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    body:not(.parent-tab) .category-count {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: #537268;
+      font-weight: 800;
+    }
+
+    body:not(.parent-tab) .task {
+      padding: 12px;
+      border-radius: 21px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(255, 231, 117, 0.22), transparent 36%),
+        linear-gradient(180deg, #ffffff 0%, #f8fff9 100%);
+      border: 1px solid rgba(226, 242, 234, 0.96);
+      box-shadow: 0 8px 20px rgba(85, 112, 102, 0.11);
+      animation: kidCardIn 0.28s ease both;
+    }
+
+    body:not(.parent-tab) .task-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      max-width: 24px;
+      border-radius: 50%;
+      background: #fff5cd;
+      font-size: 15px;
+      box-shadow: inset 0 0 0 1px rgba(255, 214, 96, 0.45);
+    }
+
+    body:not(.parent-tab) .task-title {
+      color: #213f37;
+      font-size: 15px;
+    }
+
+    body:not(.parent-tab) .task-meta {
+      display: inline-block;
+      margin-top: 5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #fff7d5;
+      color: #238055;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    body:not(.parent-tab) .task.task-done {
+      background: #f5fbf7;
+      border-color: #dcf2e6;
+      box-shadow: 0 5px 14px rgba(85, 112, 102, 0.07);
+    }
+
+    body:not(.parent-tab) .task.task-just-done {
+      animation: kidTaskDone 0.62s ease;
+      background: #effff7;
+      border-color: #a4e7c4;
+    }
+
+    body:not(.parent-tab) .done-button {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #7be8ad 0%, #36b978 100%);
+      color: #ffffff;
+      font-size: 22px;
+      box-shadow: 0 10px 20px rgba(54, 185, 120, 0.28);
+    }
+
+    body:not(.parent-tab) .task-done .done-button {
+      background: linear-gradient(180deg, #b9d3c6 0%, #7fa391 100%);
+      box-shadow: none;
+    }
+
+    body:not(.parent-tab) .reward {
+      position: relative;
+      overflow: hidden;
+      padding: 15px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 12% 14%, rgba(255, 226, 111, 0.36), transparent 34%),
+        linear-gradient(135deg, #ffffff 0%, #fff5cf 46%, #eef7ff 100%);
+      border: 1px solid rgba(255, 240, 193, 0.95);
+      box-shadow: 0 12px 26px rgba(109, 94, 51, 0.13);
+      animation: kidCardIn 0.3s ease both;
+    }
+
+    body:not(.parent-tab) .reward::after {
+      content: "🎁";
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      opacity: 0.16;
+      font-size: 52px;
+      pointer-events: none;
+    }
+
+    body:not(.parent-tab) .reward-name {
+      color: #2f423a;
+      font-size: 15px;
+    }
+
+    body:not(.parent-tab) .reward-cost {
+      color: #6f5c25;
+      font-weight: 800;
+    }
+
+    body:not(.parent-tab) .reward-progress {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 0 1px rgba(237, 215, 130, 0.34);
+    }
+
+    body:not(.parent-tab) .reward-progress-fill {
+      background: linear-gradient(90deg, #71d99e 0%, #ffd95e 55%, #ff9bc3 100%);
+    }
+
+    body:not(.parent-tab) .reward-left {
+      color: #c27a13;
       font-size: 12px;
     }
 
-    .reminder-settings {
-      align-items: center;
-      gap: 8px;
-      margin: 10px 0;
+    body:not(.parent-tab) .reward-button {
+      min-height: 44px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #7bdcff 0%, #45b6f0 100%);
+      box-shadow: 0 10px 20px rgba(69, 182, 240, 0.24);
     }
 
-    .reminder-settings input[type="time"] {
-      flex: 0 0 82px;
-      max-width: 82px;
-      padding: 7px 8px;
-      font-size: 13px;
-      text-align: center;
+    body:not(.parent-tab) .reward-button:not(.locked) + .reward-status,
+    body:not(.parent-tab) .reward-status {
+      color: #239b64;
+      font-weight: 900;
     }
 
-    .reminder-settings input[type="text"] {
-      padding: 7px 9px;
-      font-size: 13px;
+    body:not(.parent-tab) .progress-card {
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      background:
+        radial-gradient(circle at 82% 12%, rgba(255, 224, 113, 0.34), transparent 32%),
+        linear-gradient(160deg, #ffffff 0%, #ebfff4 100%);
+      box-shadow: 0 10px 24px rgba(86, 108, 99, 0.11);
+      animation: kidCardIn 0.28s ease both;
     }
 
-    .reminder-settings button {
-      padding: 9px 10px;
-      border-radius: 12px;
-      font-size: 13px;
+    body:not(.parent-tab) .progress-card:nth-child(2) {
+      background: linear-gradient(160deg, #ffffff 0%, #fff5cc 100%);
+    }
+
+    body:not(.parent-tab) .progress-card:nth-child(3) {
+      background: linear-gradient(160deg, #ffffff 0%, #eef0ff 100%);
+    }
+
+    body:not(.parent-tab) .progress-card span {
+      color: #61766e;
+      font-weight: 800;
+    }
+
+    body:not(.parent-tab) .progress-card strong {
+      color: #20583f;
+      font-size: 23px;
+    }
+
+    body:not(.parent-tab) .ranking-item,
+    body:not(.parent-tab) .history-item {
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.88);
+      border-color: rgba(232, 242, 237, 0.95);
+      box-shadow: 0 7px 18px rgba(86, 108, 99, 0.08);
+    }
+
+    body:not(.parent-tab) .ranking-item.leader {
+      background: linear-gradient(90deg, #fff8d4 0%, #ffffff 100%);
+      border-color: #f4dc7d;
+      box-shadow: 0 10px 22px rgba(226, 190, 72, 0.18);
+    }
+
+    body:not(.parent-tab) .bottom-nav {
+      background: rgba(255, 255, 255, 0.92);
+      border-top-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 -12px 30px rgba(75, 101, 112, 0.15);
+      backdrop-filter: blur(14px);
+    }
+
+    body:not(.parent-tab) .bottom-nav button {
+      border-radius: 18px;
+      background: #f5fbff;
+      color: #637970;
+      font-weight: 900;
+    }
+
+    body:not(.parent-tab) .bottom-nav button.active {
+      background: linear-gradient(180deg, #ffe483 0%, #68d99c 100%);
+      color: #1e4a39;
+      box-shadow: 0 8px 18px rgba(104, 217, 156, 0.28);
+    }
+
+    body.parent-tab #parentPanel .reward,
+    body.parent-tab #parentPanel .task,
+    body.parent-tab #parentPanel .category-card,
+    body.parent-tab #parentPanel .progress-card,
+    body.parent-tab #parentPanel .history-item {
+      background: #ffffff;
+      border-color: #edf3f0;
+      box-shadow: 0 4px 12px rgba(64, 84, 78, 0.06);
+    }
+
+    @keyframes kidCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes kidTaskDone {
+      0% { transform: scale(1); }
+      42% { transform: scale(1.025); }
+      100% { transform: scale(1); }
     }
 
     .parent-only {
@@ -951,7 +1862,10 @@
     @media (max-width: 420px) {
       body {
         padding: 0 0 96px;
-        background: #f7fbff;
+        background:
+          radial-gradient(circle at 10% 7%, rgba(255, 223, 118, 0.34) 0 48px, transparent 49px),
+          radial-gradient(circle at 92% 11%, rgba(164, 213, 255, 0.32) 0 46px, transparent 47px),
+          linear-gradient(180deg, #f8fcff 0%, #edf8f1 100%);
       }
 
       .app {
@@ -1158,6 +2072,356 @@
         justify-content: flex-end;
       }
     }
+
+    @media (max-width: 480px) {
+      body {
+        padding-bottom: 100px;
+      }
+
+      .app {
+        width: 100%;
+        max-width: none;
+        padding-bottom: 100px;
+      }
+
+      #parentPanel,
+      #parentPanel .parent-section,
+      #parentPanel .parent-section-body {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #parentPanel {
+        display: none;
+      }
+
+      #parentPanel.active {
+        display: block;
+      }
+
+      #parentPanel .parent-section {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0;
+        margin: 10px 0;
+        padding: 0;
+        border-radius: 18px;
+        background: #ffffff;
+        border: 1px solid #e3ebe7;
+        box-shadow: 0 4px 12px rgba(64, 84, 78, 0.06);
+        overflow: hidden;
+      }
+
+      #parentPanel .parent-section-header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        min-height: 44px;
+        padding: 11px 12px;
+        border-radius: 0;
+        background: #f7faf8;
+        color: #2f4d43;
+        box-shadow: none;
+        text-align: left;
+      }
+
+      #parentPanel .parent-section-body {
+        display: none;
+        padding: 12px;
+        background: #ffffff;
+      }
+
+      #parentPanel .parent-section.expanded .parent-section-body {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      #parentPanel .child-select,
+      #parentPanel .child-edit,
+      #parentPanel .sync-row,
+      #parentPanel .history-filters,
+      #parentPanel .reward-edit {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      #parentPanel .parent-section-content,
+      #parentPanel .parent-controls,
+      #parentPanel .parent-form,
+      #parentPanel .add-task,
+      #parentPanel .add-reward {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        gap: 8px;
+      }
+
+      #parentPanel .parent-task-form,
+      #parentPanel .task-form,
+      #parentPanel .add-task-form,
+      #parentPanel .task-input-row,
+      .task-edit-form,
+      .edit-task-form,
+      .task-edit-row,
+      .task-edit-fields {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 8px !important;
+      }
+
+      #parentPanel .parent-task-form .task-form-field,
+      #parentPanel .parent-task-form input,
+      #parentPanel .parent-task-form select,
+      .task-edit-form input,
+      .task-edit-form select {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        flex: 1 1 auto !important;
+      }
+
+      #parentPanel .parent-task-form button,
+      .task-edit-actions button {
+        min-height: 44px !important;
+      }
+
+      #parentPanel .parent-task-form button {
+        width: 100% !important;
+      }
+
+      .task-edit-actions {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        gap: 8px !important;
+      }
+
+      .task-edit-actions button {
+        flex: 1 1 0 !important;
+        width: auto !important;
+        max-width: 100% !important;
+      }
+
+      #parentPanel .inline-control-row,
+      #parentPanel .child-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        flex-wrap: nowrap;
+      }
+
+      #parentPanel .child-row select {
+        flex: 1 1 auto;
+        width: auto;
+        min-width: 0;
+      }
+
+      #parentPanel .child-row button {
+        flex: 0 0 38px;
+        width: 38px;
+        min-width: 38px;
+        height: 38px;
+        border-radius: 50%;
+      }
+
+      #parentPanel input,
+      #parentPanel select,
+      #parentPanel button {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #parentPanel .add-task:not(.parent-task-form) {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      #parentPanel .parent-task-form #taskInput,
+      #parentPanel .parent-task-form #taskInputDe {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #parentPanel .add-task:not(.parent-task-form) #taskInput {
+        flex: 1 0 100%;
+        width: 100%;
+      }
+
+      #parentPanel .add-task:not(.parent-task-form) #taskPointsInput {
+        flex: 0 0 72px;
+        width: 72px;
+        max-width: 72px;
+        height: 44px;
+      }
+
+      #parentPanel .add-task:not(.parent-task-form) #taskCategoryInput {
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+        height: 44px;
+      }
+
+      #parentPanel .add-task:not(.parent-task-form) .add-task-button {
+        flex: 0 0 44px;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+      }
+
+      #parentPanel .parent-task-form .add-task-button {
+        width: 100% !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        border-radius: 14px;
+      }
+
+      #parentPanel .template-button,
+      #parentPanel .sync-button,
+      #parentPanel .add-reward button {
+        width: 100%;
+        min-height: 44px;
+        white-space: normal;
+        line-height: 1.25;
+      }
+
+      #parentPanel .sync-status {
+        width: 100%;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      #parentPanel .add-reward {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      #parentPanel #rewardNameInput {
+        flex: 1 0 100%;
+        width: 100%;
+      }
+
+      #parentPanel #rewardCostInput {
+        flex: 0 0 82px;
+        width: 82px;
+        max-width: 82px;
+        height: 44px;
+      }
+
+      #parentPanel .add-reward button {
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
+      }
+
+      #parentPanel .task-filters {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 6px;
+        padding: 0 0 2px;
+        scrollbar-width: none;
+      }
+
+      #parentPanel .task-filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      #parentPanel .filter-button {
+        flex: 0 0 auto;
+        width: auto;
+      }
+
+      #parentPanel .reward,
+      #parentPanel .history-item {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      #parentPanel .reward {
+        align-items: stretch;
+        flex-direction: column;
+        background: #ffffff;
+        border-color: #edf3f0;
+      }
+
+      #parentPanel .reward-actions {
+        width: 100%;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      #parentPanel .reward-actions .reward-button {
+        flex: 1 1 120px;
+      }
+
+      #parentPanel .reward-actions .secondary-button,
+      #parentPanel .reward-actions .delete-button {
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+      }
+
+      #parentPanel .history-filters select,
+      #parentPanel .history-filters input {
+        width: 100%;
+      }
+
+      #parentPanel .category-actions {
+        display: flex;
+        flex: 0 0 auto;
+        gap: 5px;
+      }
+
+      #parentPanel .category-actions button,
+      #parentPanel .custom-category-item button {
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+      }
+
+      #parentPanel .category-create-form {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+
+      #parentPanel .category-create-form button,
+      #parentPanel .category-manager > button {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      #parentPanel .custom-category-item {
+        width: 100%;
+      }
+
+      #parentPanel .category-management-row {
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      #parentPanel .category-management-row .secondary-button,
+      #parentPanel .category-management-row .delete-button {
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+      }
+
+    }
   </style>
 </head>
 
@@ -1169,7 +2433,7 @@
     <button class="icon-button" onclick="toggleParentMode()" title="Родительский режим">🔒</button>
   </div>
 
-  <h1>Семейные задачи</h1>
+  <h1 id="appTitle">Семейные задачи</h1>
 
   <div class="parent-actions">
     <button id="logoutParentButton" class="logout-button" onclick="exitParentMode()">Выйти из родительского режима</button>
@@ -1178,7 +2442,7 @@
   <div class="child-select">
     <label for="childSelect">Ребенок:</label>
 
-    <div class="child-row" id="childView">
+    <div class="child-row inline-control-row" id="childView">
       <select id="childSelect" onchange="changeChild()"></select>
       <button class="icon-button parent-only" onclick="startEditChild()" title="Редактировать ребенка">✏️</button>
       <button class="icon-button parent-only" onclick="addChild()" title="Добавить ребенка">+</button>
@@ -1203,30 +2467,34 @@
   </section>
 
   <section id="rewardsPanel" class="tab-panel">
-    <h2 class="section-title">Награды</h2>
+    <h2 id="rewardsTitle" class="section-title">Награды</h2>
     <div id="rewardList"></div>
   </section>
 
   <section id="progressPanel" class="tab-panel">
-    <h2 class="section-title">Прогресс</h2>
+    <h2 id="progressTitle" class="section-title">Прогресс</h2>
     <div class="progress-cards">
       <div class="progress-card">
-        <span>Сегодня заработано</span>
+        <span id="earnedTodayLabel">Сегодня заработано</span>
         <strong id="earnedToday">0</strong>
       </div>
       <div class="progress-card">
-        <span>Всего баллов</span>
+        <span id="weekEarnedLabel">Неделя</span>
+        <strong id="weekEarned">0</strong>
+      </div>
+      <div class="progress-card">
+        <span id="totalPointsLabel">Всего баллов</span>
         <strong id="totalProgressPoints">0</strong>
       </div>
     </div>
-    <h2 class="section-title">Рейтинг</h2>
+    <h2 id="rankingTitle" class="section-title">Рейтинг</h2>
     <div id="rankingList" class="ranking-list"></div>
-    <h2 class="section-title">История</h2>
+    <h2 id="historyTitle" class="section-title">История</h2>
     <div id="progressHistoryList" class="history-list"></div>
   </section>
 
   <section id="parentPanel" class="tab-panel">
-    <h2 class="section-title">Родитель</h2>
+    <h2 id="parentTitle" class="section-title">Родитель</h2>
     <div class="parent-section parent-only expanded" data-section="children">
       <button class="parent-section-header" onclick="toggleParentSection('children')"><span>Дети</span><b>▲</b></button>
       <div class="parent-section-body" id="childrenSectionBody"></div>
@@ -1238,11 +2506,52 @@
         <div class="parent-filter-block">
           <div id="taskFilters" class="task-filters"></div>
         </div>
-        <div class="add-task">
-          <input id="taskInput" type="text" placeholder="Введите задачу">
-          <input id="taskPointsInput" class="task-points-input" type="number" min="1" value="10" title="Баллы">
-          <select id="taskCategoryInput" class="task-category-select"></select>
-          <button class="add-task-button" onclick="addTask()" title="Добавить задачу">➕</button>
+        <div class="add-task parent-task-form">
+          <div class="task-form-field task-form-title">
+            <label for="taskInput">Название RU</label>
+            <input id="taskInput" type="text" placeholder="Название RU">
+          </div>
+          <div class="task-form-field task-form-title">
+            <label for="taskInputDe">Название DE</label>
+            <input id="taskInputDe" type="text" placeholder="Название DE">
+          </div>
+          <div class="task-form-field task-form-small">
+            <label for="taskPointsInput">Баллы</label>
+            <input id="taskPointsInput" class="task-points-input" type="number" min="1" value="10" title="Баллы">
+          </div>
+          <div class="task-form-field task-form-category">
+            <label for="taskCategoryInput">Категория</label>
+            <select id="taskCategoryInput" class="task-category-select"></select>
+          </div>
+          <div class="task-form-field task-form-small">
+            <label for="taskIconInput">Иконка</label>
+            <input id="taskIconInput" class="task-icon-input" type="text" maxlength="4" title="Иконка">
+          </div>
+          <button class="add-task-button" onclick="addTask()" title="Добавить задачу">Добавить задачу</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="language">
+      <button class="parent-section-header" onclick="toggleParentSection('language')"><span>Язык приложения</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <select id="languageSelect" onchange="saveCurrentChildLanguage()">
+          <option value="ru">Русский</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="categories">
+      <button class="parent-section-header" onclick="toggleParentSection('categories')"><span>Категории</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <div class="category-manager">
+          <div class="add-task">
+            <input id="newCategoryInput" type="text" placeholder="Категория RU">
+            <input id="newCategoryInputDe" type="text" placeholder="Категория DE">
+            <button class="add-task-button" type="button" onclick="saveNewCategory()" title="Добавить категорию">+</button>
+          </div>
+          <div id="categoryManagementList" class="category-management-list"></div>
         </div>
       </div>
     </div>
@@ -1260,18 +2569,25 @@
       <div class="parent-section-body">
         <div class="sync-row">
           <span id="syncStatus" class="sync-status">Работает локально</span>
-          <button class="sync-button" onclick="syncNow()">Синхронизировать сейчас</button>
+          <span id="authStatus" class="sync-status">Работает локально</span>
+          <input id="authEmailInput" type="email" placeholder="Email">
+          <input id="authPasswordInput" type="password" placeholder="Password">
+          <button class="sync-button" onclick="signInParentAccount()">Войти</button>
+          <button class="sync-button" onclick="signOutParentAccount()">Выйти</button>
+          <button class="sync-button" onclick="syncSaveToCloud()">Сохранить в облако</button>
+          <button class="sync-button" onclick="syncLoadFromCloudWithConfirm()">Загрузить из облака</button>
+          <button class="sync-button" onclick="syncMergeData()">Объединить данные</button>
         </div>
       </div>
     </div>
 
-    <div class="parent-section parent-only" data-section="reminders">
-      <button class="parent-section-header" onclick="toggleParentSection('reminders')"><span>Напоминания</span><b>▼</b></button>
+    <div class="parent-section parent-only" data-section="backup">
+      <button class="parent-section-header" onclick="toggleParentSection('backup')"><span>Резервная копия</span><b>▼</b></button>
       <div class="parent-section-body">
-        <div class="reminder-settings">
-          <input id="reminderTimeInput" type="time" value="18:00" title="Время напоминания" onchange="saveReminderSettings()">
-          <input id="reminderTextInput" type="text" value="Пора выполнить задачи" title="Текст напоминания" onchange="saveReminderSettings()">
-          <button onclick="requestNotificationPermission()" title="Включить уведомления">🔔</button>
+        <div class="sync-row">
+          <button class="sync-button" onclick="downloadBackup()">Скачать резервную копию</button>
+          <button class="sync-button" onclick="openBackupFilePicker()">Восстановить из резервной копии</button>
+          <input id="backupFileInput" type="file" accept="application/json,.json" hidden onchange="restoreBackupFromFile(event)">
         </div>
       </div>
     </div>
@@ -1285,6 +2601,44 @@
           <button onclick="addReward()">Добавить</button>
         </div>
         <div id="parentRewardList" class="parent-reward-list"></div>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="rewardRequests">
+      <button class="parent-section-header" onclick="toggleParentSection('rewardRequests')"><span>Запросы наград</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <div id="rewardRequestsList" class="reward-requests-list"></div>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="pointsReset">
+      <button class="parent-section-header" onclick="toggleParentSection('pointsReset')"><span>Сброс баллов</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <label class="inline-control-row">
+          <input id="resetHistoryCheckbox" type="checkbox">
+          <span>Также очистить историю</span>
+        </label>
+        <span id="dailyResetStatus" class="sync-status">Последний ночной сброс: —</span>
+        <button class="template-button" onclick="resetCurrentChildPoints()">Сбросить баллы у текущего ребёнка</button>
+        <button class="template-button" onclick="resetAllChildrenPoints()">Сбросить баллы у всех детей</button>
+      </div>
+    </div>
+
+    <div class="parent-section parent-only" data-section="starHistory">
+      <button class="parent-section-header" onclick="toggleParentSection('starHistory')"><span>История звёзд</span><b>▼</b></button>
+      <div class="parent-section-body">
+        <div class="history-filters">
+          <select id="starChildFilter" onchange="renderStarTransactions()"></select>
+          <select id="starTypeFilter" onchange="renderStarTransactions()">
+            <option value="all">Все операции</option>
+            <option value="earn">Заработано</option>
+            <option value="spend">Потрачено</option>
+            <option value="reset">Сброс</option>
+            <option value="refund">Возврат</option>
+          </select>
+          <input id="starDateFilter" type="date" onchange="renderStarTransactions()">
+        </div>
+        <div id="starTransactionsList" class="history-list"></div>
       </div>
     </div>
 
@@ -1304,13 +2658,20 @@
 </main>
 
 <nav class="bottom-nav">
-  <button id="tabToday" class="active" onclick="setActiveTab('today')">Сегодня</button>
-  <button id="tabRewards" onclick="setActiveTab('rewards')">Награды</button>
-  <button id="tabProgress" onclick="setActiveTab('progress')">Прогресс</button>
-  <button id="tabParent" onclick="setActiveTab('parent')">Родитель</button>
+  <button id="tabToday" class="active" onclick="setActiveTab('today')">✅ Сегодня</button>
+  <button id="tabRewards" onclick="setActiveTab('rewards')">🎁 Награды</button>
+  <button id="tabProgress" onclick="setActiveTab('progress')">📈 Прогресс</button>
+  <button id="tabParent" onclick="setActiveTab('parent')">🔒 Родитель</button>
 </nav>
 
+<div id="updateBanner" class="update-banner" role="status" aria-live="polite">
+  <span class="update-banner-text">Доступна новая версия приложения</span>
+  <button type="button" onclick="applyPwaUpdate()">Обновить</button>
+  <button class="update-later-button" type="button" onclick="hidePwaUpdateBanner()">Позже</button>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
   let children = [];
@@ -1318,26 +2679,37 @@
   let points = 0;
   let tasks = [];
   let claimedRewards = [];
+  let rewardRequests = [];
+  let language = "ru";
   let editingIndex = null;
   let editingChild = false;
   let isParentMode = false;
   let editingRewardId = null;
+  let customCategories = [];
+  let categoryRenames = {};
+  let categoryRenamesDe = {};
+  let removedStandardCategories = [];
+  let editingCategoryKey = null;
   let expandedCategories = [];
   let activeTaskFilter = "all";
   let activeTab = "today";
   let taskHistory = [];
+  let starTransactions = [];
   let justClaimedRewardId = null;
+  let justCompletedTaskIndex = null;
+  let justCompletedTaskPoints = 0;
+  let lastRenderedPoints = null;
   let parentSections = ["children", "tasks"];
-  let reminderTimer = null;
   let cloudDb = null;
+  let cloudAuth = null;
+  let currentFirebaseUser = null;
+  let authListenerStarted = false;
   let cloudReady = false;
   let cloudSaveTimer = null;
   let isApplyingCloudData = false;
-  let reminderSettings = {
-    time: "18:00",
-    text: "Пора выполнить задачи",
-    lastShownDate: ""
-  };
+  let midnightResetTimer = null;
+  let pendingServiceWorker = null;
+  let isRefreshingForPwaUpdate = false;
 
   const firebaseConfig = {
     apiKey: "AIzaSyDSwL9Von29eA4JVLHDsJqr7rEtoBbqWGw",
@@ -1350,6 +2722,82 @@
   const cloudCollectionName = "familyTasks";
   const cloudDocumentId = "appState";
   const parentPin = "1029";
+  const standardTaskTranslations = {
+    "разложить обувь аккуратно": "Schuhe ordentlich hinstellen",
+    "навести порядок возле велосипедов": "Fahrräder ordentlich hinstellen",
+    "подмести пол в гараже и у входа": "Garage und Eingang fegen",
+    "убрать кладовую-постирочную": "Abstellraum und Waschküche aufräumen",
+    "протереть стиральную машину": "Waschmaschine abwischen",
+    "протереть сушильную машину": "Trockner abwischen",
+    "подмести территорию возле гаража и входа": "Bereich vor Garage und Eingang fegen",
+    "отнести вещи в постирочная комнату": "Sachen in die Waschküche bringen",
+    "отнести вещи в постирочную комнату": "Sachen in die Waschküche bringen",
+    "рассортировать вещи белой чёрные цветное джинсы полотенца": "Wäsche sortieren: weiss, schwarz, bunt, Jeans, Handtücher",
+    "рассортировать вещи: белые, чёрные, цветные, джинсы, полотенца": "Wäsche sortieren: weiss, schwarz, bunt, Jeans, Handtücher",
+    "включить стирку": "Waschmaschine starten",
+    "развесить вещи для сушки": "Wäsche zum Trocknen aufhängen",
+    "положить вещи в сушилку": "Sachen in den Trockner legen",
+    "положить вещи в сушилку: носки, трусы, бюстгальтеры, мелкие футболки димы": "Sachen in den Trockner legen",
+    "протереть обеденный стол": "Esstisch abwischen",
+    "протереть кухонный стол": "Küchentisch abwischen",
+    "загрузить посудомойку": "Geschirrspüler einräumen",
+    "разгрузить посудомойку": "Geschirrspüler ausräumen",
+    "убрать в гостиной пледы и подушки": "Decken und Kissen im Wohnzimmer aufräumen",
+    "убрать игрушки с пола": "Spielzeug vom Boden aufräumen",
+    "протереть плиту": "Herd abwischen",
+    "протереть микроволновку": "Mikrowelle abwischen",
+    "пропылесосить 1 этаж": "1. Stock staubsaugen",
+    "помыть пол на 1 этаже": "Boden im 1. Stock wischen",
+    "протереть кухонные шкафчики снаружи": "Küchenschränke aussen abwischen",
+    "убрать вещи по местам на большой белой полке в гостиной": "Sachen im grossen weissen Regal im Wohnzimmer aufräumen",
+    "протереть пыль на большой белой полке в гостиной": "Staub auf dem grossen weissen Regal im Wohnzimmer wischen",
+    "убрать лишние вещи на полке в столовой": "Unnötige Sachen im Regal im Esszimmer wegräumen",
+    "протереть пыль на полке в столовой": "Staub im Regal im Esszimmer wischen",
+    "прибирать в полке с кастрюлями": "Topfregal aufräumen",
+    "прибраться в полке с кастрюлями": "Topfregal aufräumen",
+    "протереть раковину на 1 этаже": "Waschbecken im 1. Stock abwischen",
+    "протереть зеркало на 1 этаже": "Spiegel im 1. Stock putzen",
+    "помыть унитаз на 1 этаже": "Toilette im 1. Stock putzen",
+    "помыть душ на 1 этаже": "Dusche im 1. Stock putzen",
+    "пропылесосить в туалете": "WC staubsaugen",
+    "пропылесосить в туалете на 1 этаже": "WC staubsaugen",
+    "пропылесосить в туалете и в ванной": "WC und Badezimmer staubsaugen",
+    "помыть пол в туалете 1 этажа": "Boden im WC im 1. Stock wischen",
+    "умыться": "Gesicht waschen",
+    "почистить зубы": "Zähne putzen",
+    "переодеться": "Umziehen",
+    "заправить кровать": "Bett machen",
+    "убрать вещи на место": "Sachen an ihren Platz räumen",
+    "разложить одежду": "Kleidung ordentlich hinlegen",
+    "протереть письменный стол": "Schreibtisch abwischen",
+    "пропылесосить спальню": "Schlafzimmer staubsaugen",
+    "протереть поверхности в спальне": "Oberflächen im Schlafzimmer abwischen",
+    "протереть раковину на 2 этаже": "Waschbecken im 2. Stock abwischen",
+    "протереть зеркало на 2 этаже": "Spiegel im 2. Stock putzen",
+    "помыть унитаз на 2 этаже": "Toilette im 2. Stock putzen",
+    "помыть душ на 2 этаже": "Dusche im 2. Stock putzen",
+    "пропылесосить в ванной на 2 этаже": "Badezimmer im 2. Stock staubsaugen",
+    "помыть пол в ванной 2 этажа": "Boden im Badezimmer im 2. Stock wischen",
+    "вынести мусор": "Abfall rausbringen",
+    "вынести био мусор": "Bioabfall rausbringen",
+    "помочь накрыть на стол": "Beim Tischdecken helfen",
+    "помочь убрать после еды": "Nach dem Essen aufräumen helfen",
+    "полить растения": "Pflanzen giessen",
+    "общая семейная уборка": "Gemeinsame Familienreinigung",
+    "общая семейная уборка (помогать что скажут)": "Gemeinsame Familienreinigung: helfen, wo Hilfe gebraucht wird",
+    "изучение немецкого языка": "Deutsch lernen",
+    "изучение французского языка": "Französisch lernen",
+    "изучение английского языка": "Englisch lernen",
+    "тренировать брата читать": "Mit dem Bruder Lesen üben",
+    "чтение книг": "Bücher lesen",
+    "вязание": "Stricken",
+    "вязание: связать конкретный предмет": "Stricken: ein bestimmtes Teil fertigstellen",
+    "вязание (50 баллов за конкретно связанный предмет)": "Stricken: ein bestimmtes Teil fertigstellen",
+    "уборка гриль плац": "Grillplatz aufräumen",
+    "уборка гриль-плаца": "Grillplatz aufräumen",
+    "уборка gartenplatz": "Gartenplatz aufräumen",
+    "уборка гарте плац": "Gartenplatz aufräumen"
+  };
   const taskFilters = [
     { id: "all", label: "Все" },
     { id: "today", label: "Сегодня" },
@@ -1359,18 +2807,101 @@
     { id: "done", label: "Выполненные" },
     { id: "todo", label: "Невыполненные" }
   ];
+  const translations = {
+    ru: {
+      today: "Сегодня",
+      all: "Все",
+      rewards: "Награды",
+      progress: "Прогресс",
+      parent: "Родитель",
+      appTitle: "Семейные задачи",
+      points: "Баллы",
+      pointsWord: "баллов",
+      tasksLeftToday: "задач осталось сегодня",
+      todayLeftPrefix: "Сегодня осталось",
+      done: "Выполнено",
+      completed: "Выполненные",
+      todo: "Невыполненные",
+      daily: "Ежедневные",
+      fewWeekly: "2–3 раза в неделю",
+      weekly: "1 раз в неделю",
+      fact: "по факту выполнения",
+      completedToday: "выполнено сегодня",
+      completedAt: "выполнено:",
+      availableNow: "Можно получить!",
+      notEnough: "Не хватает",
+      left: "Осталось",
+      claim: "Получить",
+      request: "Запросить",
+      pending: "Ожидает подтверждения",
+      received: "Получено",
+      earnedToday: "Сегодня заработано",
+      week: "Неделя",
+      totalPoints: "Всего баллов",
+      ranking: "Рейтинг",
+      history: "История",
+      noCompletedSelectedDay: "Нет выполненных задач за выбранный день",
+      noCompletedToday: "Сегодня ещё нет выполненных задач",
+      parentMode: "Режим родителя",
+      login: "Войти",
+      faceLogin: "Войти через Face ID",
+      pinLogin: "Войти по PIN",
+      logoutParent: "Выйти из родительского режима"
+    },
+    de: {
+      today: "Heute",
+      all: "Alle",
+      rewards: "Belohnungen",
+      progress: "Fortschritt",
+      parent: "Eltern",
+      appTitle: "Familienaufgaben",
+      points: "Punkte",
+      pointsWord: "Punkte",
+      tasksLeftToday: "Aufgaben heute übrig",
+      todayLeftPrefix: "",
+      done: "Erledigt",
+      completed: "Erledigt",
+      todo: "Offen",
+      daily: "Täglich",
+      fewWeekly: "2–3 Mal pro Woche",
+      weekly: "1 Mal pro Woche",
+      fact: "nach Erledigung",
+      completedToday: "heute erledigt",
+      completedAt: "erledigt am:",
+      availableNow: "Jetzt verfügbar",
+      notEnough: "Es fehlen",
+      left: "Noch",
+      claim: "Einlösen",
+      request: "Anfragen",
+      pending: "Wartet auf Bestätigung",
+      received: "Erhalten",
+      earnedToday: "Heute verdient",
+      week: "Woche",
+      totalPoints: "Punkte insgesamt",
+      ranking: "Rangliste",
+      history: "Verlauf",
+      noCompletedSelectedDay: "Keine erledigten Aufgaben an diesem Tag",
+      noCompletedToday: "Keine erledigten Aufgaben an diesem Tag",
+      parentMode: "Elternmodus",
+      login: "Einloggen",
+      faceLogin: "Mit Face ID einloggen",
+      pinLogin: "Mit PIN einloggen",
+      logoutParent: "Elternmodus verlassen"
+    }
+  };
   const uncategorizedName = "Без категории";
-  const categoryOrder = [
-    "0 ЭТАЖ — гараж, вход, постирочная",
-    "1 ЭТАЖ — кухня, столовая, гостиная",
-    "1 ЭТАЖ — санузел",
-    "2 ЭТАЖ — спальни и утренний порядок",
-    "2 ЭТАЖ — ванная",
-    "ОБЩИЕ ЗАДАЧИ",
-    "УЧЁБА И РАЗВИТИЕ",
-    "УЛИЦА И ДВОР",
-    uncategorizedName
+  const defaultCategories = [
+    { id: "cat_floor0", nameRu: "0 ЭТАЖ — гараж, вход, постирочная", nameDe: "0. STOCK — Garage, Eingang, Waschküche", isDefault: true, order: 0 },
+    { id: "cat_floor1_living", nameRu: "1 ЭТАЖ — кухня, столовая, гостиная", nameDe: "1. STOCK — Küche, Esszimmer, Wohnzimmer", isDefault: true, order: 1 },
+    { id: "cat_floor1_bath", nameRu: "1 ЭТАЖ — санузел", nameDe: "1. STOCK — Bad/WC", isDefault: true, order: 2 },
+    { id: "cat_floor2_bedrooms", nameRu: "2 ЭТАЖ — спальни и утренний порядок", nameDe: "2. STOCK — Schlafzimmer und Morgenroutine", isDefault: true, order: 3 },
+    { id: "cat_floor2_bath", nameRu: "2 ЭТАЖ — ванная", nameDe: "2. STOCK — Badezimmer", isDefault: true, order: 4 },
+    { id: "cat_common", nameRu: "ОБЩИЕ ЗАДАЧИ", nameDe: "ALLGEMEINE AUFGABEN", isDefault: true, order: 5 },
+    { id: "cat_learning", nameRu: "УЧЁБА И РАЗВИТИЕ", nameDe: "LERNEN UND ENTWICKLUNG", isDefault: true, order: 6 },
+    { id: "cat_outside", nameRu: "УЛИЦА И ДВОР", nameDe: "DRAUSSEN UND GARTEN", isDefault: true, order: 7 },
+    { id: "cat_uncategorized", nameRu: uncategorizedName, nameDe: "Ohne Kategorie", isDefault: true, order: 999 }
   ];
+  const categoryOrder = defaultCategories.map(function(category) { return category.nameRu; });
   const defaultChildren = ["Марта", "Дима", "Алеся"];
   const taskTemplateUpdates = [
     {
@@ -1408,6 +2939,8 @@
   const defaultTasks = taskTemplateUpdates.map(function(task) {
     return {
       text: task.text,
+      titleRu: task.text,
+      titleDe: task.titleDe || "",
       points: task.points,
       frequency: task.frequency,
       category: task.category,
@@ -1488,37 +3021,49 @@
 
   function getDefaultTasks() {
     return defaultTasks.map(function(task) {
+      const titleRu = String(task.titleRu || task.text || task.title || "").trim();
+      const titleDe = String(task.titleDe || getStandardTaskTranslation(titleRu) || "").trim();
+
       return {
-        text: task.text,
+        text: titleRu,
+        titleRu: titleRu,
+        titleDe: titleDe,
         points: task.points,
         frequency: task.frequency,
-        category: task.category,
-        icon: task.icon || getTaskIcon(task),
+        categoryId: normalizeCategoryId(task.categoryId || task.category),
+        category: normalizeCategoryName(task.category),
+        icon: task.icon || getTaskIcon(Object.assign({}, task, { text: titleRu, titleRu: titleRu })),
         done: task.done,
         lastCompletedAt: task.lastCompletedAt || null,
-        completedPoints: task.completedPoints || null
+        completedPoints: task.completedPoints || null,
+        updatedAt: task.updatedAt || ""
       };
     });
   }
 
   function normalizeTasks(taskList) {
     return taskList.map(function(task) {
-      const taskText = task.text || task.title || "";
+      const taskTitleRu = String(task.titleRu || task.text || task.title || "").trim();
+      const taskTitleDe = String(task.titleDe || getStandardTaskTranslation(taskTitleRu) || "").trim();
       const taskPoints = Number(task.points || task.reward || 10);
       const isDone = Boolean(task.done || task.completed);
 
       return {
-        text: taskText,
+        text: taskTitleRu,
+        titleRu: taskTitleRu,
+        titleDe: taskTitleDe,
         points: taskPoints > 0 ? taskPoints : 10,
         frequency: task.frequency || "",
+        categoryId: normalizeCategoryId(task.categoryId || task.category),
         category: normalizeCategoryName(task.category),
-        icon: task.icon || getTaskIcon({ text: taskText, title: task.title }),
+        icon: task.icon || getTaskIcon({ text: taskTitleRu, titleRu: taskTitleRu, titleDe: taskTitleDe, title: task.title }),
         done: isDone,
         lastCompletedAt: task.lastCompletedAt || (isDone ? getTodayString() : null),
-        completedPoints: isDone ? Number(task.completedPoints || taskPoints) : null
+        completedPoints: isDone ? Number(task.completedPoints || taskPoints) : null,
+        updatedAt: task.updatedAt || ""
       };
     }).filter(function(task) {
-      return task.text.trim() !== "";
+      return task.titleRu.trim() !== "";
     });
   }
 
@@ -1529,6 +3074,82 @@
     const day = String(now.getDate()).padStart(2, "0");
 
     return year + "-" + month + "-" + day;
+  }
+
+  function shouldRunDailyReset() {
+    return localStorage.getItem("lastDailyResetDate") !== getTodayString();
+  }
+
+  function resetTaskStatusForNewDay(taskList) {
+    return (Array.isArray(taskList) ? taskList : []).map(function(task) {
+      return Object.assign({}, task, {
+        done: false,
+        completed: false,
+        lastCompletedAt: null,
+        completedPoints: null,
+        updatedAt: getNowIso()
+      });
+    });
+  }
+
+  function updateDailyResetStatus() {
+    const status = document.getElementById("dailyResetStatus");
+
+    if (status) {
+      status.innerText = "Последний ночной сброс: " + (localStorage.getItem("lastDailyResetDate") || "—");
+    }
+  }
+
+  function resetAllTasksForNewDay(shouldRender) {
+    children.forEach(function(child) {
+      const storageKey = getStorageKey(child);
+      const data = normalizeChildData(safeParseJSON(localStorage.getItem(storageKey), getInitialChildData()));
+      data.tasks = resetTaskStatusForNewDay(data.tasks);
+      data.updatedAt = getNowIso();
+      localStorage.setItem(storageKey, JSON.stringify(data));
+
+      if (child === currentChild) {
+        tasks = data.tasks;
+        points = data.points;
+        claimedRewards = data.claimedRewards;
+        rewards = data.rewards;
+        rewardRequests = data.rewardRequests;
+        language = data.language;
+      }
+    });
+
+    localStorage.setItem("lastDailyResetDate", getTodayString());
+    saveChildren();
+    saveToCloud();
+    updateDailyResetStatus();
+
+    if (shouldRender !== false) {
+      renderTasks();
+      renderRewards();
+      renderRanking();
+      renderHistory();
+      renderStarTransactions();
+      renderProgressHistory();
+      updatePoints();
+    }
+  }
+
+  function scheduleMidnightReset() {
+    if (midnightResetTimer) {
+      clearTimeout(midnightResetTimer);
+    }
+
+    const now = new Date();
+    const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 1);
+    const delay = Math.max(1000, nextMidnight - now);
+
+    midnightResetTimer = setTimeout(function() {
+      if (shouldRunDailyReset()) {
+        resetAllTasksForNewDay(true);
+      }
+
+      scheduleMidnightReset();
+    }, delay);
   }
 
   function parseDateString(dateString) {
@@ -1606,7 +3227,7 @@
     }
 
     if (task.lastCompletedAt === getTodayString()) {
-      return "выполнено сегодня";
+      return t("completedToday");
     }
 
     const completedDate = parseDateString(task.lastCompletedAt);
@@ -1615,11 +3236,75 @@
       return "";
     }
 
-    return "выполнено: " + completedDate.toLocaleDateString("ru-RU");
+    return t("completedAt") + " " + completedDate.toLocaleDateString(getCurrentChildLanguage() === "de" ? "de-DE" : "ru-RU");
   }
 
   function normalizeTaskName(name) {
     return String(name || "").trim().toLowerCase();
+  }
+
+  function normalizeTaskTitle(title) {
+    return String(title || "")
+      .trim()
+      .toLowerCase()
+      .replace(/ё/g, "е")
+      .replace(/[–—-]/g, " ")
+      .replace(/[.,;!?]+$/g, "")
+      .replace(/[^0-9a-zа-яеäöüßéèêàç:()]+/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getStandardTaskTranslation(title) {
+    const normalizedTitle = normalizeTaskTitle(title);
+
+    if (standardTaskTranslations[normalizedTitle]) {
+      return standardTaskTranslations[normalizedTitle];
+    }
+
+    const matchedKey = Object.keys(standardTaskTranslations).find(function(key) {
+      return normalizeTaskTitle(key) === normalizedTitle;
+    });
+
+    return matchedKey ? standardTaskTranslations[matchedKey] : "";
+  }
+
+  function getTaskTitle(task) {
+    const lang = getCurrentChildLanguage();
+
+    if (lang === "de") {
+      return task.titleDe || task.titleRu || task.title || task.text || "";
+    }
+
+    return task.titleRu || task.title || task.text || "";
+  }
+
+  function getNowIso() {
+    return new Date().toISOString();
+  }
+
+  function getItemUpdatedAt(item) {
+    const value = item && item.updatedAt ? Date.parse(item.updatedAt) : 0;
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  function chooseNewerItem(localItem, cloudItem) {
+    if (!localItem) {
+      return cloudItem;
+    }
+
+    if (!cloudItem) {
+      return localItem;
+    }
+
+    const localUpdatedAt = getItemUpdatedAt(localItem);
+    const cloudUpdatedAt = getItemUpdatedAt(cloudItem);
+
+    if (localUpdatedAt && cloudUpdatedAt && cloudUpdatedAt > localUpdatedAt) {
+      return cloudItem;
+    }
+
+    return localItem;
   }
 
   function safeParseJSON(value, fallback) {
@@ -1649,6 +3334,92 @@
       });
   }
 
+  function uniqueCategories(list) {
+    const result = [];
+
+    if (!Array.isArray(list)) {
+      return result;
+    }
+
+    list.forEach(function(category) {
+      const trimmedCategory = getCustomCategoryRu(category);
+      const categoryDe = getCustomCategoryDe(category);
+      const exists = result.some(function(existingCategory) {
+        return getCustomCategoryRu(existingCategory).toLowerCase() === trimmedCategory.toLowerCase();
+      });
+
+      if (!exists && trimmedCategory !== "") {
+        result.push({
+          id: category && typeof category === "object" && category.id ? category.id : "cat_custom_" + Date.now() + "_" + result.length,
+          nameRu: trimmedCategory,
+          nameDe: categoryDe,
+          isDefault: false,
+          order: category && typeof category === "object" && Number.isFinite(Number(category.order)) ? Number(category.order) : 100 + result.length,
+          updatedAt: category && typeof category === "object" && category.updatedAt ? category.updatedAt : ""
+        });
+      }
+    });
+
+    return result;
+  }
+
+  function uniqueCategoryNames(list) {
+    const result = [];
+
+    uniqueList(list).forEach(function(category) {
+      const exists = result.some(function(existingCategory) {
+        return existingCategory.toLowerCase() === category.toLowerCase();
+      });
+
+      if (!exists) {
+        result.push(category);
+      }
+    });
+
+    return result;
+  }
+
+  function getCustomCategoryRu(category) {
+    if (category && typeof category === "object") {
+      return String(category.nameRu || category.name || category.title || "").trim();
+    }
+
+    return String(category || "").trim();
+  }
+
+  function getCustomCategoryDe(category) {
+    if (category && typeof category === "object") {
+      return String(category.nameDe || "").trim();
+    }
+
+    return "";
+  }
+
+  function findCustomCategory(category) {
+    const categoryName = String(category || "").trim().toLowerCase();
+
+    return customCategories.find(function(customCategory) {
+      return getCustomCategoryRu(customCategory).toLowerCase() === categoryName ||
+        getCustomCategoryDe(customCategory).toLowerCase() === categoryName;
+    }) || null;
+  }
+
+  function normalizeCategoryRenames(value) {
+    const result = {};
+    const source = value && typeof value === "object" ? value : {};
+
+    Object.keys(source).forEach(function(key) {
+      const originalName = String(key || "").trim();
+      const newName = String(source[key] || "").trim();
+
+      if (originalName !== "" && newName !== "") {
+        result[originalName] = newName;
+      }
+    });
+
+    return result;
+  }
+
   function isFirebaseConfigured() {
     return Boolean(firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId);
   }
@@ -1665,13 +3436,26 @@
     syncStatus.classList.toggle("error", state === "error");
   }
 
+  function setAuthStatus(message, state) {
+    const authStatus = document.getElementById("authStatus");
+
+    if (!authStatus) {
+      return;
+    }
+
+    authStatus.innerText = message;
+    authStatus.classList.toggle("synced", state === "synced");
+    authStatus.classList.toggle("error", state === "error");
+  }
+
   function initFirebase() {
     if (cloudReady) {
       return true;
     }
 
-    if (!isFirebaseConfigured() || typeof firebase === "undefined" || !firebase.firestore) {
+    if (!isFirebaseConfigured() || typeof firebase === "undefined" || !firebase.firestore || !firebase.auth) {
       setSyncStatus("Работает локально", "local");
+      setAuthStatus("Работает локально", "local");
       return false;
     }
 
@@ -1681,13 +3465,111 @@
       }
 
       cloudDb = firebase.firestore();
+      cloudAuth = firebase.auth();
       cloudReady = true;
       return true;
     } catch (error) {
       cloudReady = false;
       setSyncStatus("Ошибка синхронизации", "error");
+      setAuthStatus("Ошибка синхронизации", "error");
       return false;
     }
+  }
+
+  function getCloudDocumentRef() {
+    if (!initFirebase() || !currentFirebaseUser) {
+      return null;
+    }
+
+    return cloudDb
+      .collection("users")
+      .doc(currentFirebaseUser.uid)
+      .collection(cloudCollectionName)
+      .doc(cloudDocumentId);
+  }
+
+  function updateAuthUi() {
+    const emailInput = document.getElementById("authEmailInput");
+    const passwordInput = document.getElementById("authPasswordInput");
+
+    if (currentFirebaseUser) {
+      if (emailInput) {
+        emailInput.value = currentFirebaseUser.email || "";
+      }
+
+      if (passwordInput) {
+        passwordInput.value = "";
+      }
+
+      setAuthStatus("Вход выполнен", "synced");
+      return;
+    }
+
+    setAuthStatus("Работает локально", "local");
+    setSyncStatus("Войдите для синхронизации", "local");
+  }
+
+  async function handleSignedInUser() {
+    updateAuthUi();
+    const cloudData = await loadFromCloud();
+
+    if (!cloudData && confirm("В облаке пока нет данных. Сохранить локальные данные в облако?")) {
+      await syncLocalToCloud();
+    }
+  }
+
+  function startAuthListener() {
+    if (authListenerStarted || !initFirebase()) {
+      return;
+    }
+
+    authListenerStarted = true;
+    cloudAuth.onAuthStateChanged(function(user) {
+      currentFirebaseUser = user || null;
+      updateAuthUi();
+
+      if (currentFirebaseUser) {
+        handleSignedInUser();
+      }
+    });
+  }
+
+  async function signInParentAccount() {
+    if (!initFirebase()) {
+      alert("Firebase недоступен");
+      return;
+    }
+
+    const emailInput = document.getElementById("authEmailInput");
+    const passwordInput = document.getElementById("authPasswordInput");
+    const email = emailInput ? emailInput.value.trim() : "";
+    const password = passwordInput ? passwordInput.value : "";
+
+    if (!email || !password) {
+      alert("Введите email и password");
+      return;
+    }
+
+    try {
+      await cloudAuth.signInWithEmailAndPassword(email, password);
+      setAuthStatus("Вход выполнен", "synced");
+    } catch (error) {
+      setAuthStatus("Ошибка входа", "error");
+      alert("Ошибка входа");
+    }
+  }
+
+  async function signOutParentAccount() {
+    if (!initFirebase() || !cloudAuth) {
+      currentFirebaseUser = null;
+      updateAuthUi();
+      return;
+    }
+
+    await cloudAuth.signOut();
+    currentFirebaseUser = null;
+    setSyncStatus("Войдите для синхронизации", "local");
+    updateAuthUi();
   }
 
   function getLocalSnapshot() {
@@ -1700,7 +3582,10 @@
         tasks: tasks,
         points: points,
         claimedRewards: claimedRewards,
-        rewards: rewards
+        rewards: rewards,
+        rewardRequests: rewardRequests,
+        language: language,
+        updatedAt: getNowIso()
       } : getInitialChildData()));
     });
 
@@ -1713,9 +3598,14 @@
       expandedCategories: uniqueList(safeParseJSON(localStorage.getItem("expandedCategories"), expandedCategories)),
       activeTaskFilter: localStorage.getItem("activeTaskFilter") || activeTaskFilter,
       taskHistory: normalizeHistory(safeParseJSON(localStorage.getItem("taskHistory"), taskHistory)),
-      reminderSettings: normalizeReminderSettings(safeParseJSON(localStorage.getItem("taskReminderSettings"), reminderSettings)),
-      categories: categoryOrder.slice(),
+      starTransactions: normalizeStarTransactions(safeParseJSON(localStorage.getItem("starTransactions"), starTransactions)),
+      categories: getAllCategoryObjects(),
+      customCategories: uniqueCategories(safeParseJSON(localStorage.getItem("customCategories"), customCategories)),
+      categoryRenames: normalizeCategoryRenames(safeParseJSON(localStorage.getItem("categoryRenames"), categoryRenames)),
+      categoryRenamesDe: normalizeCategoryRenames(safeParseJSON(localStorage.getItem("categoryRenamesDe"), categoryRenamesDe)),
+      removedStandardCategories: uniqueCategoryNames(safeParseJSON(localStorage.getItem("removedStandardCategories"), removedStandardCategories)),
       uncategorizedName: uncategorizedName,
+      lastDailyResetDate: localStorage.getItem("lastDailyResetDate") || "",
       updatedAt: new Date().toISOString()
     };
   }
@@ -1731,15 +3621,30 @@
       ? snapshot.currentChild
       : nextChildren[0];
     const childData = snapshot.childData && typeof snapshot.childData === "object" ? snapshot.childData : {};
+    customCategories = uniqueCategories(
+      Array.isArray(snapshot.customCategories)
+        ? snapshot.customCategories
+        : (Array.isArray(snapshot.categories) ? snapshot.categories.filter(function(category) { return category && category.isDefault === false; }) : [])
+    );
+    categoryRenames = normalizeCategoryRenames(snapshot.categoryRenames);
+    categoryRenamesDe = normalizeCategoryRenames(snapshot.categoryRenamesDe);
+    removedStandardCategories = uniqueCategoryNames(snapshot.removedStandardCategories);
 
     localStorage.setItem("children", JSON.stringify(nextChildren));
     localStorage.setItem("currentChild", nextCurrentChild);
     localStorage.setItem("rewards", JSON.stringify(normalizeRewards(snapshot.rewards)));
     localStorage.setItem("parentMode", snapshot.parentMode === true ? "true" : "false");
-    localStorage.setItem("expandedCategories", JSON.stringify(uniqueList(snapshot.expandedCategories || []).map(normalizeCategoryName)));
+    localStorage.setItem("expandedCategories", JSON.stringify(uniqueList(snapshot.expandedCategories || []).map(normalizeCategoryId)));
     localStorage.setItem("activeTaskFilter", snapshot.activeTaskFilter || "all");
     localStorage.setItem("taskHistory", JSON.stringify(normalizeHistory(snapshot.taskHistory)));
-    localStorage.setItem("taskReminderSettings", JSON.stringify(normalizeReminderSettings(snapshot.reminderSettings)));
+    localStorage.setItem("starTransactions", JSON.stringify(normalizeStarTransactions(snapshot.starTransactions)));
+    localStorage.removeItem("taskReminderSettings");
+    localStorage.setItem("customCategories", JSON.stringify(customCategories));
+    localStorage.setItem("categories", JSON.stringify(getAllCategoryObjects()));
+    localStorage.setItem("categoryRenames", JSON.stringify(categoryRenames));
+    localStorage.setItem("categoryRenamesDe", JSON.stringify(categoryRenamesDe));
+    localStorage.setItem("removedStandardCategories", JSON.stringify(removedStandardCategories));
+    localStorage.setItem("lastDailyResetDate", snapshot.lastDailyResetDate || "");
 
     nextChildren.forEach(function(child) {
       localStorage.setItem(getStorageKey(child), JSON.stringify(normalizeChildData(childData[child] || getInitialChildData())));
@@ -1749,15 +3654,18 @@
   }
 
   async function loadFromCloud() {
-    if (!initFirebase()) {
+    const docRef = getCloudDocumentRef();
+
+    if (!docRef) {
+      setSyncStatus("Войдите для синхронизации", "local");
       return null;
     }
 
     try {
-      const doc = await cloudDb.collection(cloudCollectionName).doc(cloudDocumentId).get();
+      const doc = await docRef.get();
 
       if (!doc.exists) {
-        setSyncStatus("Работает локально", "local");
+        setSyncStatus("В облаке нет данных", "local");
         return null;
       }
 
@@ -1777,12 +3685,19 @@
   }
 
   async function saveToCloud() {
-    if (isApplyingCloudData || !initFirebase()) {
+    const docRef = getCloudDocumentRef();
+
+    if (isApplyingCloudData) {
+      return false;
+    }
+
+    if (!docRef) {
+      setSyncStatus("Войдите для синхронизации", "local");
       return false;
     }
 
     try {
-      await cloudDb.collection(cloudCollectionName).doc(cloudDocumentId).set(getLocalSnapshot());
+      await docRef.set(getLocalSnapshot());
       setSyncStatus("Синхронизировано", "synced");
       return true;
     } catch (error) {
@@ -1792,7 +3707,7 @@
   }
 
   function scheduleCloudSave() {
-    if (isApplyingCloudData) {
+    if (isApplyingCloudData || !currentFirebaseUser) {
       return;
     }
 
@@ -1825,23 +3740,350 @@
   }
 
   async function initializeCloudSync() {
-    const cloudData = await syncCloudToLocal();
-
-    if (!cloudData) {
-      await syncLocalToCloud();
+    if (!initFirebase()) {
+      setSyncStatus("Работает локально", "local");
+      setAuthStatus("Работает локально", "local");
+      return;
     }
+
+    startAuthListener();
+    updateAuthUi();
   }
 
-  async function syncNow() {
-    setSyncStatus("Синхронизация...", "local");
+  async function syncSaveToCloud() {
+    if (!currentFirebaseUser) {
+      setSyncStatus("Войдите для синхронизации", "local");
+      alert("Войдите для синхронизации");
+      return;
+    }
+
+    const saved = await syncLocalToCloud();
+    if (saved) {
+      setSyncStatus("Сохранено в облако", "synced");
+    }
+
+    alert(saved ? "Сохранено в облако" : "Ошибка синхронизации");
+  }
+
+  async function syncLoadFromCloudWithConfirm() {
+    if (!currentFirebaseUser) {
+      setSyncStatus("Войдите для синхронизации", "local");
+      alert("Войдите для синхронизации");
+      return;
+    }
+
+    if (!confirm("Загрузить данные из облака? Локальные несохранённые изменения могут быть заменены.")) {
+      return;
+    }
+
     const cloudData = await syncCloudToLocal();
 
     if (!cloudData) {
-      await syncLocalToCloud();
+      alert("Ошибка синхронизации");
+      return;
     }
 
     loadChildren();
     loadData();
+    alert("Данные загружены из облака");
+  }
+
+  async function syncMergeData() {
+    if (!currentFirebaseUser) {
+      setSyncStatus("Войдите для синхронизации", "local");
+      alert("Войдите для синхронизации");
+      return;
+    }
+
+    setSyncStatus("Синхронизация...", "local");
+    const cloudData = await loadFromCloud();
+
+    if (!cloudData) {
+      const saved = await syncLocalToCloud();
+      if (saved) {
+        setSyncStatus("Данные объединены", "synced");
+      }
+
+      alert(saved ? "Данные объединены" : "Ошибка синхронизации");
+      return;
+    }
+
+    const mergedSnapshot = mergeSnapshots(getLocalSnapshot(), cloudData);
+    isApplyingCloudData = true;
+    applySnapshotToLocal(mergedSnapshot);
+    isApplyingCloudData = false;
+    const saved = await saveToCloud();
+    if (!saved) {
+      alert("Ошибка синхронизации");
+      return;
+    }
+
+    setSyncStatus("Данные объединены", "synced");
+    loadChildren();
+    loadData();
+    alert("Данные объединены");
+  }
+
+  async function mergeLocalAndCloudData() {
+    return syncMergeData();
+  }
+
+  function createBackupPayload() {
+    return {
+      app: "Family Tasks",
+      type: "family-tasks-backup",
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      data: getLocalSnapshot()
+    };
+  }
+
+  function downloadBackup() {
+    const backup = createBackupPayload();
+    const backupDate = new Date().toISOString().slice(0, 10);
+    const fileName = "family-tasks-backup-" + backupDate + ".json";
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+    const backupUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = backupUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(function() {
+      URL.revokeObjectURL(backupUrl);
+    }, 1000);
+  }
+
+  function openBackupFilePicker() {
+    const input = document.getElementById("backupFileInput");
+
+    if (!input) {
+      return;
+    }
+
+    input.value = "";
+    input.click();
+  }
+
+  function readBackupFile(file) {
+    return new Promise(function(resolve, reject) {
+      const reader = new FileReader();
+
+      reader.onload = function() {
+        resolve(reader.result);
+      };
+
+      reader.onerror = function() {
+        reject(reader.error);
+      };
+
+      reader.readAsText(file);
+    });
+  }
+
+  function getBackupSnapshot(backup) {
+    if (!backup || typeof backup !== "object") {
+      return null;
+    }
+
+    if (backup.app === "Family Tasks" && backup.type === "family-tasks-backup" && backup.data) {
+      return isValidBackupSnapshot(backup.data) ? backup.data : null;
+    }
+
+    return null;
+  }
+
+  function isValidBackupSnapshot(snapshot) {
+    return Boolean(
+      snapshot &&
+      typeof snapshot === "object" &&
+      Array.isArray(snapshot.children) &&
+      snapshot.childData &&
+      typeof snapshot.childData === "object"
+    );
+  }
+
+  async function restoreBackupFromFile(event) {
+    const input = event && event.target;
+    const file = input && input.files && input.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    try {
+      const fileText = await readBackupFile(file);
+      const backup = JSON.parse(fileText);
+      const snapshot = getBackupSnapshot(backup);
+
+      if (!snapshot) {
+        alert("Файл резервной копии некорректный");
+        return;
+      }
+
+      if (!confirm("Восстановить данные из резервной копии? Текущие данные будут заменены.")) {
+        return;
+      }
+
+      isApplyingCloudData = true;
+      applySnapshotToLocal(snapshot);
+      isApplyingCloudData = false;
+
+      await saveToCloud();
+      loadChildren();
+      loadData();
+      alert("Резервная копия восстановлена");
+    } catch (error) {
+      alert("Файл резервной копии некорректный");
+    } finally {
+      if (input) {
+        input.value = "";
+      }
+
+      isApplyingCloudData = false;
+    }
+  }
+
+  async function syncNow() {
+    return syncMergeData();
+  }
+
+  function mergeSnapshots(localSnapshot, cloudSnapshot) {
+    const localData = localSnapshot && typeof localSnapshot === "object" ? localSnapshot : getLocalSnapshot();
+    const cloudData = cloudSnapshot && typeof cloudSnapshot === "object" ? cloudSnapshot : {};
+    const mergedChildren = uniqueList([].concat(localData.children || [], cloudData.children || []));
+    const mergedChildData = {};
+
+    mergedChildren.forEach(function(child) {
+      mergedChildData[child] = mergeChildData(
+        localData.childData && localData.childData[child],
+        cloudData.childData && cloudData.childData[child]
+      );
+    });
+
+    return {
+      children: mergedChildren,
+      currentChild: mergedChildren.includes(localData.currentChild) ? localData.currentChild : mergedChildren[0],
+      childData: mergedChildData,
+      rewards: mergeRewards(localData.rewards, cloudData.rewards),
+      parentMode: localData.parentMode === true,
+      expandedCategories: uniqueList([].concat(localData.expandedCategories || [], cloudData.expandedCategories || [])).map(normalizeCategoryId),
+      activeTaskFilter: localData.activeTaskFilter || cloudData.activeTaskFilter || "today",
+      taskHistory: mergeByKey(localData.taskHistory || [], cloudData.taskHistory || [], function(entry) {
+        return [entry.child, entry.task, entry.points, entry.date].join("|");
+      }),
+      starTransactions: mergeByKey(localData.starTransactions || [], cloudData.starTransactions || [], function(entry) {
+        return entry.id || [entry.child, entry.type, entry.amount, entry.title, entry.date].join("|");
+      }),
+      categories: getAllCategoryObjects(),
+      customCategories: mergeCustomCategories(localData.customCategories, cloudData.customCategories),
+      categoryRenames: Object.assign({}, cloudData.categoryRenames || {}, localData.categoryRenames || {}),
+      categoryRenamesDe: Object.assign({}, cloudData.categoryRenamesDe || {}, localData.categoryRenamesDe || {}),
+      removedStandardCategories: uniqueCategoryNames([].concat(localData.removedStandardCategories || [], cloudData.removedStandardCategories || [])),
+      uncategorizedName: uncategorizedName,
+      lastDailyResetDate: [localData.lastDailyResetDate || "", cloudData.lastDailyResetDate || ""].sort().pop() || "",
+      updatedAt: getNowIso()
+    };
+  }
+
+  function mergeChildData(localChildData, cloudChildData) {
+    if (!localChildData) {
+      return normalizeChildData(cloudChildData || getInitialChildData());
+    }
+
+    if (!cloudChildData) {
+      return normalizeChildData(localChildData || getInitialChildData());
+    }
+
+    const localData = normalizeChildData(localChildData || getInitialChildData());
+    const cloudData = normalizeChildData(cloudChildData || getInitialChildData());
+    const localUpdatedAt = getItemUpdatedAt(localData);
+    const cloudUpdatedAt = getItemUpdatedAt(cloudData);
+    let mergedPoints = Math.max(localData.points, cloudData.points);
+
+    if (localUpdatedAt && cloudUpdatedAt) {
+      mergedPoints = cloudUpdatedAt > localUpdatedAt ? cloudData.points : localData.points;
+    }
+
+    return {
+      tasks: mergeTasks(localData.tasks, cloudData.tasks),
+      points: mergedPoints,
+      claimedRewards: uniqueList([].concat(localData.claimedRewards || [], cloudData.claimedRewards || [])),
+      rewards: mergeRewards(localData.rewards, cloudData.rewards),
+      rewardRequests: mergeByKey(localData.rewardRequests || [], cloudData.rewardRequests || [], function(request) {
+        return request.id || [request.child, request.rewardId, request.status, request.createdAt].join("|");
+      }),
+      language: (cloudUpdatedAt > localUpdatedAt ? cloudData.language : localData.language) || "ru",
+      updatedAt: new Date(Math.max(localUpdatedAt, cloudUpdatedAt, Date.now())).toISOString()
+    };
+  }
+
+  function mergeTasks(localTasks, cloudTasks) {
+    return mergeByKeyLocalWins(localTasks || [], cloudTasks || [], getTaskMergeKey);
+  }
+
+  function getTaskMergeKey(task) {
+    return "title:" + normalizeTaskTitle(task && (task.titleRu || task.title || task.text || "")) + "|" + getTaskCategoryId(task);
+  }
+
+  function mergeRewards(localRewards, cloudRewards) {
+    return mergeByKeyLocalWins(localRewards || [], cloudRewards || [], function(reward) {
+      return reward.id ? "id:" + reward.id : "title:" + normalizeTaskTitle(reward.title) + "|" + reward.cost;
+    });
+  }
+
+  function mergeCustomCategories(localCategories, cloudCategories) {
+    return uniqueCategories([].concat(localCategories || [], cloudCategories || [])).sort(function(first, second) {
+      return getCustomCategoryRu(first).localeCompare(getCustomCategoryRu(second));
+    });
+  }
+
+  function mergeByKey(localItems, cloudItems, getKey) {
+    const mergedMap = new Map();
+
+    (cloudItems || []).forEach(function(item) {
+      if (!item) {
+        return;
+      }
+
+      mergedMap.set(getKey(item), item);
+    });
+
+    (localItems || []).forEach(function(item) {
+      if (!item) {
+        return;
+      }
+
+      const key = getKey(item);
+      mergedMap.set(key, chooseNewerItem(item, mergedMap.get(key)));
+    });
+
+    return Array.from(mergedMap.values());
+  }
+
+  function mergeByKeyLocalWins(localItems, cloudItems, getKey) {
+    const mergedMap = new Map();
+
+    (cloudItems || []).forEach(function(item) {
+      if (!item) {
+        return;
+      }
+
+      mergedMap.set(getKey(item), item);
+    });
+
+    (localItems || []).forEach(function(item) {
+      if (!item) {
+        return;
+      }
+
+      mergedMap.set(getKey(item), item);
+    });
+
+    return Array.from(mergedMap.values());
   }
 
   function getInitialChildData() {
@@ -1849,7 +4091,10 @@
       tasks: getDefaultTasks(),
       points: 0,
       claimedRewards: [],
-      rewards: getDefaultRewards()
+      rewards: getDefaultRewards(),
+      rewardRequests: [],
+      language: "ru",
+      updatedAt: getNowIso()
     };
   }
 
@@ -1871,7 +4116,10 @@
       tasks: normalizedTasks,
       points: normalizedPoints > 0 ? normalizedPoints : 0,
       claimedRewards: Array.isArray(childData.claimedRewards) ? childData.claimedRewards : [],
-      rewards: normalizeRewards(rewardSource)
+      rewards: normalizeRewards(rewardSource),
+      rewardRequests: normalizeRewardRequests(childData.rewardRequests),
+      language: childData.language === "de" ? "de" : "ru",
+      updatedAt: childData.updatedAt || ""
     };
   }
 
@@ -1896,7 +4144,8 @@
         return {
           id: String(reward.id || "reward" + index),
           title: title,
-          cost: cost
+          cost: cost,
+          updatedAt: reward.updatedAt || ""
         };
       })
       .filter(Boolean)
@@ -1907,6 +4156,39 @@
       }) : [];
 
     return Array.isArray(rewardList) ? normalizedRewards : getDefaultRewards();
+  }
+
+  function normalizeRewardRequests(requestList) {
+    if (!Array.isArray(requestList)) {
+      return [];
+    }
+
+    return requestList
+      .map(function(request, index) {
+        const child = String(request && request.child || "").trim();
+        const rewardId = String(request && request.rewardId || "").trim();
+        const rewardTitle = String(request && request.rewardTitle || "").trim();
+        const cost = Number(request && request.cost);
+        const status = ["pending", "approved", "rejected"].includes(request && request.status)
+          ? request.status
+          : "pending";
+        const createdAt = String(request && request.createdAt || "").trim();
+
+        if (child === "" || rewardId === "" || rewardTitle === "" || cost <= 0) {
+          return null;
+        }
+
+        return {
+          id: String(request.id || "request_" + index + "_" + Date.now()),
+          child: child,
+          rewardId: rewardId,
+          rewardTitle: rewardTitle,
+          cost: cost,
+          status: status,
+          createdAt: createdAt || new Date().toISOString()
+        };
+      })
+      .filter(Boolean);
   }
 
   function normalizeHistory(historyList) {
@@ -1935,8 +4217,39 @@
       .filter(Boolean);
   }
 
+  function normalizeStarTransactions(transactionList) {
+    if (!Array.isArray(transactionList)) {
+      return [];
+    }
+
+    return transactionList
+      .map(function(entry) {
+        const child = String(entry && entry.child || "").trim();
+        const type = String(entry && entry.type || "").trim();
+        const amount = Number(entry && entry.amount);
+        const title = String(entry && entry.title || "").trim();
+        const date = String(entry && entry.date || "").trim();
+        const allowedTypes = ["earn", "spend", "reset", "refund"];
+
+        if (child === "" || !allowedTypes.includes(type) || !Number.isFinite(amount) || title === "" || date === "") {
+          return null;
+        }
+
+        return {
+          id: String(entry.id || "star_" + date + "_" + child + "_" + type + "_" + Math.random().toString(16).slice(2)),
+          child: child,
+          type: type,
+          amount: amount,
+          title: title,
+          date: date
+        };
+      })
+      .filter(Boolean);
+  }
+
   function loadTaskHistory() {
     taskHistory = normalizeHistory(safeParseJSON(localStorage.getItem("taskHistory"), []));
+    starTransactions = normalizeStarTransactions(safeParseJSON(localStorage.getItem("starTransactions"), []));
   }
 
   function saveTaskHistory() {
@@ -1944,15 +4257,34 @@
     scheduleCloudSave();
   }
 
+  function saveStarTransactions() {
+    starTransactions = normalizeStarTransactions(starTransactions);
+    localStorage.setItem("starTransactions", JSON.stringify(starTransactions));
+    scheduleCloudSave();
+  }
+
   function addTaskHistory(task, earnedPoints) {
     taskHistory.push({
       child: currentChild,
-      task: task.text,
+      task: getTaskTitle(task),
       points: earnedPoints,
       date: getTodayString()
     });
 
     saveTaskHistory();
+  }
+
+  function addStarTransaction(type, amount, title, childName) {
+    starTransactions.push({
+      id: "star_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+      child: childName || currentChild,
+      type: type,
+      amount: amount,
+      title: title,
+      date: new Date().toISOString()
+    });
+
+    saveStarTransactions();
   }
 
   function renderHistoryFilters() {
@@ -2010,7 +4342,7 @@
     if (filteredHistory.length === 0) {
       const empty = document.createElement("div");
       empty.className = "history-empty";
-      empty.innerText = "Нет выполненных задач за выбранный день";
+      empty.innerText = t("noCompletedSelectedDay");
       historyList.appendChild(empty);
       return;
     }
@@ -2039,7 +4371,150 @@
       item.appendChild(info);
       item.appendChild(pointsBadge);
       historyList.appendChild(item);
+      });
+  }
+
+  function getStarTransactionTypeLabel(type) {
+    const labels = {
+      earn: "Заработано",
+      spend: "Потрачено",
+      reset: "Сброс",
+      refund: "Возврат"
+    };
+
+    return labels[type] || type;
+  }
+
+  function renderStarTransactionFilters() {
+    const childFilter = document.getElementById("starChildFilter");
+    const typeFilter = document.getElementById("starTypeFilter");
+    const dateFilter = document.getElementById("starDateFilter");
+
+    if (!childFilter || !typeFilter || !dateFilter) {
+      return;
+    }
+
+    const selectedChild = childFilter.value || "all";
+    childFilter.innerHTML = "";
+
+    const allOption = document.createElement("option");
+    allOption.value = "all";
+    allOption.innerText = "Все дети";
+    childFilter.appendChild(allOption);
+
+    children.forEach(function(child) {
+      const option = document.createElement("option");
+      option.value = child;
+      option.innerText = child;
+      childFilter.appendChild(option);
     });
+
+    childFilter.value = selectedChild === "all" || children.includes(selectedChild) ? selectedChild : "all";
+
+    if (!typeFilter.value) {
+      typeFilter.value = "all";
+    }
+  }
+
+  function renderStarTransactions() {
+    const list = document.getElementById("starTransactionsList");
+    const childFilter = document.getElementById("starChildFilter");
+    const typeFilter = document.getElementById("starTypeFilter");
+    const dateFilter = document.getElementById("starDateFilter");
+
+    if (!list || !childFilter || !typeFilter || !dateFilter) {
+      return;
+    }
+
+    renderStarTransactionFilters();
+    list.innerHTML = "";
+
+    const selectedChild = childFilter.value;
+    const selectedType = typeFilter.value;
+    const selectedDate = dateFilter.value;
+    const filteredTransactions = starTransactions
+      .filter(function(entry) {
+        const entryDate = String(entry.date || "").slice(0, 10);
+        return (selectedChild === "all" || entry.child === selectedChild) &&
+          (selectedType === "all" || entry.type === selectedType) &&
+          (!selectedDate || entryDate === selectedDate);
+      })
+      .slice()
+      .sort(function(first, second) {
+        return String(second.date || "").localeCompare(String(first.date || ""));
+      });
+
+    if (filteredTransactions.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "history-empty";
+      empty.innerText = "Нет операций со звёздами";
+      list.appendChild(empty);
+      return;
+    }
+
+    filteredTransactions.forEach(function(entry) {
+      const item = document.createElement("div");
+      item.className = "history-item";
+
+      const info = document.createElement("div");
+      info.className = "history-info";
+
+      const title = document.createElement("span");
+      title.className = "history-task";
+      title.innerText = entry.title;
+
+      const meta = document.createElement("span");
+      meta.className = "history-meta";
+      meta.innerText = entry.child + " · " + getStarTransactionTypeLabel(entry.type) + " · " + new Date(entry.date).toLocaleString("ru-RU");
+
+      const amount = document.createElement("span");
+      amount.className = "history-points";
+      amount.innerText = (entry.amount > 0 ? "+" : "") + entry.amount + " ⭐";
+
+      info.appendChild(title);
+      info.appendChild(meta);
+      item.appendChild(info);
+      item.appendChild(amount);
+      list.appendChild(item);
+    });
+  }
+
+  function getCurrentChildLanguage() {
+    return language === "de" ? "de" : "ru";
+  }
+
+  function t(key) {
+    const currentLanguage = getCurrentChildLanguage();
+    return (translations[currentLanguage] && translations[currentLanguage][key]) ||
+      (translations.ru && translations.ru[key]) ||
+      key;
+  }
+
+  function translateFrequency(frequency) {
+    const value = String(frequency || "").trim();
+    const lowerValue = value.toLowerCase();
+
+    if (!value) {
+      return "";
+    }
+
+    if (lowerValue.includes("ежеднев")) {
+      return t("daily").toLowerCase();
+    }
+
+    if (lowerValue.includes("2–3") || lowerValue.includes("2-3")) {
+      return t("fewWeekly");
+    }
+
+    if (lowerValue.includes("1 раз")) {
+      return t("weekly");
+    }
+
+    if (lowerValue.includes("по факту")) {
+      return t("fact");
+    }
+
+    return value;
   }
 
   function renderProgressHistory() {
@@ -2062,7 +4537,7 @@
     if (entries.length === 0) {
       const empty = document.createElement("div");
       empty.className = "history-empty";
-      empty.innerText = "Сегодня ещё нет выполненных задач";
+      empty.innerText = t("noCompletedToday");
       progressHistoryList.appendChild(empty);
       return;
     }
@@ -2094,167 +4569,12 @@
     });
   }
 
-  function normalizeReminderSettings(settings) {
-    const defaultSettings = {
-      time: "18:00",
-      text: "Пора выполнить задачи",
-      lastShownDate: ""
-    };
-    const savedSettings = settings && typeof settings === "object" ? settings : {};
-    const time = /^\d{2}:\d{2}$/.test(savedSettings.time || "") ? savedSettings.time : defaultSettings.time;
-    const text = String(savedSettings.text || "").trim() || defaultSettings.text;
-
-    return {
-      time: time,
-      text: text,
-      lastShownDate: String(savedSettings.lastShownDate || "")
-    };
-  }
-
-  function loadReminderSettings() {
-    reminderSettings = normalizeReminderSettings(safeParseJSON(localStorage.getItem("taskReminderSettings"), reminderSettings));
-    renderReminderSettings();
-  }
-
-  function renderReminderSettings() {
-    const timeInput = document.getElementById("reminderTimeInput");
-    const textInput = document.getElementById("reminderTextInput");
-
-    if (!timeInput || !textInput) {
-      return;
-    }
-
-    timeInput.value = reminderSettings.time;
-    textInput.value = reminderSettings.text;
-  }
-
-  function saveReminderSettings() {
-    const timeInput = document.getElementById("reminderTimeInput");
-    const textInput = document.getElementById("reminderTextInput");
-
-    if (timeInput && textInput) {
-      reminderSettings = normalizeReminderSettings({
-        time: timeInput.value,
-        text: textInput.value,
-        lastShownDate: reminderSettings.lastShownDate
-      });
-    }
-
-    localStorage.setItem("taskReminderSettings", JSON.stringify(reminderSettings));
-    renderReminderSettings();
-    scheduleTaskReminder();
-    scheduleCloudSave();
-  }
-
-  function requestNotificationPermission() {
-    saveReminderSettings();
-
-    if (!("Notification" in window)) {
-      alert("Уведомления не поддерживаются в этом браузере");
-      return;
-    }
-
-    Notification.requestPermission().then(function(permission) {
-      if (permission !== "granted") {
-        alert("Разрешение на уведомления не включено");
-        scheduleTaskReminder();
-        return;
-      }
-
-      checkTaskReminder();
-      scheduleTaskReminder();
-    });
-  }
-
-  function hasIncompleteTasks() {
-    return tasks.some(function(task) {
-      return !task.done;
-    });
-  }
-
-  function getReminderDateForToday() {
-    const parts = reminderSettings.time.split(":").map(Number);
-    const reminderDate = new Date();
-    reminderDate.setHours(parts[0], parts[1], 0, 0);
-
-    return reminderDate;
-  }
-
-  function scheduleTaskReminder() {
-    if (reminderTimer) {
-      clearTimeout(reminderTimer);
-    }
-
-    const now = new Date();
-    let reminderDate = getReminderDateForToday();
-
-    if (reminderDate <= now) {
-      reminderDate.setDate(reminderDate.getDate() + 1);
-    }
-
-    const delay = Math.max(1000, reminderDate - now);
-    reminderTimer = setTimeout(function() {
-      checkTaskReminder();
-      scheduleTaskReminder();
-    }, delay);
-  }
-
-  function checkTaskReminder() {
-    if (reminderSettings.lastShownDate === getTodayString()) {
-      return;
-    }
-
-    if (new Date() < getReminderDateForToday()) {
-      return;
-    }
-
-    if (!hasIncompleteTasks()) {
-      reminderSettings.lastShownDate = getTodayString();
-      saveReminderSettings();
-      return;
-    }
-
-    showTaskReminderNotification();
-  }
-
-  function showTaskReminderNotification() {
-    if (!("Notification" in window) || Notification.permission !== "granted") {
-      return;
-    }
-
-    const title = reminderSettings.text;
-    const options = {
-      body: currentChild + ": есть невыполненные задачи",
-      tag: "family-tasks-daily-reminder",
-      renotify: false
-    };
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.ready.then(function(registration) {
-        if (registration.active) {
-          registration.active.postMessage({
-            type: "SHOW_REMINDER",
-            title: title,
-            options: options
-          });
-        } else {
-          registration.showNotification(title, options);
-        }
-      });
-    } else {
-      new Notification(title, options);
-    }
-
-    reminderSettings.lastShownDate = getTodayString();
-    localStorage.setItem("taskReminderSettings", JSON.stringify(reminderSettings));
-  }
-
   function getTaskIcon(task) {
     if (task.icon) {
       return task.icon;
     }
 
-    const title = normalizeTaskName(task.text || task.title);
+    const title = normalizeTaskName(task.titleRu || task.text || task.title || task.titleDe);
 
     if (title.includes("немец")) return "🇩🇪";
     if (title.includes("француз")) return "🇫🇷";
@@ -2296,8 +4616,147 @@
     return "✅";
   }
 
+  function getCategoryIcon(category) {
+    const categoryObject = getCategoryById(category);
+    const title = String(categoryObject ? categoryObject.nameRu : category || "").toLowerCase();
+
+    if (category === "cat_uncategorized") return "📦";
+    if (category === "cat_floor0" || title.includes("0 этаж")) return "🏠";
+    if (category === "cat_floor1_bath" || title.includes("1 этаж") && title.includes("санузел")) return "🚿";
+    if (category === "cat_floor1_living" || title.includes("1 этаж")) return "🍽️";
+    if (category === "cat_floor2_bath" || title.includes("2 этаж") && title.includes("ванная")) return "🛁";
+    if (category === "cat_floor2_bedrooms" || title.includes("2 этаж")) return "🛏️";
+    if (category === "cat_common" || title.includes("общие")) return "👨‍👩‍👧‍👦";
+    if (category === "cat_learning" || title.includes("учёба") || title.includes("учеба")) return "📚";
+    if (category === "cat_outside" || title.includes("улица") || title.includes("двор")) return "🌿";
+
+    return "✨";
+  }
+
+  function translateCategory(category) {
+    return getCategoryName(category);
+  }
+
+  function getRewardIcon(reward) {
+    const title = String(reward && reward.title || "").toLowerCase();
+
+    if (title.includes("youtube") || title.includes("ютуб")) return "▶️";
+    if (title.includes("подар")) return "🎁";
+    if (title.includes("кафе") || title.includes("прогул")) return "🍰";
+    if (title.includes("слад") || title.includes("шокол") || title.includes("конфет")) return "🍫";
+    if (title.includes("напит") || title.includes("сок")) return "🧃";
+    if (title.includes("деньг") || title.includes("евро") || title.includes("монет")) return "💰";
+
+    return "🎁";
+  }
+
+  function getRewardsForDisplay() {
+    return rewards.slice().sort(function(first, second) {
+      const firstCost = Number(first.cost) || 0;
+      const secondCost = Number(second.cost) || 0;
+
+      if (firstCost !== secondCost) {
+        return firstCost - secondCost;
+      }
+
+      return String(first.title || "").localeCompare(String(second.title || ""));
+    });
+  }
+
+  function showRewardFirework() {
+    const oldFirework = document.querySelector(".reward-firework-overlay");
+
+    if (oldFirework) {
+      oldFirework.remove();
+    }
+
+    const overlay = document.createElement("div");
+    overlay.className = "reward-firework-overlay";
+
+    const symbols = ["⭐", "🎉", "✨"];
+    const particleCount = 26;
+
+    for (let index = 0; index < particleCount; index += 1) {
+      const particle = document.createElement("span");
+      const angle = (Math.PI * 2 * index) / particleCount;
+      const distance = 74 + Math.random() * 72;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance - 18;
+
+      particle.className = "reward-firework-particle";
+      particle.innerText = symbols[index % symbols.length];
+      particle.style.setProperty("--x", x.toFixed(1) + "px");
+      particle.style.setProperty("--y", y.toFixed(1) + "px");
+      particle.style.setProperty("--rotate", (Math.random() * 220 - 110).toFixed(1) + "deg");
+      particle.style.setProperty("--scale", (0.75 + Math.random() * 0.65).toFixed(2));
+      particle.style.setProperty("--delay", Math.round(Math.random() * 120) + "ms");
+      overlay.appendChild(particle);
+    }
+
+    document.body.appendChild(overlay);
+
+    setTimeout(function() {
+      overlay.remove();
+    }, 1200);
+  }
+
+  function showTaskCompleteAnimation(earnedPoints, buttonElement) {
+    const taskElement = buttonElement && buttonElement.closest ? buttonElement.closest(".task") : null;
+
+    if (!taskElement) {
+      return;
+    }
+
+    const taskRect = taskElement.getBoundingClientRect();
+    const buttonRect = buttonElement.getBoundingClientRect();
+    const centerX = buttonRect.left - taskRect.left + buttonRect.width / 2;
+    const centerY = buttonRect.top - taskRect.top + buttonRect.height / 2;
+
+    const pop = document.createElement("span");
+    pop.className = "task-points-pop";
+    pop.innerText = "+" + earnedPoints + " ⭐";
+    pop.style.left = centerX + "px";
+    pop.style.top = Math.max(10, centerY - 16) + "px";
+    taskElement.appendChild(pop);
+
+    const symbols = ["✨", "⭐"];
+    const particleCount = 10;
+
+    for (let index = 0; index < particleCount; index += 1) {
+      const particle = document.createElement("span");
+      const angle = (Math.PI * 2 * index) / particleCount;
+      const distance = 28 + Math.random() * 36;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance - 8;
+
+      particle.className = "task-star-particle";
+      particle.innerText = symbols[index % symbols.length];
+      particle.style.left = centerX + "px";
+      particle.style.top = centerY + "px";
+      particle.style.setProperty("--x", x.toFixed(1) + "px");
+      particle.style.setProperty("--y", y.toFixed(1) + "px");
+      particle.style.setProperty("--rotate", (Math.random() * 180 - 90).toFixed(1) + "deg");
+      particle.style.setProperty("--scale", (0.75 + Math.random() * 0.45).toFixed(2));
+      particle.style.setProperty("--delay", Math.round(Math.random() * 90) + "ms");
+      taskElement.appendChild(particle);
+    }
+
+    setTimeout(function() {
+      pop.remove();
+      taskElement.querySelectorAll(".task-star-particle").forEach(function(particle) {
+        particle.remove();
+      });
+    }, 1000);
+  }
+
   function normalizeCategoryName(category) {
     const value = String(category || "").trim();
+
+    if (value.indexOf("cat_") === 0) {
+      const categoryObject = getCategoryById(value);
+      return categoryObject ? categoryObject.nameRu : uncategorizedName;
+    }
+
     const lowerValue = value.toLowerCase();
     const categoryAliases = {
       "0 этаж": "0 ЭТАЖ — гараж, вход, постирочная",
@@ -2323,7 +4782,7 @@
     };
 
     if (categoryAliases[lowerValue]) {
-      return categoryAliases[lowerValue];
+      return normalizeKnownCategory(categoryAliases[lowerValue]);
     }
 
     const matchedCategory = categoryOrder.find(function(knownCategory) {
@@ -2331,35 +4790,600 @@
     });
 
     if (matchedCategory) {
-      return matchedCategory;
+      return normalizeKnownCategory(matchedCategory);
+    }
+
+    const matchedRenamedCategory = Object.keys(categoryRenames).find(function(originalCategory) {
+      return String(categoryRenames[originalCategory] || "").toLowerCase() === lowerValue;
+    });
+
+    if (matchedRenamedCategory) {
+      return normalizeKnownCategory(matchedRenamedCategory);
+    }
+
+    const matchedCustomCategory = findCustomCategory(lowerValue);
+
+    if (matchedCustomCategory) {
+      return getCustomCategoryRu(matchedCustomCategory);
     }
 
     return uncategorizedName;
   }
 
+  function normalizeCategoryId(category) {
+    const value = String(category || "").trim();
+
+    if (getCategoryById(value)) {
+      return value;
+    }
+
+    return getCategoryIdByName(normalizeCategoryName(value));
+  }
+
+  function getTaskCategoryId(task) {
+    return normalizeCategoryId(task && (task.categoryId || task.category));
+  }
+
+  function getDefaultCategoryById(categoryId) {
+    return defaultCategories.find(function(category) {
+      return category.id === categoryId;
+    }) || null;
+  }
+
+  function getCustomCategoryId(customCategory) {
+    if (customCategory && typeof customCategory === "object" && customCategory.id) {
+      return customCategory.id;
+    }
+
+    return "cat_custom_" + normalizeTaskTitle(getCustomCategoryRu(customCategory)).replace(/\s+/g, "_");
+  }
+
+  function getCategoryById(categoryId) {
+    const defaultCategory = getDefaultCategoryById(categoryId);
+
+    if (defaultCategory && !removedStandardCategories.includes(defaultCategory.nameRu)) {
+      return Object.assign({}, defaultCategory, {
+        nameRu: categoryRenames[defaultCategory.nameRu] || defaultCategory.nameRu,
+        nameDe: categoryRenamesDe[defaultCategory.nameRu] || defaultCategory.nameDe
+      });
+    }
+
+    const customCategory = customCategories.find(function(category) {
+      return getCustomCategoryId(category) === categoryId;
+    });
+
+    if (customCategory) {
+      return {
+        id: getCustomCategoryId(customCategory),
+        nameRu: getCustomCategoryRu(customCategory),
+        nameDe: getCustomCategoryDe(customCategory),
+        isDefault: false,
+        order: Number(customCategory.order) || 100
+      };
+    }
+
+    return categoryId === "cat_uncategorized" ? getDefaultCategoryById("cat_uncategorized") : null;
+  }
+
+  function getCategoryIdByName(categoryName) {
+    const normalizedName = String(categoryName || "").trim().toLowerCase();
+    const defaultCategory = defaultCategories.find(function(category) {
+      return category.nameRu.toLowerCase() === normalizedName ||
+        String(categoryRenames[category.nameRu] || "").toLowerCase() === normalizedName;
+    });
+
+    if (defaultCategory && !removedStandardCategories.includes(defaultCategory.nameRu)) {
+      return defaultCategory.id;
+    }
+
+    const customCategory = findCustomCategory(normalizedName);
+    return customCategory ? getCustomCategoryId(customCategory) : "cat_uncategorized";
+  }
+
+  function getAllCategoryObjects() {
+    const standardCategories = defaultCategories
+      .filter(function(category) {
+        return category.id !== "cat_uncategorized" && !removedStandardCategories.includes(category.nameRu);
+      })
+      .map(function(category) {
+        return Object.assign({}, category, {
+          nameRu: categoryRenames[category.nameRu] || category.nameRu,
+          nameDe: categoryRenamesDe[category.nameRu] || category.nameDe
+        });
+      });
+    const customCategoryObjects = uniqueCategories(customCategories).map(function(category, index) {
+      return {
+        id: getCustomCategoryId(category),
+        nameRu: getCustomCategoryRu(category),
+        nameDe: getCustomCategoryDe(category),
+        isDefault: false,
+        order: 100 + index
+      };
+    });
+
+    return standardCategories.concat(customCategoryObjects, [getDefaultCategoryById("cat_uncategorized")]);
+  }
+
+  function getCategoryName(categoryId) {
+    const category = getCategoryById(normalizeCategoryId(categoryId));
+
+    if (!category) {
+      return getCurrentChildLanguage() === "de" ? "Ohne Kategorie" : uncategorizedName;
+    }
+
+    if (getCurrentChildLanguage() === "de") {
+      return category.nameDe || category.nameRu;
+    }
+
+    return category.nameRu;
+  }
+
+  function normalizeKnownCategory(category) {
+    const originalCategory = String(category || "").trim();
+
+    if (removedStandardCategories.includes(originalCategory)) {
+      return uncategorizedName;
+    }
+
+    return categoryRenames[originalCategory] || originalCategory;
+  }
+
   function getCategories() {
-    return categoryOrder.slice();
+    return getAllCategoryObjects().map(function(category) {
+      return category.id;
+    });
+  }
+
+  function getStandardCategorySource(category) {
+    const categoryName = String(category || "").trim().toLowerCase();
+
+    return categoryOrder.find(function(standardCategory) {
+      return standardCategory !== uncategorizedName &&
+        !removedStandardCategories.includes(standardCategory) &&
+        (standardCategory.toLowerCase() === categoryName || String(categoryRenames[standardCategory] || "").toLowerCase() === categoryName);
+    }) || null;
+  }
+
+  function isUncategorized(category) {
+    return normalizeCategoryId(category) === "cat_uncategorized";
+  }
+
+  function isCustomCategory(category) {
+    return normalizeCategoryId(category).indexOf("cat_custom_") === 0;
+  }
+
+  function categoryExists(category) {
+    const categoryName = String(category || "").trim().toLowerCase();
+
+    return getAllCategoryObjects().some(function(existingCategory) {
+      return existingCategory.nameRu.toLowerCase() === categoryName ||
+        String(existingCategory.nameDe || "").toLowerCase() === categoryName;
+    });
+  }
+
+  function categoryExistsExcept(category, excludedCategory) {
+    const categoryName = String(category || "").trim().toLowerCase();
+    const excludedName = String(excludedCategory || "").trim().toLowerCase();
+
+    return getAllCategoryObjects().some(function(existingCategory) {
+      const existingNames = [
+        existingCategory.nameRu.toLowerCase(),
+        String(existingCategory.nameDe || "").toLowerCase()
+      ];
+      return existingNames.includes(categoryName) && !existingNames.includes(excludedName);
+    });
   }
 
   function fillCategorySelect(select, selectedCategory) {
     select.innerHTML = "";
 
-    getCategories().forEach(function(category) {
+    getAllCategoryObjects().forEach(function(category) {
       const option = document.createElement("option");
-      option.value = category;
-      option.innerText = category;
+      option.value = category.id;
+      option.innerText = category.nameDe
+        ? category.nameRu + " · " + category.nameDe
+        : category.nameRu;
       select.appendChild(option);
     });
 
-    select.value = normalizeCategoryName(selectedCategory);
+    select.value = normalizeCategoryId(selectedCategory);
   }
 
   function updateCategoryInputs() {
     const taskCategoryInput = document.getElementById("taskCategoryInput");
 
     if (taskCategoryInput) {
-      fillCategorySelect(taskCategoryInput, uncategorizedName);
+      fillCategorySelect(taskCategoryInput, "cat_uncategorized");
     }
+  }
+
+  function saveCustomCategories() {
+    customCategories = uniqueCategories(customCategories).filter(function(category) {
+      const categoryName = getCustomCategoryRu(category);
+      return !categoryOrder.some(function(standardCategory) {
+        return standardCategory.toLowerCase() === categoryName.toLowerCase();
+      });
+    });
+    removedStandardCategories = uniqueCategoryNames(removedStandardCategories).filter(function(category) {
+      return categoryOrder.includes(category) && category !== uncategorizedName;
+    });
+    Object.keys(categoryRenames).forEach(function(category) {
+      if (removedStandardCategories.includes(category) || !categoryOrder.includes(category)) {
+        delete categoryRenames[category];
+      }
+    });
+    Object.keys(categoryRenamesDe).forEach(function(category) {
+      if (removedStandardCategories.includes(category) || !categoryOrder.includes(category)) {
+        delete categoryRenamesDe[category];
+      }
+    });
+    localStorage.setItem("customCategories", JSON.stringify(customCategories));
+    localStorage.setItem("categories", JSON.stringify(getAllCategoryObjects()));
+    localStorage.setItem("categoryRenames", JSON.stringify(categoryRenames));
+    localStorage.setItem("categoryRenamesDe", JSON.stringify(categoryRenamesDe));
+    localStorage.setItem("removedStandardCategories", JSON.stringify(removedStandardCategories));
+    scheduleCloudSave();
+  }
+
+  function renderCustomCategories() {
+    renderCategoryManagement();
+  }
+
+  function getCategoryManagementItems() {
+    return getAllCategoryObjects().map(function(category) {
+      return {
+        type: category.id === "cat_uncategorized" ? "uncategorized" : (category.isDefault ? "standard" : "custom"),
+        id: category.id,
+        source: category.id,
+        name: category.nameRu,
+        nameDe: category.nameDe || "",
+        isDefault: category.isDefault
+      };
+    });
+  }
+
+  function makeCategoryKey(categoryItem) {
+    return categoryItem.id || categoryItem.type + ":" + categoryItem.source;
+  }
+
+  function getTaskCountByCategory(category) {
+    const categoryId = normalizeCategoryId(category);
+    return tasks.filter(function(task) {
+      return getTaskCategoryId(task) === categoryId;
+    }).length;
+  }
+
+  function replaceCategoryInStoredChildren(oldCategory, newCategory) {
+    const oldCategoryId = normalizeCategoryId(oldCategory);
+    const newCategoryId = normalizeCategoryId(newCategory);
+    const newCategoryName = normalizeCategoryName(newCategoryId);
+
+    children.forEach(function(child) {
+      if (child === currentChild) {
+        return;
+      }
+
+      const storageKey = getStorageKey(child);
+      const data = normalizeChildData(safeParseJSON(localStorage.getItem(storageKey), getInitialChildData()));
+      let hasChanges = false;
+
+      data.tasks = data.tasks.map(function(task) {
+        const rawCategory = String(task.category || "").trim().toLowerCase();
+        const shouldReplace = getTaskCategoryId(task) === oldCategoryId ||
+          normalizeCategoryName(task.category) === normalizeCategoryName(oldCategory) ||
+          rawCategory === String(oldCategory || "").trim().toLowerCase();
+
+        if (!shouldReplace) {
+          return task;
+        }
+
+        hasChanges = true;
+        return Object.assign({}, task, { categoryId: newCategoryId, category: newCategoryName });
+      });
+
+      if (hasChanges) {
+        localStorage.setItem(storageKey, JSON.stringify(data));
+      }
+    });
+  }
+
+  function renderCategoryManagement() {
+    const list = document.getElementById("categoryManagementList");
+
+    if (!list) {
+      return;
+    }
+
+    list.innerHTML = "";
+
+    getCategoryManagementItems().forEach(function(categoryItem) {
+      const category = categoryItem.name;
+      const row = document.createElement("div");
+      row.className = "category-management-row";
+
+      if (editingCategoryKey === makeCategoryKey(categoryItem)) {
+        const input = document.createElement("input");
+        input.className = "category-edit-input";
+        input.id = "categoryEditInputRu";
+        input.placeholder = "Категория RU";
+        input.value = category;
+        input.onkeydown = function(event) {
+          if (event.key === "Enter") {
+            saveCategoryEdit(categoryItem);
+          }
+        };
+
+        const deInput = document.createElement("input");
+        deInput.className = "category-edit-input";
+        deInput.id = "categoryEditInputDe";
+        deInput.placeholder = "Категория DE";
+        deInput.value = categoryItem.nameDe || "";
+        deInput.onkeydown = function(event) {
+          if (event.key === "Enter") {
+            saveCategoryEdit(categoryItem);
+          }
+        };
+
+        const saveButton = document.createElement("button");
+        saveButton.className = "secondary-button";
+        saveButton.innerText = "✓";
+        saveButton.title = "Сохранить";
+        saveButton.onclick = function() {
+          saveCategoryEdit(categoryItem);
+        };
+
+        const cancelButton = document.createElement("button");
+        cancelButton.className = "delete-button";
+        cancelButton.innerText = "✕";
+        cancelButton.title = "Отмена";
+        cancelButton.onclick = function() {
+          editingCategoryKey = null;
+          renderCategoryManagement();
+        };
+
+        row.appendChild(input);
+        row.appendChild(deInput);
+        row.appendChild(saveButton);
+        row.appendChild(cancelButton);
+      } else {
+        const info = document.createElement("div");
+        info.className = "category-management-info";
+
+        const name = document.createElement("span");
+        name.className = "category-management-name";
+        name.innerText = category;
+
+        const count = document.createElement("span");
+        count.className = "category-task-count";
+        count.innerText = getTaskCountByCategory(category) + " задач";
+
+        info.appendChild(name);
+        info.appendChild(count);
+
+        if (categoryItem.type === "custom" && !categoryItem.nameDe) {
+          const warning = document.createElement("span");
+          warning.className = "translation-warning";
+          warning.innerText = "Нет немецкого перевода";
+          info.appendChild(warning);
+        }
+
+        row.appendChild(info);
+
+        if (!isUncategorized(category)) {
+          const editButton = document.createElement("button");
+          editButton.className = "secondary-button";
+          editButton.innerText = "✏️";
+          editButton.title = "Редактировать категорию";
+          editButton.onclick = function() {
+            editingCategoryKey = makeCategoryKey(categoryItem);
+            renderCategoryManagement();
+          };
+
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete-button";
+          deleteButton.innerText = "🗑️";
+          deleteButton.title = "Удалить категорию";
+          deleteButton.onclick = function() {
+            deleteCategoryItem(categoryItem);
+          };
+
+          row.appendChild(editButton);
+          row.appendChild(deleteButton);
+        }
+      }
+
+      list.appendChild(row);
+    });
+  }
+
+  function showNewCategoryForm() {
+    const input = document.getElementById("newCategoryInput");
+    const deInput = document.getElementById("newCategoryInputDe");
+
+    if (input) {
+      input.value = "";
+      input.focus();
+    }
+
+    if (deInput) {
+      deInput.value = "";
+    }
+  }
+
+  function cancelNewCategory() {
+    const input = document.getElementById("newCategoryInput");
+    const deInput = document.getElementById("newCategoryInputDe");
+
+    if (input) {
+      input.value = "";
+    }
+
+    if (deInput) {
+      deInput.value = "";
+    }
+  }
+
+  function saveNewCategory() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const input = document.getElementById("newCategoryInput");
+    const deInput = document.getElementById("newCategoryInputDe");
+    const categoryName = input ? input.value.trim() : "";
+    const categoryNameDe = deInput ? deInput.value.trim() : "";
+
+    if (categoryName === "") {
+      return;
+    }
+
+    if (categoryExists(categoryName)) {
+      alert("Такая категория уже существует");
+      return;
+    }
+
+    customCategories.push({
+      id: "cat_custom_" + Date.now(),
+      nameRu: categoryName,
+      nameDe: categoryNameDe,
+      isDefault: false,
+      order: 100 + customCategories.length,
+      updatedAt: getNowIso()
+    });
+    input.value = "";
+    if (deInput) {
+      deInput.value = "";
+    }
+    saveCustomCategories();
+    updateCategoryInputs();
+    renderCategoryManagement();
+    renderTasks();
+  }
+
+  function saveCategoryEdit(categoryItem) {
+    if (!isParentMode || categoryItem.type === "uncategorized") {
+      return;
+    }
+
+    const input = document.getElementById("categoryEditInputRu");
+    const deInput = document.getElementById("categoryEditInputDe");
+    const trimmedName = input ? input.value.trim() : "";
+    const trimmedNameDe = deInput ? deInput.value.trim() : "";
+
+    if (trimmedName === "") {
+      editingCategoryKey = null;
+      renderCategoryManagement();
+      return;
+    }
+
+    if (trimmedName !== categoryItem.name && categoryExistsExcept(trimmedName, categoryItem.name)) {
+      alert("Такая категория уже существует");
+      return;
+    }
+
+    if (categoryItem.type === "standard") {
+      const defaultCategory = getDefaultCategoryById(categoryItem.id);
+      if (defaultCategory) {
+        categoryRenames[defaultCategory.nameRu] = trimmedName;
+        categoryRenamesDe[defaultCategory.nameRu] = trimmedNameDe;
+      }
+    } else {
+      customCategories = customCategories.map(function(customCategory) {
+        return getCustomCategoryId(customCategory) === categoryItem.id
+          ? Object.assign({}, customCategory, { nameRu: trimmedName, nameDe: trimmedNameDe, updatedAt: getNowIso() })
+          : customCategory;
+      });
+    }
+
+    editingCategoryKey = null;
+    saveCustomCategories();
+    saveData();
+    saveExpandedCategories();
+    updateCategoryInputs();
+    renderCategoryManagement();
+    renderTasks();
+  }
+
+  function deleteCategoryItem(categoryItem) {
+    if (!isParentMode || categoryItem.type === "uncategorized") {
+      return;
+    }
+
+    const message = categoryItem.type === "standard"
+      ? "Это стандартная категория. Лучше не удалять. Перенести задачи в Без категории?"
+      : "Перенести задачи из этой категории в Без категории?";
+
+    if (!confirm(message)) {
+      return;
+    }
+
+    replaceCategoryInStoredChildren(categoryItem.id, "cat_uncategorized");
+    tasks = tasks.map(function(task) {
+      return getTaskCategoryId(task) === categoryItem.id
+        ? Object.assign({}, task, { categoryId: "cat_uncategorized", category: uncategorizedName })
+        : task;
+    });
+
+    if (categoryItem.type === "standard") {
+      const defaultCategory = getDefaultCategoryById(categoryItem.id);
+      if (defaultCategory) {
+        removedStandardCategories.push(defaultCategory.nameRu);
+        delete categoryRenames[defaultCategory.nameRu];
+        delete categoryRenamesDe[defaultCategory.nameRu];
+      }
+    } else {
+      customCategories = customCategories.filter(function(customCategory) {
+        return getCustomCategoryId(customCategory) !== categoryItem.id;
+      });
+    }
+
+    expandedCategories = expandedCategories.filter(function(expandedCategory) {
+      return expandedCategory !== categoryItem.id;
+    });
+
+    saveCustomCategories();
+    saveData();
+    saveExpandedCategories();
+    updateCategoryInputs();
+    renderCategoryManagement();
+    renderTasks();
+  }
+
+  function renameCustomCategory(category) {
+    const categoryObject = getCategoryById(category);
+
+    if (!categoryObject) {
+      return;
+    }
+
+    const categoryItem = {
+      type: categoryObject.isDefault ? "standard" : "custom",
+      id: categoryObject.id,
+      source: categoryObject.id,
+      name: categoryObject.nameRu,
+      nameDe: categoryObject.nameDe || ""
+    };
+
+    editingCategoryKey = makeCategoryKey(categoryItem);
+    renderCategoryManagement();
+  }
+
+  function deleteCustomCategory(category) {
+    const categoryObject = getCategoryById(category);
+
+    if (!categoryObject) {
+      return;
+    }
+
+    const categoryItem = {
+      type: categoryObject.isDefault ? "standard" : "custom",
+      id: categoryObject.id,
+      source: categoryObject.id,
+      name: categoryObject.nameRu,
+      nameDe: categoryObject.nameDe || ""
+    };
+
+    deleteCategoryItem(categoryItem);
   }
 
   function saveExpandedCategories() {
@@ -2368,7 +5392,7 @@
   }
 
   function toggleCategory(category) {
-    const normalizedCategory = normalizeCategoryName(category);
+    const normalizedCategory = normalizeCategoryId(category);
 
     if (expandedCategories.includes(normalizedCategory)) {
       expandedCategories = expandedCategories.filter(function(item) {
@@ -2397,7 +5421,16 @@
       if (activeTaskFilter === filter.id) {
         button.classList.add("active");
       }
-      button.innerText = filter.label;
+      const filterLabelKeys = {
+        all: "all",
+        today: "today",
+        daily: "daily",
+        fewWeekly: "fewWeekly",
+        weekly: "weekly",
+        done: "completed",
+        todo: "todo"
+      };
+      button.innerText = t(filterLabelKeys[filter.id] || filter.id);
       button.onclick = function() {
         setTaskFilter(filter.id);
       };
@@ -2456,6 +5489,8 @@
   }
 
   function renderTabs() {
+    renderAppText();
+
     ["today", "rewards", "progress", "parent"].forEach(function(tabName) {
       const panel = document.getElementById(tabName + "Panel");
       const button = document.getElementById("tab" + tabName.charAt(0).toUpperCase() + tabName.slice(1));
@@ -2468,6 +5503,8 @@
         button.classList.toggle("active", activeTab === tabName);
       }
     });
+
+    document.body.classList.toggle("parent-tab", activeTab === "parent");
 
     if (activeTab === "progress") {
       renderHistory();
@@ -2506,6 +5543,37 @@
     });
   }
 
+  function renderAppText() {
+    const textMap = [
+      ["appTitle", "appTitle"],
+      ["rewardsTitle", "rewards"],
+      ["progressTitle", "progress"],
+      ["earnedTodayLabel", "earnedToday"],
+      ["weekEarnedLabel", "week"],
+      ["totalPointsLabel", "totalPoints"],
+      ["rankingTitle", "ranking"],
+      ["historyTitle", "history"],
+      ["parentTitle", "parent"],
+      ["parentModeLabel", "parentMode"],
+      ["logoutParentButton", "logoutParent"]
+    ];
+
+    textMap.forEach(function(item) {
+      const element = document.getElementById(item[0]);
+
+      if (element) {
+        element.innerText = t(item[1]);
+      }
+    });
+
+    document.title = "Family Tasks";
+    document.getElementById("tabToday").innerText = "✅ " + t("today");
+    document.getElementById("tabRewards").innerText = "🎁 " + t("rewards");
+    document.getElementById("tabProgress").innerText = "📈 " + t("progress");
+    document.getElementById("tabParent").innerText = "🔒 " + t("parent");
+    renderLanguageSettings();
+  }
+
   function placeParentBlocks() {
     const childrenBody = document.getElementById("childrenSectionBody");
     const childSelect = document.querySelector(".child-select");
@@ -2517,11 +5585,36 @@
     renderParentSections();
   }
 
+  function renderLanguageSettings() {
+    const languageSelect = document.getElementById("languageSelect");
+
+    if (languageSelect) {
+      languageSelect.value = getCurrentChildLanguage();
+    }
+  }
+
+  function saveCurrentChildLanguage() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const languageSelect = document.getElementById("languageSelect");
+    language = languageSelect && languageSelect.value === "de" ? "de" : "ru";
+    saveData();
+    renderAppText();
+    renderChildren();
+    renderTasks();
+    renderRewards();
+    renderHistory();
+    renderProgressHistory();
+  }
+
   function updateKidSummary() {
     const kidName = document.getElementById("kidName");
     const kidPoints = document.getElementById("kidPoints");
     const tasksLeftToday = document.getElementById("tasksLeftToday");
     const earnedToday = document.getElementById("earnedToday");
+    const weekEarned = document.getElementById("weekEarned");
     const totalProgressPoints = document.getElementById("totalProgressPoints");
     const remainingTasks = tasks.filter(function(task) {
       return !task.done;
@@ -2529,6 +5622,20 @@
     const todayEarned = taskHistory
       .filter(function(entry) {
         return entry.child === currentChild && entry.date === getTodayString();
+      })
+      .reduce(function(total, entry) {
+        return total + entry.points;
+      }, 0);
+    const weekTotal = taskHistory
+      .filter(function(entry) {
+        const entryDate = parseDateString(entry.date);
+        const today = parseDateString(getTodayString());
+
+        if (!entryDate || !today || entry.child !== currentChild) {
+          return false;
+        }
+
+        return Math.floor((today - entryDate) / (24 * 60 * 60 * 1000)) < 7;
       })
       .reduce(function(total, entry) {
         return total + entry.points;
@@ -2542,16 +5649,34 @@
       kidPoints.innerText = points + " ⭐";
     }
 
+    if (lastRenderedPoints !== null && lastRenderedPoints !== points) {
+      const summary = document.querySelector(".kid-summary");
+
+      if (summary) {
+        summary.classList.remove("points-bump");
+        void summary.offsetWidth;
+        summary.classList.add("points-bump");
+      }
+    }
+
+    lastRenderedPoints = points;
+
     if (tasksLeftToday) {
-      tasksLeftToday.innerText = remainingTasks + " задач осталось сегодня";
+      tasksLeftToday.innerText = getCurrentChildLanguage() === "de"
+        ? remainingTasks + " " + t("tasksLeftToday")
+        : t("todayLeftPrefix") + " " + remainingTasks + " задач";
     }
 
     if (earnedToday) {
-      earnedToday.innerText = todayEarned + " баллов";
+      earnedToday.innerText = todayEarned + " " + t("pointsWord");
+    }
+
+    if (weekEarned) {
+      weekEarned.innerText = weekTotal + " " + t("pointsWord");
     }
 
     if (totalProgressPoints) {
-      totalProgressPoints.innerText = points + " баллов";
+      totalProgressPoints.innerText = points + " " + t("pointsWord");
     }
   }
 
@@ -2559,19 +5684,25 @@
     const updatedTasks = taskList.slice();
 
     taskTemplateUpdates.forEach(function(templateTask) {
+      const templateCategoryId = normalizeCategoryId(templateTask.category);
+      const templateCategoryName = normalizeCategoryName(templateCategoryId);
       const namesToMatch = [templateTask.text].concat(templateTask.aliases || []);
       const matchIndex = updatedTasks.findIndex(function(task) {
-        return namesToMatch.includes(task.text) || namesToMatch
+        const taskTitle = task.titleRu || task.text || task.title || "";
+        return namesToMatch.includes(taskTitle) || namesToMatch
           .map(normalizeTaskName)
-          .includes(normalizeTaskName(task.text));
+          .includes(normalizeTaskName(taskTitle));
       });
 
       if (matchIndex === -1) {
         updatedTasks.push({
           text: templateTask.text,
+          titleRu: templateTask.text,
+          titleDe: templateTask.titleDe || "",
           points: templateTask.points,
           frequency: templateTask.frequency,
-          category: normalizeCategoryName(templateTask.category),
+          categoryId: templateCategoryId,
+          category: templateCategoryName,
           icon: templateTask.icon || getTaskIcon(templateTask),
           done: false,
           lastCompletedAt: null,
@@ -2580,9 +5711,12 @@
       } else {
         updatedTasks[matchIndex] = {
           text: templateTask.text,
+          titleRu: templateTask.text,
+          titleDe: updatedTasks[matchIndex].titleDe || templateTask.titleDe || "",
           points: templateTask.points,
           frequency: templateTask.frequency,
-          category: normalizeCategoryName(templateTask.category),
+          categoryId: templateCategoryId,
+          category: templateCategoryName,
           icon: updatedTasks[matchIndex].icon || templateTask.icon || getTaskIcon(templateTask),
           done: updatedTasks[matchIndex].done,
           lastCompletedAt: updatedTasks[matchIndex].lastCompletedAt || null,
@@ -2592,7 +5726,7 @@
     });
 
     return updatedTasks.filter(function(task, index) {
-      const normalizedTaskName = normalizeTaskName(task.text);
+      const normalizedTaskName = normalizeTaskName(task.titleRu || task.text || task.title);
       const isOldAlias = taskTemplateUpdates.some(function(templateTask) {
         return normalizeTaskName(templateTask.text) !== normalizedTaskName &&
           (templateTask.aliases || []).map(normalizeTaskName).includes(normalizedTaskName);
@@ -2603,7 +5737,7 @@
       }
 
       return updatedTasks.findIndex(function(otherTask) {
-        return normalizeTaskName(otherTask.text) === normalizeTaskName(task.text);
+        return normalizeTaskName(otherTask.titleRu || otherTask.text || otherTask.title) === normalizeTaskName(task.titleRu || task.text || task.title);
       }) === index;
     });
   }
@@ -2634,8 +5768,19 @@
     const savedParentMode = localStorage.getItem("parentMode");
     const savedExpandedCategories = localStorage.getItem("expandedCategories");
     const savedTaskFilter = localStorage.getItem("activeTaskFilter");
+    const savedCustomCategories = localStorage.getItem("customCategories");
+    const savedCategories = localStorage.getItem("categories");
+    const savedCategoryRenames = localStorage.getItem("categoryRenames");
+    const savedCategoryRenamesDe = localStorage.getItem("categoryRenamesDe");
+    const savedRemovedStandardCategories = localStorage.getItem("removedStandardCategories");
 
     children = uniqueList(safeParseJSON(savedChildren, defaultChildren.slice()));
+    customCategories = uniqueCategories(safeParseJSON(savedCustomCategories, null) || safeParseJSON(savedCategories, []).filter(function(category) {
+      return category && category.isDefault === false;
+    }));
+    categoryRenames = normalizeCategoryRenames(safeParseJSON(savedCategoryRenames, {}));
+    categoryRenamesDe = normalizeCategoryRenames(safeParseJSON(savedCategoryRenamesDe, {}));
+    removedStandardCategories = uniqueCategoryNames(safeParseJSON(savedRemovedStandardCategories, []));
 
     if (children.length === 0) {
       children = defaultChildren.slice();
@@ -2644,7 +5789,7 @@
     rewards = normalizeRewards(safeParseJSON(savedRewards, rewards));
 
     isParentMode = savedParentMode === "true";
-    expandedCategories = uniqueList(uniqueList(safeParseJSON(savedExpandedCategories, [])).map(normalizeCategoryName));
+    expandedCategories = uniqueList(uniqueList(safeParseJSON(savedExpandedCategories, [])).map(normalizeCategoryId));
     activeTaskFilter = taskFilters.some(function(filter) {
       return filter.id === savedTaskFilter;
     }) ? savedTaskFilter : "today";
@@ -2665,12 +5810,15 @@
     migrateChildNames();
     saveChildren();
     applyTaskTemplateUpdatesForAllChildren();
-    loadReminderSettings();
+    migrateTaskTranslations();
     updateParentModeView();
     renderChildren();
+    renderCustomCategories();
     renderTaskFilters();
     renderRanking();
     renderHistory();
+    renderStarTransactions();
+    updateDailyResetStatus();
     renderTabs();
   }
 
@@ -2680,7 +5828,70 @@
     localStorage.setItem("currentChild", currentChild);
     localStorage.setItem("rewards", JSON.stringify(rewards));
     localStorage.setItem("parentMode", isParentMode);
+    localStorage.setItem("customCategories", JSON.stringify(customCategories));
+    localStorage.setItem("categoryRenames", JSON.stringify(categoryRenames));
+    localStorage.setItem("categoryRenamesDe", JSON.stringify(categoryRenamesDe));
+    localStorage.setItem("removedStandardCategories", JSON.stringify(removedStandardCategories));
     scheduleCloudSave();
+  }
+
+  function migrateTaskTranslations() {
+    let changed = false;
+
+    children.forEach(function(child) {
+      const storageKey = getStorageKey(child);
+      const rawData = safeParseJSON(localStorage.getItem(storageKey), getInitialChildData());
+      const data = normalizeChildData(rawData);
+      let childChanged = false;
+
+      data.tasks = data.tasks.map(function(task) {
+        const ruTitle = String(task.titleRu || task.title || task.text || "").trim();
+        const deTitle = getStandardTaskTranslation(ruTitle);
+        const updatedTask = Object.assign({}, task);
+
+        if (!updatedTask.titleRu && ruTitle) {
+          updatedTask.titleRu = ruTitle;
+          updatedTask.text = ruTitle;
+          childChanged = true;
+        }
+
+        if (!updatedTask.text && ruTitle) {
+          updatedTask.text = ruTitle;
+          childChanged = true;
+        }
+
+        if (!updatedTask.titleDe && deTitle) {
+          updatedTask.titleDe = deTitle;
+          childChanged = true;
+        }
+
+        return updatedTask;
+      });
+
+      const nextDataString = JSON.stringify(data);
+      const currentDataString = localStorage.getItem(storageKey);
+
+      if (childChanged || nextDataString !== currentDataString) {
+        localStorage.setItem(storageKey, nextDataString);
+        changed = true;
+
+        if (child === currentChild && tasks.length > 0) {
+          tasks = data.tasks;
+          points = data.points;
+          claimedRewards = data.claimedRewards;
+          rewardRequests = data.rewardRequests;
+          rewards = data.rewards;
+          language = data.language;
+        }
+      }
+    });
+
+    if (changed) {
+      saveChildren();
+      saveToCloud();
+    }
+
+    return changed;
   }
 
   function migrateChildNames() {
@@ -2729,6 +5940,8 @@
     document.getElementById("childView").style.display = editingChild ? "none" : "flex";
     document.getElementById("childEdit").style.display = editingChild ? "flex" : "none";
     renderHistoryFilters();
+    renderStarTransactionFilters();
+    renderLanguageSettings();
     renderRanking();
     updateKidSummary();
   }
@@ -2742,25 +5955,30 @@
       points = data.points;
       claimedRewards = data.claimedRewards;
       rewards = data.rewards;
+      rewardRequests = data.rewardRequests;
+      language = data.language;
     } else {
       tasks = getDefaultTasks();
       points = 0;
       claimedRewards = [];
       rewards = getDefaultRewards();
+      rewardRequests = [];
+      language = "ru";
     }
 
     tasks = applyTaskTemplateUpdates(tasks);
     const resetResult = resetTasksByFrequency(tasks);
     tasks = resetResult.tasks;
     saveData();
+    renderAppText();
     renderTasks();
     renderRewards();
     renderHistory();
+    renderStarTransactions();
     renderProgressHistory();
     updatePoints();
     renderRanking();
-    checkTaskReminder();
-    scheduleTaskReminder();
+    updateDailyResetStatus();
   }
 
   function saveData() {
@@ -2768,12 +5986,17 @@
       tasks: tasks,
       points: Math.max(0, Number(points) || 0),
       claimedRewards: Array.isArray(claimedRewards) ? claimedRewards : [],
-      rewards: normalizeRewards(rewards)
+      rewards: normalizeRewards(rewards),
+      rewardRequests: normalizeRewardRequests(rewardRequests),
+      language: getCurrentChildLanguage(),
+      updatedAt: getNowIso()
     };
 
     points = data.points;
     claimedRewards = data.claimedRewards;
     rewards = data.rewards;
+    rewardRequests = data.rewardRequests;
+    language = data.language;
     localStorage.setItem(getStorageKey(currentChild), JSON.stringify(data));
     saveChildren();
     renderRanking();
@@ -2824,11 +6047,11 @@
 
       const name = document.createElement("span");
       name.className = "ranking-name";
-      name.innerText = (index === 0 ? "👑 " : "") + item.child;
+      name.innerText = (index === 0 ? "1 место 👑 " : (index === 1 ? "2 место 🥈 " : (index === 2 ? "3 место 🥉 " : (index + 1) + " место "))) + item.child;
 
       const score = document.createElement("span");
       score.className = "ranking-points";
-      score.innerText = item.points + " баллов";
+      score.innerText = item.points + " " + t("pointsWord");
 
       row.appendChild(name);
       row.appendChild(score);
@@ -2840,8 +6063,9 @@
     document.body.classList.toggle("parent-mode", isParentMode);
     document.getElementById("parentModeLabel").classList.toggle("active", isParentMode);
     document.getElementById("logoutParentButton").classList.toggle("active", isParentMode);
-    renderReminderSettings();
+    renderAppText();
     placeParentBlocks();
+    renderCustomCategories();
 
     if (!isParentMode && activeTab === "parent") {
       activeTab = "today";
@@ -2854,6 +6078,8 @@
       editingChild = false;
       editingRewardId = null;
       document.getElementById("taskInput").value = "";
+      document.getElementById("taskInputDe").value = "";
+      document.getElementById("taskIconInput").value = "";
       document.getElementById("taskPointsInput").value = "10";
     }
   }
@@ -2896,6 +6122,8 @@
     editingIndex = null;
     editingChild = false;
     document.getElementById("taskInput").value = "";
+    document.getElementById("taskInputDe").value = "";
+    document.getElementById("taskIconInput").value = "";
     document.getElementById("taskPointsInput").value = "10";
     saveChildren();
     renderChildren();
@@ -2933,11 +6161,12 @@
 
     const oldKey = getStorageKey(oldName);
     const newKey = getStorageKey(newName);
-    const currentData = localStorage.getItem(oldKey) || JSON.stringify({
+    const currentData = normalizeChildData(safeParseJSON(localStorage.getItem(oldKey), {
       tasks: tasks,
       points: points,
-      claimedRewards: claimedRewards
-    });
+      claimedRewards: claimedRewards,
+      rewardRequests: rewardRequests
+    }));
     const childIndex = children.indexOf(oldName);
 
     if (childIndex !== -1) {
@@ -2945,7 +6174,10 @@
     }
 
     currentChild = newName;
-    localStorage.setItem(newKey, currentData);
+    currentData.rewardRequests = currentData.rewardRequests.map(function(request) {
+      return Object.assign({}, request, { child: newName });
+    });
+    localStorage.setItem(newKey, JSON.stringify(currentData));
 
     if (newKey !== oldKey) {
       localStorage.removeItem(oldKey);
@@ -2984,6 +6216,7 @@
     tasks = getDefaultTasks();
     points = 0;
     claimedRewards = [];
+    rewardRequests = [];
     rewards = getDefaultRewards();
     editingIndex = null;
     editingChild = false;
@@ -3037,6 +6270,7 @@
     taskList.innerHTML = "";
     updateCategoryInputs();
     renderTaskFilters();
+    renderCategoryManagement();
     let visibleTaskCount = 0;
 
     getCategories().forEach(function(category) {
@@ -3045,13 +6279,13 @@
           return { task: task, index: index };
         })
         .filter(function(item) {
-          const matchesCategory = normalizeCategoryName(item.task.category) === category;
+          const matchesCategory = getTaskCategoryId(item.task) === category;
           const matchesCurrentMode = isParentMode ? taskMatchesFilter(item.task) : !item.task.done;
 
           return matchesCategory && matchesCurrentMode;
         });
 
-      if (categoryTasks.length === 0) {
+      if (categoryTasks.length === 0 && !(isParentMode && isCustomCategory(category))) {
         return;
       }
 
@@ -3063,31 +6297,72 @@
       const categoryCard = document.createElement("div");
       categoryCard.className = "category-card";
 
-      const header = document.createElement("button");
+      if (isCustomCategory(category)) {
+        categoryCard.classList.add("custom-category");
+      }
+
+      const header = document.createElement("div");
       header.className = "category-header";
-      header.onclick = function() {
+
+      const toggleButton = document.createElement("button");
+      toggleButton.className = "category-toggle-button";
+      toggleButton.onclick = function() {
         toggleCategory(category);
       };
 
       const title = document.createElement("span");
       title.className = "category-title";
-      title.innerText = category;
+      title.innerText = getCategoryIcon(category) + " " + getCategoryName(category);
 
       const count = document.createElement("span");
       count.className = "category-count";
       count.innerText = completedCount + "/" + categoryTasks.length + " " + (isExpanded ? "▲" : "▼");
 
-      header.appendChild(title);
-      header.appendChild(count);
+      toggleButton.appendChild(title);
+      toggleButton.appendChild(count);
+      header.appendChild(toggleButton);
+
+      if (isCustomCategory(category)) {
+        const categoryActions = document.createElement("div");
+        categoryActions.className = "category-actions";
+
+        const editCategoryButton = document.createElement("button");
+        editCategoryButton.className = "secondary-button";
+        editCategoryButton.innerText = "✏️";
+        editCategoryButton.title = "Редактировать категорию";
+        editCategoryButton.onclick = function() {
+          renameCustomCategory(category);
+        };
+
+        const deleteCategoryButton = document.createElement("button");
+        deleteCategoryButton.className = "delete-button";
+        deleteCategoryButton.innerText = "🗑️";
+        deleteCategoryButton.title = "Удалить категорию";
+        deleteCategoryButton.onclick = function() {
+          deleteCustomCategory(category);
+        };
+
+        categoryActions.appendChild(editCategoryButton);
+        categoryActions.appendChild(deleteCategoryButton);
+        header.appendChild(categoryActions);
+      }
+
       categoryCard.appendChild(header);
 
       if (isExpanded) {
         const categoryBody = document.createElement("div");
         categoryBody.className = "category-tasks";
 
-        categoryTasks.forEach(function(item) {
-          categoryBody.appendChild(createTaskElement(item.task, item.index));
-        });
+        if (categoryTasks.length === 0) {
+          const emptyCategory = document.createElement("div");
+          emptyCategory.className = "task-empty";
+          emptyCategory.innerText = "В этой категории пока нет задач";
+          categoryBody.appendChild(emptyCategory);
+        } else {
+          categoryTasks.forEach(function(item) {
+            categoryBody.appendChild(createTaskElement(item.task, item.index));
+          });
+        }
 
         categoryCard.appendChild(categoryBody);
       }
@@ -3105,7 +6380,7 @@
     }
 
     if (editingIndex !== null) {
-      const editInput = document.getElementById("editInput" + editingIndex);
+      const editInput = document.getElementById("editInputRu" + editingIndex);
 
       if (editInput) {
         editInput.focus();
@@ -3118,59 +6393,86 @@
     taskElement.className = "task";
 
     if (task.done) {
+      taskElement.classList.add("task-done");
       taskElement.style.opacity = "0.5";
     }
 
+    if (justCompletedTaskIndex === index) {
+      taskElement.classList.add("task-just-done");
+    }
+
     if (editingIndex === index) {
-      const editBox = document.createElement("div");
-      editBox.className = "task-edit";
+      taskElement.classList.add("task-editing");
 
-      const iconInput = document.createElement("input");
-      iconInput.className = "task-icon-input";
-      iconInput.id = "editIconInput" + index;
-      iconInput.value = getTaskIcon(task);
-      iconInput.maxLength = "4";
+      const form = document.createElement("div");
+      form.className = "task-edit-form";
 
-      const input = document.createElement("input");
-      input.className = "task-edit-input";
-      input.value = task.text;
-      input.id = "editInput" + index;
-      input.onkeydown = function(event) {
-        if (event.key === "Enter") {
-          saveEdit(index);
-        }
+      function makeField(labelText, inputEl) {
+        const field = document.createElement("div");
+        field.className = "task-edit-field";
+        const lbl = document.createElement("label");
+        lbl.innerText = labelText;
+        field.appendChild(lbl);
+        field.appendChild(inputEl);
+        return field;
+      }
+
+      const inputRu = document.createElement("input");
+      inputRu.id = "editInputRu" + index;
+      inputRu.value = task.titleRu || task.text || task.title || "";
+      inputRu.placeholder = "Название RU";
+      inputRu.onkeydown = function(event) {
+        if (event.key === "Enter") saveEdit(index);
       };
 
-      const pointsField = document.createElement("div");
-      pointsField.className = "task-points-field";
+      const inputDe = document.createElement("input");
+      inputDe.id = "editInputDe" + index;
+      inputDe.value = task.titleDe || "";
+      inputDe.placeholder = "Название DE";
+      inputDe.onkeydown = function(event) {
+        if (event.key === "Enter") saveEdit(index);
+      };
 
       const pointsInput = document.createElement("input");
-      pointsInput.className = "task-points-input";
       pointsInput.id = "editPointsInput" + index;
       pointsInput.type = "number";
       pointsInput.min = "1";
       pointsInput.value = task.points;
       pointsInput.onkeydown = function(event) {
-        if (event.key === "Enter") {
-          saveEdit(index);
-        }
+        if (event.key === "Enter") saveEdit(index);
       };
 
-      const pointsLabel = document.createElement("span");
-      pointsLabel.innerText = "баллы";
-
       const categorySelect = document.createElement("select");
-      categorySelect.className = "task-category-select";
       categorySelect.id = "editCategoryInput" + index;
-      fillCategorySelect(categorySelect, task.category);
+      fillCategorySelect(categorySelect, getTaskCategoryId(task));
 
-      editBox.appendChild(iconInput);
-      pointsField.appendChild(pointsInput);
-      pointsField.appendChild(pointsLabel);
-      editBox.appendChild(input);
-      editBox.appendChild(pointsField);
-      editBox.appendChild(categorySelect);
-      taskElement.appendChild(editBox);
+      const iconInput = document.createElement("input");
+      iconInput.id = "editIconInput" + index;
+      iconInput.value = getTaskIcon(task);
+      iconInput.maxLength = "4";
+
+      const actionsDiv = document.createElement("div");
+      actionsDiv.className = "task-edit-actions";
+
+      const saveBtn = document.createElement("button");
+      saveBtn.innerText = "Сохранить";
+      saveBtn.onclick = function() { saveEdit(index); };
+
+      const cancelBtn = document.createElement("button");
+      cancelBtn.className = "secondary-button";
+      cancelBtn.innerText = "Отмена";
+      cancelBtn.onclick = function() { editingIndex = null; renderTasks(); };
+
+      actionsDiv.appendChild(saveBtn);
+      actionsDiv.appendChild(cancelBtn);
+
+      form.appendChild(makeField("Название RU", inputRu));
+      form.appendChild(makeField("Название DE", inputDe));
+      form.appendChild(makeField("Баллы", pointsInput));
+      form.appendChild(makeField("Категория", categorySelect));
+      form.appendChild(makeField("Иконка", iconInput));
+      form.appendChild(actionsDiv);
+      taskElement.appendChild(form);
     } else {
       const main = document.createElement("div");
       main.className = "task-main";
@@ -3189,14 +6491,21 @@
 
       const title = document.createElement("span");
       title.className = "task-title";
-      title.innerText = task.text;
+      title.innerText = getTaskTitle(task);
 
       const meta = document.createElement("span");
       meta.className = "task-meta";
-      meta.innerText = "+" + task.points + " ⭐" + (task.frequency ? " · " + task.frequency : "");
+      meta.innerText = "+" + task.points + " ⭐" + (task.frequency ? " · " + translateFrequency(task.frequency) : "");
 
       content.appendChild(title);
       content.appendChild(meta);
+
+      if (isParentMode && !(task.titleDe || "").trim()) {
+        const warning = document.createElement("span");
+        warning.className = "translation-warning";
+        warning.innerText = "Нет немецкого перевода";
+        content.appendChild(warning);
+      }
 
       const completedAtLabel = getCompletedAtLabel(task);
 
@@ -3219,28 +6528,19 @@
     doneButton.innerText = task.done ? "↩️" : "✓";
     doneButton.title = task.done ? "Отменить выполнение" : "Готово";
     doneButton.onclick = function() {
-      toggleDone(index);
+      toggleDone(index, doneButton);
     };
 
     actions.appendChild(doneButton);
 
-    if (isParentMode) {
+    if (isParentMode && editingIndex !== index) {
       const editButton = document.createElement("button");
       editButton.className = "secondary-button";
-
-      if (editingIndex === index) {
-        editButton.innerText = "✓";
-        editButton.title = "Сохранить";
-        editButton.onclick = function() {
-          saveEdit(index);
-        };
-      } else {
-        editButton.innerText = "✏️";
-        editButton.title = "Редактировать";
-        editButton.onclick = function() {
-          editTask(index);
-        };
-      }
+      editButton.innerText = "✏️";
+      editButton.title = "Редактировать";
+      editButton.onclick = function() {
+        editTask(index);
+      };
 
       const deleteButton = document.createElement("button");
       deleteButton.className = "delete-button";
@@ -3255,6 +6555,7 @@
     }
 
     taskElement.appendChild(actions);
+
     return taskElement;
   }
 
@@ -3267,9 +6568,10 @@
       parentRewardList.innerHTML = "";
     }
 
-    rewards.forEach(function(reward) {
+    getRewardsForDisplay().forEach(function(reward) {
       const isClaimed = claimedRewards.includes(reward.id);
-      const canClaim = points >= reward.cost && !isClaimed;
+      const pendingRequest = getPendingRewardRequest(reward.id);
+      const canRequest = points >= reward.cost && !isClaimed && !pendingRequest;
       const rewardElement = document.createElement("div");
       rewardElement.className = "reward";
 
@@ -3313,11 +6615,11 @@
 
         const title = document.createElement("p");
         title.className = "reward-name";
-        title.innerText = reward.title;
+        title.innerText = getRewardIcon(reward) + " " + reward.title;
 
         const cost = document.createElement("p");
         cost.className = "reward-cost";
-        cost.innerText = reward.cost + " баллов";
+        cost.innerText = reward.cost + " ⭐";
 
         const progress = document.createElement("div");
         progress.className = "reward-progress";
@@ -3328,9 +6630,11 @@
 
         const left = document.createElement("span");
         left.className = "reward-left";
-        left.innerText = points >= reward.cost
-          ? points + " / " + reward.cost + " баллов"
-          : points + " / " + reward.cost + " · осталось " + (reward.cost - points);
+        left.innerText = pendingRequest
+          ? t("pending")
+          : (points >= reward.cost
+            ? t("availableNow")
+            : t("notEnough") + " " + (reward.cost - points) + " ⭐");
 
         progress.appendChild(progressFill);
 
@@ -3339,15 +6643,15 @@
 
         const button = document.createElement("button");
         button.className = "reward-button";
-        button.innerText = isClaimed ? "Получено" : (canClaim ? "Получить" : "Не хватает");
-        button.disabled = isClaimed || !canClaim;
+        button.innerText = isClaimed ? t("received") : (pendingRequest ? t("pending") : (canRequest ? t("request") : t("notEnough")));
+        button.disabled = isClaimed || Boolean(pendingRequest) || !canRequest;
 
-        if (!canClaim && !isClaimed) {
+        if ((!canRequest || pendingRequest) && !isClaimed) {
           button.classList.add("locked");
         }
 
         button.onclick = function() {
-          claimReward(reward.id);
+          requestReward(reward.id);
         };
 
         info.appendChild(title);
@@ -3360,7 +6664,7 @@
         if (justClaimedRewardId === reward.id) {
           const status = document.createElement("span");
           status.className = "reward-status";
-          status.innerText = "получено";
+          status.innerText = t("received").toLowerCase();
           actions.appendChild(status);
         }
 
@@ -3400,6 +6704,8 @@
         rewardInput.focus();
       }
     }
+
+    renderRewardRequests();
   }
 
   function addTask() {
@@ -3408,30 +6714,45 @@
     }
 
     const input = document.getElementById("taskInput");
+    const inputDe = document.getElementById("taskInputDe");
     const pointsInput = document.getElementById("taskPointsInput");
     const categoryInput = document.getElementById("taskCategoryInput");
-    const text = input.value.trim();
+    const iconInput = document.getElementById("taskIconInput");
+    const titleRu = input.value.trim();
+    const titleDe = inputDe ? inputDe.value.trim() : "";
     const taskPoints = Number(pointsInput.value);
-    const taskCategory = normalizeCategoryName(categoryInput.value);
+    const taskCategoryId = normalizeCategoryId(categoryInput.value);
+    const taskCategory = normalizeCategoryName(taskCategoryId);
+    const taskIcon = iconInput ? iconInput.value.trim() : "";
 
-    if (text === "" || taskPoints <= 0) {
+    if (titleRu === "" || taskPoints <= 0) {
       return;
     }
 
     const newTask = {
-      text: text,
+      text: titleRu,
+      titleRu: titleRu,
+      titleDe: titleDe,
       points: taskPoints,
       frequency: "",
+      categoryId: taskCategoryId,
       category: taskCategory,
       done: false,
       lastCompletedAt: null,
-      completedPoints: null
+      completedPoints: null,
+      updatedAt: getNowIso()
     };
-    newTask.icon = getTaskIcon(newTask);
+    newTask.icon = taskIcon || getTaskIcon(newTask);
     tasks.push(newTask);
     input.value = "";
+    if (inputDe) {
+      inputDe.value = "";
+    }
+    if (iconInput) {
+      iconInput.value = "";
+    }
     pointsInput.value = "10";
-    categoryInput.value = uncategorizedName;
+    categoryInput.value = "cat_uncategorized";
 
     saveData();
     renderTasks();
@@ -3478,6 +6799,7 @@
         tasks = result.tasks;
         points = data.points || 0;
         claimedRewards = data.claimedRewards || [];
+        rewardRequests = data.rewardRequests || [];
         rewards = data.rewards || getDefaultRewards();
       }
     });
@@ -3491,6 +6813,103 @@
     showTemplateMessage({ addedCount: addedCount, updatedCount: updatedCount, skippedCount: skippedCount });
   }
 
+  function resetCurrentChildPoints() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const shouldClearHistory = shouldClearHistoryOnPointsReset();
+    const confirmMessage = shouldClearHistory
+      ? "Сбросить баллы, очистить историю текущего ребёнка и вернуть все выполненные задачи в список?"
+      : "Сбросить баллы и вернуть все выполненные задачи в список?";
+
+    if (!confirm(confirmMessage)) {
+      return;
+    }
+
+    const resetAmount = Math.max(0, Number(points) || 0);
+    points = 0;
+    tasks = resetTaskCompletionState(tasks);
+    addStarTransaction("reset", resetAmount > 0 ? -resetAmount : 0, "Сброс баллов", currentChild);
+
+    if (shouldClearHistory) {
+      taskHistory = taskHistory.filter(function(entry) {
+        return entry.child !== currentChild;
+      });
+      saveTaskHistory();
+    }
+
+    saveData();
+    renderTasks();
+    renderRewards();
+    renderRanking();
+    renderHistory();
+    renderStarTransactions();
+    renderProgressHistory();
+    updatePoints();
+    alert(shouldClearHistory ? "Баллы и история сброшены, задачи снова активны" : "Баллы сброшены, задачи снова активны");
+  }
+
+  function resetAllChildrenPoints() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const shouldClearHistory = shouldClearHistoryOnPointsReset();
+    const confirmMessage = shouldClearHistory
+      ? "Сбросить баллы, очистить всю историю и вернуть все выполненные задачи в список?"
+      : "Сбросить баллы у всех детей и вернуть все выполненные задачи в список?";
+
+    if (!confirm(confirmMessage)) {
+      return;
+    }
+
+    children.forEach(function(child) {
+      const storageKey = getStorageKey(child);
+      const data = normalizeChildData(safeParseJSON(localStorage.getItem(storageKey), getInitialChildData()));
+      const resetAmount = Math.max(0, Number(data.points) || 0);
+      data.points = 0;
+      data.tasks = resetTaskCompletionState(data.tasks);
+      localStorage.setItem(storageKey, JSON.stringify(data));
+      addStarTransaction("reset", resetAmount > 0 ? -resetAmount : 0, "Сброс баллов", child);
+    });
+
+    points = 0;
+    tasks = resetTaskCompletionState(tasks);
+
+    if (shouldClearHistory) {
+      taskHistory = [];
+      saveTaskHistory();
+    }
+
+    saveChildren();
+    renderTasks();
+    renderRewards();
+    renderRanking();
+    renderHistory();
+    renderStarTransactions();
+    renderProgressHistory();
+    updatePoints();
+    alert(shouldClearHistory ? "Баллы и история сброшены, задачи снова активны" : "Баллы сброшены, задачи снова активны");
+  }
+
+  function shouldClearHistoryOnPointsReset() {
+    const checkbox = document.getElementById("resetHistoryCheckbox");
+    return Boolean(checkbox && checkbox.checked);
+  }
+
+  function resetTaskCompletionState(taskList) {
+    return taskList.map(function(task) {
+      return Object.assign({}, task, {
+        done: false,
+        completed: false,
+        lastCompletedAt: null,
+        completedPoints: null,
+        updatedAt: getNowIso()
+      });
+    });
+  }
+
   function mergeCleaningTemplate(taskList) {
     const mergedTasks = taskList.slice();
     let addedCount = 0;
@@ -3498,41 +6917,51 @@
     let skippedCount = 0;
 
     cleaningTemplateTasks.forEach(function(templateTask) {
+      const templateCategoryId = normalizeCategoryId(templateTask.category);
+      const templateCategoryName = normalizeCategoryName(templateCategoryId);
       const taskIndex = mergedTasks.findIndex(function(task) {
-        return normalizeTaskName(task.text) === normalizeTaskName(templateTask.title);
+        return normalizeTaskName(task.titleRu || task.text || task.title) === normalizeTaskName(templateTask.title);
       });
 
       if (taskIndex === -1) {
         mergedTasks.push({
           text: templateTask.title,
+          titleRu: templateTask.title,
+          titleDe: templateTask.titleDe || "",
           points: templateTask.points,
           frequency: templateTask.frequency,
-          category: normalizeCategoryName(templateTask.category),
+          categoryId: templateCategoryId,
+          category: templateCategoryName,
           icon: templateTask.icon || getTaskIcon(templateTask),
           done: Boolean(templateTask.completed),
           lastCompletedAt: null,
-          completedPoints: null
+          completedPoints: null,
+          updatedAt: getNowIso()
         });
         addedCount += 1;
         return;
       }
 
       const currentTask = mergedTasks[taskIndex];
-      const hasChanges = currentTask.text !== templateTask.title ||
+      const hasChanges = (currentTask.titleRu || currentTask.text) !== templateTask.title ||
         currentTask.points !== templateTask.points ||
         currentTask.frequency !== templateTask.frequency ||
-        currentTask.category !== normalizeCategoryName(templateTask.category);
+        getTaskCategoryId(currentTask) !== templateCategoryId;
 
       if (hasChanges) {
         mergedTasks[taskIndex] = {
           text: templateTask.title,
+          titleRu: templateTask.title,
+          titleDe: currentTask.titleDe || templateTask.titleDe || "",
           points: templateTask.points,
           frequency: templateTask.frequency,
-          category: normalizeCategoryName(templateTask.category),
+          categoryId: templateCategoryId,
+          category: templateCategoryName,
           icon: currentTask.icon || templateTask.icon || getTaskIcon(templateTask),
           done: currentTask.done,
           lastCompletedAt: currentTask.lastCompletedAt || null,
-          completedPoints: currentTask.completedPoints || null
+          completedPoints: currentTask.completedPoints || null,
+          updatedAt: getNowIso()
         };
         updatedCount += 1;
       } else {
@@ -3558,37 +6987,154 @@
     }
   }
 
-  function toggleDone(index) {
+  function toggleDone(index, buttonElement) {
     if (!tasks[index]) {
       return;
     }
 
     const taskPoints = tasks[index].points;
+    const wasDone = tasks[index].done;
+    const previousTask = Object.assign({}, tasks[index]);
+    const previousPoints = points;
+    const previousHistory = taskHistory.slice();
+    const previousStarTransactions = starTransactions.slice();
+    const shouldDelayTaskRender = !wasDone && !isParentMode;
 
-    if (tasks[index].done) {
+    if (buttonElement && !wasDone) {
+      buttonElement.disabled = true;
+    }
+
+    if (wasDone) {
       const pointsToRemove = Number(tasks[index].completedPoints || taskPoints);
       tasks[index].done = false;
       tasks[index].lastCompletedAt = null;
       tasks[index].completedPoints = null;
+      tasks[index].updatedAt = getNowIso();
       points = Math.max(0, points - pointsToRemove);
+      try {
+        addStarTransaction("refund", -pointsToRemove, "Отмена задачи: " + getTaskTitle(tasks[index]), currentChild);
+      } catch (error) {
+        tasks[index] = previousTask;
+        points = previousPoints;
+        starTransactions = previousStarTransactions;
+
+        try {
+          saveStarTransactions();
+        } catch (historyError) {
+          // Keep the in-memory rollback even if localStorage is unavailable.
+        }
+
+        if (buttonElement) {
+          buttonElement.disabled = false;
+        }
+
+        return;
+      }
+      justCompletedTaskIndex = null;
+      justCompletedTaskPoints = 0;
     } else {
       tasks[index].done = true;
       tasks[index].lastCompletedAt = getTodayString();
       tasks[index].completedPoints = taskPoints;
+      tasks[index].updatedAt = getNowIso();
       points += taskPoints;
-      addTaskHistory(tasks[index], taskPoints);
+      justCompletedTaskIndex = index;
+      justCompletedTaskPoints = taskPoints;
+      try {
+        addTaskHistory(tasks[index], taskPoints);
+        addStarTransaction("earn", taskPoints, "Задача: " + getTaskTitle(tasks[index]), currentChild);
+      } catch (error) {
+        tasks[index] = previousTask;
+        points = previousPoints;
+        taskHistory = previousHistory;
+        starTransactions = previousStarTransactions;
+        justCompletedTaskIndex = null;
+        justCompletedTaskPoints = 0;
+
+        try {
+          saveTaskHistory();
+          saveStarTransactions();
+        } catch (historyError) {
+          // Keep the in-memory rollback even if localStorage is unavailable.
+        }
+
+        if (buttonElement) {
+          buttonElement.disabled = false;
+        }
+
+        return;
+      }
     }
 
-    saveData();
-    renderTasks();
-    renderRewards();
-    renderHistory();
-    renderProgressHistory();
-    updatePoints();
-    scheduleTaskReminder();
+    try {
+      saveData();
+    } catch (error) {
+      tasks[index] = previousTask;
+      points = previousPoints;
+      taskHistory = previousHistory;
+      starTransactions = previousStarTransactions;
+      justCompletedTaskIndex = null;
+      justCompletedTaskPoints = 0;
+
+      try {
+        saveTaskHistory();
+        saveStarTransactions();
+      } catch (historyError) {
+        // Keep the in-memory rollback even if localStorage is unavailable.
+      }
+
+      if (buttonElement) {
+        buttonElement.disabled = false;
+      }
+
+      return;
+    }
+
+    if (!wasDone) {
+      showTaskCompleteAnimation(taskPoints, buttonElement);
+    }
+
+    const refreshAfterToggle = function() {
+      renderTasks();
+      renderRewards();
+      renderHistory();
+      renderStarTransactions();
+      renderProgressHistory();
+      updatePoints();
+    };
+
+    if (shouldDelayTaskRender) {
+      updatePoints();
+      renderRewards();
+      renderHistory();
+      renderStarTransactions();
+      renderProgressHistory();
+
+      setTimeout(function() {
+        refreshAfterToggle();
+      }, 700);
+    } else {
+      refreshAfterToggle();
+    }
+
+    if (justCompletedTaskIndex === index) {
+      setTimeout(function() {
+        if (justCompletedTaskIndex === index) {
+          justCompletedTaskIndex = null;
+          justCompletedTaskPoints = 0;
+          renderTasks();
+        }
+      }, 900);
+    }
   }
 
-  function claimReward(rewardId) {
+  function getPendingRewardRequest(rewardId) {
+    return rewardRequests.find(function(request) {
+      return request.rewardId === rewardId && request.child === currentChild && request.status === "pending";
+    }) || null;
+  }
+
+  function requestReward(rewardId) {
     const reward = rewards.find(function(item) {
       return item.id === rewardId;
     });
@@ -3597,21 +7143,224 @@
       return;
     }
 
-    points -= reward.cost;
-    claimedRewards.push(rewardId);
-    justClaimedRewardId = rewardId;
+    if (getPendingRewardRequest(rewardId)) {
+      renderRewards();
+      return;
+    }
 
-    saveData();
+    const previousRequests = rewardRequests.slice();
+    rewardRequests.push({
+      id: "reward_request_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+      child: currentChild,
+      rewardId: reward.id,
+      rewardTitle: reward.title,
+      cost: reward.cost,
+      status: "pending",
+      createdAt: new Date().toISOString()
+    });
+
+    try {
+      saveData();
+    } catch (error) {
+      rewardRequests = previousRequests;
+      return;
+    }
+
+    renderRewards();
+    showRewardFirework();
+  }
+
+  function claimReward(rewardId) {
+    requestReward(rewardId);
+  }
+
+  function getChildDataForRewardRequest(child) {
+    if (child === currentChild) {
+      return normalizeChildData({
+        tasks: tasks,
+        points: points,
+        claimedRewards: claimedRewards,
+        rewards: rewards,
+        rewardRequests: rewardRequests,
+        language: language
+      });
+    }
+
+    return normalizeChildData(safeParseJSON(localStorage.getItem(getStorageKey(child)), getInitialChildData()));
+  }
+
+  function saveChildDataForRewardRequest(child, data) {
+    const normalizedData = normalizeChildData(data);
+
+    if (child === currentChild) {
+      tasks = normalizedData.tasks;
+      points = normalizedData.points;
+      claimedRewards = normalizedData.claimedRewards;
+      rewards = normalizedData.rewards;
+      rewardRequests = normalizedData.rewardRequests;
+      language = normalizedData.language;
+      saveData();
+      return;
+    }
+
+    localStorage.setItem(getStorageKey(child), JSON.stringify(normalizedData));
+    saveChildren();
+  }
+
+  function getAllRewardRequests() {
+    return children.flatMap(function(child) {
+      return getChildDataForRewardRequest(child).rewardRequests;
+    });
+  }
+
+  function findRewardRequestOwner(requestId) {
+    for (let index = 0; index < children.length; index += 1) {
+      const child = children[index];
+      const data = getChildDataForRewardRequest(child);
+      const requestIndex = data.rewardRequests.findIndex(function(request) {
+        return request.id === requestId;
+      });
+
+      if (requestIndex !== -1) {
+        return {
+          child: child,
+          data: data,
+          requestIndex: requestIndex,
+          request: data.rewardRequests[requestIndex]
+        };
+      }
+    }
+
+    return null;
+  }
+
+  function approveRewardRequest(requestId) {
+    if (!isParentMode) {
+      return;
+    }
+
+    const owner = findRewardRequestOwner(requestId);
+
+    if (!owner || owner.request.status !== "pending") {
+      return;
+    }
+
+    if (owner.data.points < owner.request.cost) {
+      alert("Недостаточно звёзд");
+      return;
+    }
+
+    const previousStarTransactions = starTransactions.slice();
+    owner.data.points = Math.max(0, owner.data.points - owner.request.cost);
+    owner.data.rewardRequests[owner.requestIndex] = Object.assign({}, owner.request, { status: "approved" });
+
+    if (!owner.data.claimedRewards.includes(owner.request.rewardId)) {
+      owner.data.claimedRewards.push(owner.request.rewardId);
+    }
+
+    try {
+      addStarTransaction("spend", -owner.request.cost, "Награда: " + owner.request.rewardTitle, owner.child);
+      saveChildDataForRewardRequest(owner.child, owner.data);
+    } catch (error) {
+      starTransactions = previousStarTransactions;
+      saveStarTransactions();
+      return;
+    }
+
     renderRewards();
     renderRanking();
+    renderHistory();
+    renderStarTransactions();
+    renderProgressHistory();
     updatePoints();
+    showRewardFirework();
+    alert("Награда подтверждена");
+  }
 
-    setTimeout(function() {
-      if (justClaimedRewardId === rewardId) {
-        justClaimedRewardId = null;
-        renderRewards();
-      }
-    }, 1200);
+  function rejectRewardRequest(requestId) {
+    if (!isParentMode) {
+      return;
+    }
+
+    const owner = findRewardRequestOwner(requestId);
+
+    if (!owner || owner.request.status !== "pending") {
+      return;
+    }
+
+    owner.data.rewardRequests[owner.requestIndex] = Object.assign({}, owner.request, { status: "rejected" });
+
+    try {
+      saveChildDataForRewardRequest(owner.child, owner.data);
+    } catch (error) {
+      return;
+    }
+
+    renderRewards();
+    alert("Запрос отклонён");
+  }
+
+  function renderRewardRequests() {
+    const list = document.getElementById("rewardRequestsList");
+
+    if (!list) {
+      return;
+    }
+
+    list.innerHTML = "";
+
+    const pendingRequests = getAllRewardRequests()
+      .filter(function(request) {
+        return request.status === "pending";
+      })
+      .sort(function(first, second) {
+        return String(first.createdAt || "").localeCompare(String(second.createdAt || ""));
+      });
+
+    if (pendingRequests.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "history-empty";
+      empty.innerText = "Нет ожидающих запросов";
+      list.appendChild(empty);
+      return;
+    }
+
+    pendingRequests.forEach(function(request) {
+      const card = document.createElement("div");
+      card.className = "reward-request-card";
+
+      const title = document.createElement("div");
+      title.className = "reward-request-title";
+      title.innerText = request.child + " · " + request.rewardTitle;
+
+      const meta = document.createElement("div");
+      meta.className = "reward-request-meta";
+      meta.innerText = request.cost + " ⭐ · " + new Date(request.createdAt).toLocaleString("ru-RU");
+
+      const actions = document.createElement("div");
+      actions.className = "inline-control-row";
+
+      const approveButton = document.createElement("button");
+      approveButton.className = "reward-button";
+      approveButton.innerText = "Подтвердить";
+      approveButton.onclick = function() {
+        approveRewardRequest(request.id);
+      };
+
+      const rejectButton = document.createElement("button");
+      rejectButton.className = "delete-button";
+      rejectButton.innerText = "Отклонить";
+      rejectButton.onclick = function() {
+        rejectRewardRequest(request.id);
+      };
+
+      actions.appendChild(approveButton);
+      actions.appendChild(rejectButton);
+      card.appendChild(title);
+      card.appendChild(meta);
+      card.appendChild(actions);
+      list.appendChild(card);
+    });
   }
 
   function editReward(rewardId) {
@@ -3640,7 +7389,8 @@
     rewards.push({
       id: "reward_" + Date.now(),
       title: title,
-      cost: cost
+      cost: cost,
+      updatedAt: getNowIso()
     });
 
     nameInput.value = "";
@@ -3674,6 +7424,7 @@
 
     reward.title = title;
     reward.cost = cost;
+    reward.updatedAt = getNowIso();
     editingRewardId = null;
 
     saveData();
@@ -3726,30 +7477,37 @@
       return;
     }
 
-    const input = document.getElementById("editInput" + index);
+    const inputRu = document.getElementById("editInputRu" + index);
+    const inputDe = document.getElementById("editInputDe" + index);
     const pointsInput = document.getElementById("editPointsInput" + index);
     const categoryInput = document.getElementById("editCategoryInput" + index);
     const iconInput = document.getElementById("editIconInput" + index);
 
-    if (!tasks[index] || !input || !pointsInput || !categoryInput || !iconInput) {
+    if (!tasks[index] || !inputRu || !inputDe || !pointsInput || !categoryInput || !iconInput) {
       editingIndex = null;
       renderTasks();
       return;
     }
 
-    const text = input.value.trim();
+    const titleRu = inputRu.value.trim();
+    const titleDe = inputDe.value.trim();
     const taskPoints = Number(pointsInput.value);
-    const taskCategory = normalizeCategoryName(categoryInput.value);
+    const taskCategoryId = normalizeCategoryId(categoryInput.value);
+    const taskCategory = normalizeCategoryName(taskCategoryId);
     const taskIcon = iconInput.value.trim();
 
-    if (text === "" || taskPoints <= 0) {
+    if (titleRu === "" || taskPoints <= 0) {
       return;
     }
 
-    tasks[index].text = text;
+    tasks[index].text = titleRu;
+    tasks[index].titleRu = titleRu;
+    tasks[index].titleDe = titleDe;
     tasks[index].points = taskPoints;
+    tasks[index].categoryId = taskCategoryId;
     tasks[index].category = taskCategory;
-    tasks[index].icon = taskIcon || getTaskIcon({ text: text });
+    tasks[index].icon = taskIcon || getTaskIcon({ text: titleRu, titleRu: titleRu, titleDe: titleDe });
+    tasks[index].updatedAt = getNowIso();
     editingIndex = null;
 
     saveData();
@@ -3781,17 +7539,96 @@
     renderTasks();
   }
 
+  function showPwaUpdateBanner(worker) {
+    pendingServiceWorker = worker || pendingServiceWorker;
+    const banner = document.getElementById("updateBanner");
+
+    if (banner) {
+      banner.classList.add("active");
+    }
+  }
+
+  function hidePwaUpdateBanner() {
+    const banner = document.getElementById("updateBanner");
+
+    if (banner) {
+      banner.classList.remove("active");
+    }
+  }
+
+  function applyPwaUpdate() {
+    if (!pendingServiceWorker) {
+      window.location.reload();
+      return;
+    }
+
+    pendingServiceWorker.postMessage({ type: "SKIP_WAITING" });
+  }
+
+  function trackServiceWorkerUpdate(registration) {
+    if (!registration) {
+      return;
+    }
+
+    if (registration.waiting && navigator.serviceWorker.controller) {
+      showPwaUpdateBanner(registration.waiting);
+    }
+
+    registration.addEventListener("updatefound", function() {
+      const newWorker = registration.installing;
+
+      if (!newWorker) {
+        return;
+      }
+
+      newWorker.addEventListener("statechange", function() {
+        if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+          showPwaUpdateBanner(newWorker);
+        }
+      });
+    });
+  }
+
+  function registerServiceWorker() {
+    if (!("serviceWorker" in navigator)) {
+      return;
+    }
+
+    navigator.serviceWorker.addEventListener("controllerchange", function() {
+      if (isRefreshingForPwaUpdate) {
+        return;
+      }
+
+      isRefreshingForPwaUpdate = true;
+      window.location.reload();
+    });
+
+    navigator.serviceWorker.addEventListener("message", function(event) {
+      if (event.data && event.data.type === "NEW_VERSION_READY") {
+        navigator.serviceWorker.getRegistration().then(function(registration) {
+          showPwaUpdateBanner(registration && registration.waiting);
+        });
+      }
+    });
+
+    window.addEventListener("load", function() {
+      navigator.serviceWorker.register("service-worker.js").then(function(registration) {
+        trackServiceWorkerUpdate(registration);
+        registration.update();
+      });
+    });
+  }
+
   async function startApp() {
     setSyncStatus("Работает локально", "local");
     await initializeCloudSync();
     loadChildren();
-    loadData();
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
-        navigator.serviceWorker.register("service-worker.js");
-      });
+    if (shouldRunDailyReset()) {
+      resetAllTasksForNewDay(false);
     }
+    loadData();
+    scheduleMidnightReset();
+    registerServiceWorker();
   }
 
   startApp();
@@ -3799,3 +7636,4 @@
 
 </body>
 </html>
+

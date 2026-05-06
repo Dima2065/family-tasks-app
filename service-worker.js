@@ -1,4 +1,4 @@
-const CACHE_NAME = "family-tasks-v28";
+﻿const CACHE_NAME = "family-tasks-v56";
 const ASSETS = [
   "./",
   "index.html",
@@ -27,8 +27,22 @@ self.addEventListener("activate", function(event) {
           return null;
         })
       );
+    }).then(function() {
+      return self.clients.claim();
+    }).then(function() {
+      return self.clients.matchAll({ type: "window" });
+    }).then(function(clients) {
+      clients.forEach(function(client) {
+        client.postMessage({ type: "NEW_VERSION_READY", cacheName: CACHE_NAME });
+      });
     })
   );
+});
+
+self.addEventListener("message", function(event) {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("fetch", function(event) {
@@ -39,35 +53,3 @@ self.addEventListener("fetch", function(event) {
   );
 });
 
-self.addEventListener("message", function(event) {
-  if (!event.data || event.data.type !== "SHOW_REMINDER") {
-    return;
-  }
-
-  const title = event.data.title || "Пора выполнить задачи";
-  const options = event.data.options || {};
-
-  event.waitUntil(self.registration.showNotification(title, options));
-});
-
-self.addEventListener("notificationclick", function(event) {
-  event.notification.close();
-
-  event.waitUntil(
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then(function(clientList) {
-      for (let i = 0; i < clientList.length; i += 1) {
-        const client = clientList[i];
-
-        if ("focus" in client) {
-          return client.focus();
-        }
-      }
-
-      if (clients.openWindow) {
-        return clients.openWindow("./");
-      }
-
-      return null;
-    })
-  );
-});
