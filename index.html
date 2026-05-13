@@ -855,6 +855,103 @@
       font-size: 13px;
     }
 
+    .points-management {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .manual-points-card,
+    .deduct-points-card,
+    .points-reset-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e3eee8;
+      border-radius: 14px;
+      background: #fbfffd;
+    }
+
+    .points-card-title {
+      margin: 0;
+      color: #2f4d43;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .manual-points-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 84px;
+      gap: 8px;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .manual-points-form select,
+    .manual-points-form input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .manual-points-form .manual-points-reason {
+      grid-column: 1 / -1;
+    }
+
+    .manual-points-form button {
+      grid-column: 1 / -1;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .points-reset-card .sync-status {
+      border-radius: 12px;
+      padding: 7px 9px;
+      font-size: 12px;
+    }
+
+    .points-reset-card .inline-control-row {
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      color: #526760;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .points-reset-card .inline-control-row input {
+      flex: 0 0 auto;
+      width: 16px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0;
+    }
+
+    .points-reset-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      width: 100%;
+    }
+
+    .points-reset-actions .template-button {
+      margin-top: 0;
+      min-height: 40px;
+      padding: 9px 10px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
     .ranking-list {
       display: flex;
       flex-direction: column;
@@ -2327,6 +2424,33 @@
         min-width: 0;
       }
 
+      #parentPanel .points-management,
+      #parentPanel .manual-points-card,
+      #parentPanel .deduct-points-card,
+      #parentPanel .points-reset-card,
+      #parentPanel .points-reset-actions {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #parentPanel .manual-points-form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 82px;
+        gap: 8px;
+      }
+
+      #parentPanel .manual-points-form select,
+      #parentPanel .manual-points-form input,
+      #parentPanel .manual-points-form button {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #parentPanel .manual-points-form .manual-points-reason,
+      #parentPanel .manual-points-form button {
+        grid-column: 1 / -1;
+      }
+
       #parentPanel .task-filters {
         display: flex;
         flex-wrap: nowrap;
@@ -2430,6 +2554,7 @@
 <main class="app">
   <div class="top-bar">
     <span id="parentModeLabel" class="mode-label">Режим родителя</span>
+    <span id="syncStatus" class="sync-status">Работает локально</span>
     <button class="icon-button" onclick="toggleParentMode()" title="Родительский режим">🔒</button>
   </div>
 
@@ -2556,27 +2681,16 @@
       </div>
     </div>
 
-    <div class="parent-section parent-only" data-section="templates">
-      <button class="parent-section-header" onclick="toggleParentSection('templates')"><span>Шаблоны уборки</span><b>▼</b></button>
-      <div class="parent-section-body">
-        <button class="template-button" onclick="loadCleaningTemplate()">Загрузить шаблон уборки дома</button>
-        <button class="template-button" onclick="loadCleaningTemplateForAllChildren()">Загрузить шаблон всем детям</button>
-      </div>
-    </div>
-
     <div class="parent-section parent-only" data-section="sync">
       <button class="parent-section-header" onclick="toggleParentSection('sync')"><span>Синхронизация</span><b>▼</b></button>
       <div class="parent-section-body">
         <div class="sync-row">
-          <span id="syncStatus" class="sync-status">Работает локально</span>
           <span id="authStatus" class="sync-status">Работает локально</span>
+          <span class="sync-status synced">Автосинхронизация включена</span>
           <input id="authEmailInput" type="email" placeholder="Email">
           <input id="authPasswordInput" type="password" placeholder="Password">
           <button class="sync-button" onclick="signInParentAccount()">Войти</button>
           <button class="sync-button" onclick="signOutParentAccount()">Выйти</button>
-          <button class="sync-button" onclick="syncSaveToCloud()">Сохранить в облако</button>
-          <button class="sync-button" onclick="syncLoadFromCloudWithConfirm()">Загрузить из облака</button>
-          <button class="sync-button" onclick="syncMergeData()">Объединить данные</button>
         </div>
       </div>
     </div>
@@ -2612,15 +2726,40 @@
     </div>
 
     <div class="parent-section parent-only" data-section="pointsReset">
-      <button class="parent-section-header" onclick="toggleParentSection('pointsReset')"><span>Сброс баллов</span><b>▼</b></button>
+      <button class="parent-section-header" onclick="toggleParentSection('pointsReset')"><span>Управление баллами</span><b>▼</b></button>
       <div class="parent-section-body">
-        <label class="inline-control-row">
-          <input id="resetHistoryCheckbox" type="checkbox">
-          <span>Также очистить историю</span>
-        </label>
-        <span id="dailyResetStatus" class="sync-status">Последний ночной сброс: —</span>
-        <button class="template-button" onclick="resetCurrentChildPoints()">Сбросить баллы у текущего ребёнка</button>
-        <button class="template-button" onclick="resetAllChildrenPoints()">Сбросить баллы у всех детей</button>
+        <div class="points-management">
+          <div class="manual-points-card">
+            <p class="points-card-title">Начислить баллы</p>
+            <div class="manual-points-form">
+              <select id="manualPointsChildSelect" aria-label="Ребёнок"></select>
+              <input id="manualPointsAmountInput" type="number" min="1" value="10" placeholder="Баллы" aria-label="Баллы">
+              <input id="manualPointsReasonInput" class="manual-points-reason" type="text" placeholder="Причина начисления" aria-label="Причина начисления">
+              <button onclick="addManualPointsToChild()">Начислить</button>
+            </div>
+          </div>
+          <div class="deduct-points-card">
+            <p class="points-card-title">Отнять баллы</p>
+            <div class="manual-points-form">
+              <select id="deductPointsChildSelect" aria-label="Ребёнок"></select>
+              <input id="deductPointsAmountInput" type="number" min="1" value="10" placeholder="Баллы" aria-label="Баллы">
+              <input id="deductPointsReasonInput" class="manual-points-reason" type="text" placeholder="Причина списания" aria-label="Причина списания">
+              <button onclick="deductManualPointsFromChild()">Отнять</button>
+            </div>
+          </div>
+          <div class="points-reset-card">
+            <p class="points-card-title">Сброс</p>
+            <label class="inline-control-row">
+              <input id="resetHistoryCheckbox" type="checkbox">
+              <span>Также очистить историю</span>
+            </label>
+            <span id="dailyResetStatus" class="sync-status">Последний ночной сброс: —</span>
+            <div class="points-reset-actions">
+              <button class="template-button" onclick="resetCurrentChildPoints()">Сбросить текущему</button>
+              <button class="template-button" onclick="resetAllChildrenPoints()">Сбросить всем</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2635,6 +2774,8 @@
             <option value="spend">Потрачено</option>
             <option value="reset">Сброс</option>
             <option value="refund">Возврат</option>
+            <option value="adjust">Начислено родителем</option>
+            <option value="deduct">Списано родителем</option>
           </select>
           <input id="starDateFilter" type="date" onchange="renderStarTransactions()">
         </div>
@@ -2642,18 +2783,6 @@
       </div>
     </div>
 
-    <div class="parent-section parent-only" data-section="history">
-      <button class="parent-section-header" onclick="toggleParentSection('history')"><span>История</span><b>▼</b></button>
-      <div class="parent-section-body">
-        <section id="historyScreen" class="history-panel">
-          <div class="history-filters">
-            <select id="historyChildFilter" onchange="renderHistory()"></select>
-            <input id="historyDateFilter" type="date" onchange="renderHistory()">
-          </div>
-          <div id="historyList" class="history-list"></div>
-        </section>
-      </div>
-    </div>
   </section>
 </main>
 
@@ -2704,9 +2833,16 @@
   let cloudAuth = null;
   let currentFirebaseUser = null;
   let authListenerStarted = false;
+  let networkListenerStarted = false;
   let cloudReady = false;
   let cloudSaveTimer = null;
+  let cloudSnapshotUnsubscribe = null;
   let isApplyingCloudData = false;
+  let cloudInitialLoadComplete = false;
+  let lastAppliedCloudUpdatedAt = 0;
+  let lastSavedCloudUpdatedAt = 0;
+  let hasPendingOfflineChanges = false;
+  let hasShownOfflineMergePrompt = false;
   let midnightResetTimer = null;
   let pendingServiceWorker = null;
   let isRefreshingForPwaUpdate = false;
@@ -3004,6 +3140,7 @@
       frequency: task.frequency,
       category: task.category,
       done: false,
+      completed: false,
       lastCompletedAt: null
     };
   });
@@ -3097,6 +3234,7 @@
         category: normalizeCategoryName(task.category),
         icon: task.icon || getTaskIcon(Object.assign({}, task, { text: titleRu, titleRu: titleRu })),
         done: task.done,
+        completed: Boolean(task.done || task.completed),
         lastCompletedAt: task.lastCompletedAt || null,
         completedPoints: task.completedPoints || null,
         updatedAt: task.updatedAt || ""
@@ -3121,6 +3259,7 @@
         category: normalizeCategoryName(task.category),
         icon: task.icon || getTaskIcon({ text: taskTitleRu, titleRu: taskTitleRu, titleDe: taskTitleDe, title: task.title }),
         done: isDone,
+        completed: isDone,
         lastCompletedAt: task.lastCompletedAt || (isDone ? getTodayString() : null),
         completedPoints: isDone ? Number(task.completedPoints || taskPoints) : null,
         updatedAt: task.updatedAt || ""
@@ -3139,37 +3278,32 @@
     return year + "-" + month + "-" + day;
   }
 
-  function shouldRunDailyReset() {
-    return localStorage.getItem("lastDailyResetDate") !== getTodayString();
-  }
-
-  function resetTaskStatusForNewDay(taskList) {
-    return (Array.isArray(taskList) ? taskList : []).map(function(task) {
-      return Object.assign({}, task, {
-        done: false,
-        completed: false,
-        lastCompletedAt: null,
-        completedPoints: null,
-        updatedAt: getNowIso()
-      });
-    });
-  }
-
   function updateDailyResetStatus() {
     const status = document.getElementById("dailyResetStatus");
 
     if (status) {
-      status.innerText = "Последний ночной сброс: " + (localStorage.getItem("lastDailyResetDate") || "—");
+      status.innerText = "Последняя ночная проверка: " + (localStorage.getItem("lastDailyResetDate") || "—");
     }
   }
 
-  function resetAllTasksForNewDay(shouldRender) {
+  function shouldRunDailyReset() {
+    return localStorage.getItem("lastDailyResetDate") !== getTodayString();
+  }
+
+  function resetDueTasksByFrequency(shouldRender) {
+    let hasChanges = false;
+
     children.forEach(function(child) {
       const storageKey = getStorageKey(child);
       const data = normalizeChildData(safeParseJSON(localStorage.getItem(storageKey), getInitialChildData()));
-      data.tasks = resetTaskStatusForNewDay(data.tasks);
-      data.updatedAt = getNowIso();
-      localStorage.setItem(storageKey, JSON.stringify(data));
+      const resetResult = resetTasksByFrequency(data.tasks);
+
+      if (resetResult.hasChanges) {
+        data.tasks = resetResult.tasks;
+        data.updatedAt = getNowIso();
+        localStorage.setItem(storageKey, JSON.stringify(data));
+        hasChanges = true;
+      }
 
       if (child === currentChild) {
         tasks = data.tasks;
@@ -3182,8 +3316,10 @@
     });
 
     localStorage.setItem("lastDailyResetDate", getTodayString());
-    saveChildren();
-    saveToCloud();
+    if (hasChanges) {
+      saveChildren();
+      saveToCloud();
+    }
     updateDailyResetStatus();
 
     if (shouldRender !== false) {
@@ -3195,9 +3331,11 @@
       renderProgressHistory();
       updatePoints();
     }
+
+    return hasChanges;
   }
 
-  function scheduleMidnightReset() {
+  function scheduleNextFrequencyCheck() {
     if (midnightResetTimer) {
       clearTimeout(midnightResetTimer);
     }
@@ -3208,10 +3346,10 @@
 
     midnightResetTimer = setTimeout(function() {
       if (shouldRunDailyReset()) {
-        resetAllTasksForNewDay(true);
+        resetDueTasksByFrequency(true);
       }
 
-      scheduleMidnightReset();
+      scheduleNextFrequencyCheck();
     }, delay);
   }
 
@@ -3242,40 +3380,105 @@
     return Math.floor((today - completedDate) / dayMs);
   }
 
-  function shouldResetTask(task) {
-    if (!task.done || !task.lastCompletedAt) {
-      return false;
-    }
+  function getNormalizedFrequency(frequency) {
+    return String(frequency || "").trim().toLowerCase().replace(/-/g, "–");
+  }
 
-    const frequency = String(task.frequency || "").toLowerCase();
-    const daysSinceCompleted = getDaysSince(task.lastCompletedAt);
+  function getFrequencyIntervalDays(task) {
+    const frequency = getNormalizedFrequency(task && task.frequency);
 
     if (frequency === "ежедневно") {
-      return daysSinceCompleted >= 1;
+      return 1;
     }
 
-    if (frequency === "2–3 раза в неделю" || frequency === "2-3 раза в неделю") {
-      return daysSinceCompleted >= 2;
+    if (frequency === "2–3 раза в неделю") {
+      return 2;
     }
 
     if (frequency === "1 раз в неделю") {
-      return daysSinceCompleted >= 7;
+      return 7;
     }
 
-    return false;
+    return null;
+  }
+
+  function formatDateForCurrentLanguage(date) {
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+      return "";
+    }
+
+    return date.toLocaleDateString(getCurrentChildLanguage() === "de" ? "de-DE" : "ru-RU");
+  }
+
+  function addDaysToDateString(dateString, days) {
+    const date = parseDateString(dateString);
+
+    if (!date || typeof days !== "number") {
+      return null;
+    }
+
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+  function getNextAvailableDate(task) {
+    if (!task || !task.lastCompletedAt) {
+      return "";
+    }
+
+    if (getNormalizedFrequency(task.frequency) === "по факту выполнения") {
+      return "не возвращается автоматически";
+    }
+
+    const intervalDays = getFrequencyIntervalDays(task);
+
+    if (!intervalDays) {
+      return "";
+    }
+
+    return addDaysToDateString(task.lastCompletedAt, intervalDays);
+  }
+
+  function shouldResetTaskByFrequency(task) {
+    if (!task || task.done !== true || !task.lastCompletedAt) {
+      return false;
+    }
+
+    const intervalDays = getFrequencyIntervalDays(task);
+
+    if (!intervalDays) {
+      return false;
+    }
+
+    const daysSinceCompleted = getDaysSince(task.lastCompletedAt);
+
+    return daysSinceCompleted >= intervalDays;
+  }
+
+  function shouldTaskBeActiveToday(task) {
+    return !task.done || shouldResetTaskByFrequency(task);
+  }
+
+  function shouldResetTask(task) {
+    return shouldResetTaskByFrequency(task);
   }
 
   function resetTasksByFrequency(taskList) {
     let hasChanges = false;
 
     const resetTasks = taskList.map(function(task) {
-      if (!shouldResetTask(task)) {
+      if (!shouldResetTaskByFrequency(task)) {
         return task;
       }
 
       hasChanges = true;
 
-      return Object.assign({}, task, { done: false, completedPoints: null });
+      return Object.assign({}, task, {
+        done: false,
+        completed: false,
+        completedPoints: null,
+        updatedAt: getNowIso()
+      });
     });
 
     return {
@@ -3299,7 +3502,25 @@
       return "";
     }
 
-    return t("completedAt") + " " + completedDate.toLocaleDateString(getCurrentChildLanguage() === "de" ? "de-DE" : "ru-RU");
+    return t("completedAt") + " " + formatDateForCurrentLanguage(completedDate);
+  }
+
+  function getReturnDateLabel(task) {
+    if (!isParentMode || !task.done || shouldTaskBeActiveToday(task)) {
+      return "";
+    }
+
+    const nextAvailableDate = getNextAvailableDate(task);
+
+    if (!nextAvailableDate) {
+      return "";
+    }
+
+    if (typeof nextAvailableDate === "string") {
+      return "вернётся: " + nextAvailableDate;
+    }
+
+    return "вернётся: " + formatDateForCurrentLanguage(nextAvailableDate);
   }
 
   function normalizeTaskName(name) {
@@ -3572,13 +3793,143 @@
     setSyncStatus("Войдите для синхронизации", "local");
   }
 
+  function getSnapshotUpdatedAt(snapshot) {
+    if (!snapshot || typeof snapshot !== "object") {
+      return 0;
+    }
+
+    const value = snapshot.updatedAt;
+
+    if (value && typeof value.toDate === "function") {
+      return value.toDate().getTime();
+    }
+
+    if (value && typeof value.seconds === "number") {
+      return value.seconds * 1000;
+    }
+
+    const timestamp = Date.parse(String(value || ""));
+    return Number.isFinite(timestamp) ? timestamp : 0;
+  }
+
+  function isValidCloudSnapshot(snapshot) {
+    return Boolean(
+      snapshot &&
+      typeof snapshot === "object" &&
+      Array.isArray(snapshot.children) &&
+      snapshot.childData &&
+      typeof snapshot.childData === "object"
+    );
+  }
+
+  function renderAfterDataReload() {
+    loadChildren();
+    loadData();
+  }
+
+  function promptForDeviceChildIfNeeded() {
+    if (localStorage.getItem("deviceChildSelected") === "true" || children.length <= 1) {
+      return;
+    }
+
+    const selectedChild = prompt("Выберите ребёнка для этого устройства:\n" + children.join(", "), currentChild);
+
+    if (selectedChild && children.includes(selectedChild.trim())) {
+      currentChild = selectedChild.trim();
+      localStorage.setItem("currentChild", currentChild);
+      localStorage.setItem("deviceChildSelected", "true");
+      renderAfterDataReload();
+      return;
+    }
+
+    localStorage.setItem("deviceChildSelected", "true");
+  }
+
+  function applyCloudSnapshotAndRender(cloudData) {
+    if (!isValidCloudSnapshot(cloudData)) {
+      setSyncStatus("Работает локально", "local");
+      return false;
+    }
+
+    const cloudUpdatedAt = getSnapshotUpdatedAt(cloudData);
+
+    if (cloudUpdatedAt && cloudUpdatedAt < lastAppliedCloudUpdatedAt) {
+      return false;
+    }
+
+    isApplyingCloudData = true;
+
+    try {
+      applySnapshotToLocal(cloudData);
+      lastAppliedCloudUpdatedAt = Math.max(lastAppliedCloudUpdatedAt, cloudUpdatedAt || Date.now());
+      renderAfterDataReload();
+      promptForDeviceChildIfNeeded();
+      setSyncStatus("Синхронизировано", "synced");
+      return true;
+    } finally {
+      isApplyingCloudData = false;
+    }
+  }
+
+  function stopCloudSnapshotListener() {
+    if (cloudSnapshotUnsubscribe) {
+      cloudSnapshotUnsubscribe();
+      cloudSnapshotUnsubscribe = null;
+    }
+  }
+
+  function startCloudSnapshotListener() {
+    const docRef = getCloudDocumentRef();
+
+    if (!docRef) {
+      stopCloudSnapshotListener();
+      return;
+    }
+
+    stopCloudSnapshotListener();
+    setSyncStatus("Обновляется...", "local");
+
+    cloudSnapshotUnsubscribe = docRef.onSnapshot(function(doc) {
+      if (!doc.exists) {
+        cloudInitialLoadComplete = true;
+        setSyncStatus("Облако пустое", "local");
+        return;
+      }
+
+      const cloudData = doc.data();
+
+      if (!isValidCloudSnapshot(cloudData)) {
+        cloudInitialLoadComplete = true;
+        setSyncStatus("Работает локально", "local");
+        return;
+      }
+
+      if (hasPendingOfflineChanges) {
+        setSyncStatus("Объедините данные", "error");
+        if (!hasShownOfflineMergePrompt) {
+          hasShownOfflineMergePrompt = true;
+          setTimeout(function() {
+            if (confirm("Соединение восстановлено. Объединить локальные и облачные данные?")) {
+              syncMergeData();
+            }
+          }, 0);
+        }
+        return;
+      }
+
+      applyCloudSnapshotAndRender(cloudData);
+      cloudInitialLoadComplete = true;
+    }, function() {
+      hasPendingOfflineChanges = true;
+      hasShownOfflineMergePrompt = false;
+      setSyncStatus("Работает офлайн", "error");
+    });
+  }
+
   async function handleSignedInUser() {
     updateAuthUi();
-    const cloudData = await loadFromCloud();
-
-    if (!cloudData && confirm("В облаке пока нет данных. Сохранить локальные данные в облако?")) {
-      await syncLocalToCloud();
-    }
+    cloudInitialLoadComplete = false;
+    startCloudSnapshotListener();
   }
 
   function startAuthListener() {
@@ -3593,6 +3944,41 @@
 
       if (currentFirebaseUser) {
         handleSignedInUser();
+      } else {
+        cloudInitialLoadComplete = false;
+        stopCloudSnapshotListener();
+      }
+    });
+  }
+
+  function startNetworkListener() {
+    if (networkListenerStarted || typeof window === "undefined") {
+      return;
+    }
+
+    networkListenerStarted = true;
+    window.addEventListener("offline", function() {
+      hasPendingOfflineChanges = true;
+      hasShownOfflineMergePrompt = false;
+      setSyncStatus("Работает офлайн", "error");
+    });
+
+    window.addEventListener("online", function() {
+      if (!currentFirebaseUser) {
+        setSyncStatus("Войдите для синхронизации", "local");
+        return;
+      }
+
+      setSyncStatus("Обновляется...", "local");
+      startCloudSnapshotListener();
+
+      if (hasPendingOfflineChanges && !hasShownOfflineMergePrompt) {
+        hasShownOfflineMergePrompt = true;
+        setTimeout(function() {
+          if (confirm("Соединение восстановлено. Объединить локальные и облачные данные?")) {
+            syncMergeData();
+          }
+        }, 0);
       }
     });
   }
@@ -3631,6 +4017,8 @@
 
     await cloudAuth.signOut();
     currentFirebaseUser = null;
+    cloudInitialLoadComplete = false;
+    stopCloudSnapshotListener();
     setSyncStatus("Войдите для синхронизации", "local");
     updateAuthUi();
   }
@@ -3654,12 +4042,8 @@
 
     return {
       children: snapshotChildren,
-      currentChild: localStorage.getItem("currentChild") || currentChild || snapshotChildren[0],
       childData: childData,
       rewards: normalizeRewards(safeParseJSON(localStorage.getItem("rewards"), rewards)),
-      parentMode: localStorage.getItem("parentMode") === "true",
-      expandedCategories: uniqueList(safeParseJSON(localStorage.getItem("expandedCategories"), expandedCategories)),
-      activeTaskFilter: localStorage.getItem("activeTaskFilter") || activeTaskFilter,
       taskHistory: normalizeHistory(safeParseJSON(localStorage.getItem("taskHistory"), taskHistory)),
       starTransactions: normalizeStarTransactions(safeParseJSON(localStorage.getItem("starTransactions"), starTransactions)),
       categories: getAllCategoryObjects(),
@@ -3680,9 +4064,13 @@
 
     const snapshotChildren = uniqueList(snapshot.children);
     const nextChildren = snapshotChildren.length > 0 ? snapshotChildren : defaultChildren.slice();
-    const nextCurrentChild = snapshot.currentChild && nextChildren.includes(snapshot.currentChild)
-      ? snapshot.currentChild
+    const localCurrentChild = localStorage.getItem("currentChild") || currentChild;
+    const nextCurrentChild = localCurrentChild && nextChildren.includes(localCurrentChild)
+      ? localCurrentChild
       : nextChildren[0];
+    const localParentMode = localStorage.getItem("parentMode");
+    const localExpandedCategories = localStorage.getItem("expandedCategories");
+    const localActiveTaskFilter = localStorage.getItem("activeTaskFilter");
     const childData = snapshot.childData && typeof snapshot.childData === "object" ? snapshot.childData : {};
     customCategories = uniqueCategories(
       Array.isArray(snapshot.customCategories)
@@ -3696,9 +4084,9 @@
     localStorage.setItem("children", JSON.stringify(nextChildren));
     localStorage.setItem("currentChild", nextCurrentChild);
     localStorage.setItem("rewards", JSON.stringify(normalizeRewards(snapshot.rewards)));
-    localStorage.setItem("parentMode", snapshot.parentMode === true ? "true" : "false");
-    localStorage.setItem("expandedCategories", JSON.stringify(uniqueList(snapshot.expandedCategories || []).map(normalizeCategoryId)));
-    localStorage.setItem("activeTaskFilter", snapshot.activeTaskFilter || "all");
+    localStorage.setItem("parentMode", localParentMode === null ? String(isParentMode) : localParentMode);
+    localStorage.setItem("expandedCategories", localExpandedCategories || JSON.stringify(expandedCategories));
+    localStorage.setItem("activeTaskFilter", localActiveTaskFilter || activeTaskFilter || "today");
     localStorage.setItem("taskHistory", JSON.stringify(normalizeHistory(snapshot.taskHistory)));
     localStorage.setItem("starTransactions", JSON.stringify(normalizeStarTransactions(snapshot.starTransactions)));
     localStorage.removeItem("taskReminderSettings");
@@ -3728,29 +4116,38 @@
       const doc = await docRef.get();
 
       if (!doc.exists) {
+        cloudInitialLoadComplete = true;
         setSyncStatus("В облаке нет данных", "local");
         return null;
       }
 
       const data = doc.data();
 
-      if (!data || !Array.isArray(data.children)) {
+      if (!isValidCloudSnapshot(data)) {
+        cloudInitialLoadComplete = true;
         setSyncStatus("Работает локально", "local");
         return null;
       }
 
+      cloudInitialLoadComplete = true;
       setSyncStatus("Синхронизировано", "synced");
       return data;
     } catch (error) {
-      setSyncStatus("Ошибка синхронизации", "error");
+      hasPendingOfflineChanges = true;
+      setSyncStatus("Работает офлайн", "error");
       return null;
     }
   }
 
-  async function saveToCloud() {
+  async function saveToCloud(forceBeforeInitialLoad) {
     const docRef = getCloudDocumentRef();
 
     if (isApplyingCloudData) {
+      return false;
+    }
+
+    if (!forceBeforeInitialLoad && !cloudInitialLoadComplete) {
+      setSyncStatus("Обновляется...", "local");
       return false;
     }
 
@@ -3760,11 +4157,18 @@
     }
 
     try {
-      await docRef.set(getLocalSnapshot());
+      setSyncStatus("Обновляется...", "local");
+      const snapshot = getLocalSnapshot();
+      snapshot.updatedAt = getNowIso();
+      await docRef.set(snapshot);
+      lastSavedCloudUpdatedAt = getSnapshotUpdatedAt(snapshot);
+      hasPendingOfflineChanges = false;
+      hasShownOfflineMergePrompt = false;
       setSyncStatus("Синхронизировано", "synced");
       return true;
     } catch (error) {
-      setSyncStatus("Ошибка синхронизации", "error");
+      hasPendingOfflineChanges = true;
+      setSyncStatus("Работает офлайн", "error");
       return false;
     }
   }
@@ -3774,17 +4178,22 @@
       return;
     }
 
+    if (!cloudInitialLoadComplete) {
+      return;
+    }
+
     if (cloudSaveTimer) {
       clearTimeout(cloudSaveTimer);
     }
 
     cloudSaveTimer = setTimeout(function() {
+      cloudSaveTimer = null;
       saveToCloud();
     }, 500);
   }
 
   async function syncLocalToCloud() {
-    return saveToCloud();
+    return saveToCloud(true);
   }
 
   async function syncCloudToLocal() {
@@ -3794,10 +4203,7 @@
       return null;
     }
 
-    isApplyingCloudData = true;
-    applySnapshotToLocal(cloudData);
-    isApplyingCloudData = false;
-    setSyncStatus("Синхронизировано", "synced");
+    applyCloudSnapshotAndRender(cloudData);
 
     return cloudData;
   }
@@ -3810,6 +4216,7 @@
     }
 
     startAuthListener();
+    startNetworkListener();
     updateAuthUi();
   }
 
@@ -3875,13 +4282,15 @@
     isApplyingCloudData = true;
     applySnapshotToLocal(mergedSnapshot);
     isApplyingCloudData = false;
-    const saved = await saveToCloud();
+    const saved = await saveToCloud(true);
     if (!saved) {
       alert("Ошибка синхронизации");
       return;
     }
 
     setSyncStatus("Данные объединены", "synced");
+    hasPendingOfflineChanges = false;
+    hasShownOfflineMergePrompt = false;
     loadChildren();
     loadData();
     alert("Данные объединены");
@@ -3995,7 +4404,7 @@
       applySnapshotToLocal(snapshot);
       isApplyingCloudData = false;
 
-      await saveToCloud();
+      await saveToCloud(true);
       loadChildren();
       loadData();
       alert("Резервная копия восстановлена");
@@ -4292,7 +4701,7 @@
         const amount = Number(entry && entry.amount);
         const title = String(entry && entry.title || "").trim();
         const date = String(entry && entry.date || "").trim();
-        const allowedTypes = ["earn", "spend", "reset", "refund"];
+        const allowedTypes = ["earn", "spend", "reset", "refund", "adjust", "deduct"];
 
         if (child === "" || !allowedTypes.includes(type) || !Number.isFinite(amount) || title === "" || date === "") {
           return null;
@@ -4442,7 +4851,9 @@
       earn: "Заработано",
       spend: "Потрачено",
       reset: "Сброс",
-      refund: "Возврат"
+      refund: "Возврат",
+      adjust: "Начислено родителем",
+      deduct: "Списано родителем"
     };
 
     return labels[type] || type;
@@ -4477,6 +4888,31 @@
     if (!typeFilter.value) {
       typeFilter.value = "all";
     }
+  }
+
+  function renderManualPointsChildSelect() {
+    const childSelects = [
+      document.getElementById("manualPointsChildSelect"),
+      document.getElementById("deductPointsChildSelect")
+    ].filter(Boolean);
+
+    if (childSelects.length === 0) {
+      return;
+    }
+
+    childSelects.forEach(function(childSelect) {
+      const selectedChild = childSelect.value || currentChild;
+      childSelect.innerHTML = "";
+
+      children.forEach(function(child) {
+        const option = document.createElement("option");
+        option.value = child;
+        option.innerText = child;
+        childSelect.appendChild(option);
+      });
+
+      childSelect.value = children.includes(selectedChild) ? selectedChild : currentChild;
+    });
   }
 
   function renderStarTransactions() {
@@ -5459,7 +5895,6 @@
 
   function saveExpandedCategories() {
     localStorage.setItem("expandedCategories", JSON.stringify(expandedCategories));
-    scheduleCloudSave();
   }
 
   function toggleCategory(category) {
@@ -5512,15 +5947,14 @@
   function setTaskFilter(filterId) {
     activeTaskFilter = filterId;
     localStorage.setItem("activeTaskFilter", activeTaskFilter);
-    scheduleCloudSave();
     renderTasks();
   }
 
   function taskMatchesFilter(task) {
-    const frequency = String(task.frequency || "").toLowerCase();
+    const frequency = getNormalizedFrequency(task.frequency);
 
     if (activeTaskFilter === "today") {
-      return !task.done;
+      return shouldTaskBeActiveToday(task);
     }
 
     if (activeTaskFilter === "daily") {
@@ -5528,7 +5962,7 @@
     }
 
     if (activeTaskFilter === "fewWeekly") {
-      return frequency === "2–3 раза в неделю" || frequency === "2-3 раза в неделю";
+      return frequency === "2–3 раза в неделю";
     }
 
     if (activeTaskFilter === "weekly") {
@@ -5540,7 +5974,7 @@
     }
 
     if (activeTaskFilter === "todo") {
-      return !task.done;
+      return shouldTaskBeActiveToday(task);
     }
 
     return true;
@@ -5688,7 +6122,7 @@
     const weekEarned = document.getElementById("weekEarned");
     const totalProgressPoints = document.getElementById("totalProgressPoints");
     const remainingTasks = tasks.filter(function(task) {
-      return !task.done;
+      return shouldTaskBeActiveToday(task);
     }).length;
     const todayEarned = taskHistory
       .filter(function(entry) {
@@ -5776,6 +6210,7 @@
           category: templateCategoryName,
           icon: templateTask.icon || getTaskIcon(templateTask),
           done: false,
+          completed: false,
           lastCompletedAt: null,
           completedPoints: null
         });
@@ -5790,6 +6225,7 @@
           category: templateCategoryName,
           icon: updatedTasks[matchIndex].icon || templateTask.icon || getTaskIcon(templateTask),
           done: updatedTasks[matchIndex].done,
+          completed: Boolean(updatedTasks[matchIndex].done || updatedTasks[matchIndex].completed),
           lastCompletedAt: updatedTasks[matchIndex].lastCompletedAt || null,
           completedPoints: updatedTasks[matchIndex].completedPoints || null
         };
@@ -5866,6 +6302,10 @@
     }) ? savedTaskFilter : "today";
 
     const savedChild = localStorage.getItem("currentChild");
+
+    if (savedChild && localStorage.getItem("deviceChildSelected") !== "true") {
+      localStorage.setItem("deviceChildSelected", "true");
+    }
 
     if (savedChild && !children.includes(savedChild)) {
       children.push(savedChild);
@@ -6012,6 +6452,7 @@
     document.getElementById("childEdit").style.display = editingChild ? "flex" : "none";
     renderHistoryFilters();
     renderStarTransactionFilters();
+    renderManualPointsChildSelect();
     renderLanguageSettings();
     renderRanking();
     updateKidSummary();
@@ -6190,6 +6631,7 @@
     }
 
     currentChild = document.getElementById("childSelect").value;
+    localStorage.setItem("deviceChildSelected", "true");
     editingIndex = null;
     editingChild = false;
     document.getElementById("taskInput").value = "";
@@ -6351,7 +6793,7 @@
         })
         .filter(function(item) {
           const matchesCategory = getTaskCategoryId(item.task) === category;
-          const matchesCurrentMode = isParentMode ? taskMatchesFilter(item.task) : !item.task.done;
+          const matchesCurrentMode = isParentMode ? taskMatchesFilter(item.task) : shouldTaskBeActiveToday(item.task);
 
           return matchesCategory && matchesCurrentMode;
         });
@@ -6587,6 +7029,15 @@
         content.appendChild(completedAt);
       }
 
+      const returnDateLabel = getReturnDateLabel(task);
+
+      if (returnDateLabel) {
+        const returnDate = document.createElement("span");
+        returnDate.className = "task-completed-at";
+        returnDate.innerText = returnDateLabel;
+        content.appendChild(returnDate);
+      }
+
       main.appendChild(content);
       taskElement.appendChild(main);
     }
@@ -6800,21 +7251,56 @@
       return;
     }
 
-    const newTask = {
-      text: titleRu,
-      titleRu: titleRu,
-      titleDe: titleDe,
-      points: taskPoints,
-      frequency: "",
-      categoryId: taskCategoryId,
-      category: taskCategory,
-      done: false,
-      lastCompletedAt: null,
-      completedPoints: null,
-      updatedAt: getNowIso()
-    };
-    newTask.icon = taskIcon || getTaskIcon(newTask);
-    tasks.push(newTask);
+    const createdAt = getNowIso();
+
+    function createNewTask() {
+      const task = {
+        text: titleRu,
+        titleRu: titleRu,
+        titleDe: titleDe,
+        points: taskPoints,
+        frequency: "",
+        categoryId: taskCategoryId,
+        category: taskCategory,
+        done: false,
+        completed: false,
+        lastCompletedAt: null,
+        completedPoints: null,
+        updatedAt: createdAt
+      };
+
+      task.icon = taskIcon || getTaskIcon(task);
+      return task;
+    }
+
+    children.forEach(function(child) {
+      const storageKey = getStorageKey(child);
+      const data = child === currentChild
+        ? normalizeChildData({
+          tasks: tasks,
+          points: points,
+          claimedRewards: claimedRewards,
+          rewards: rewards,
+          rewardRequests: rewardRequests,
+          language: language,
+          updatedAt: getNowIso()
+        })
+        : normalizeChildData(safeParseJSON(localStorage.getItem(storageKey), getInitialChildData()));
+
+      data.tasks = data.tasks.concat(createNewTask());
+      data.updatedAt = createdAt;
+      localStorage.setItem(storageKey, JSON.stringify(data));
+
+      if (child === currentChild) {
+        tasks = data.tasks;
+        points = data.points;
+        claimedRewards = data.claimedRewards;
+        rewards = data.rewards;
+        rewardRequests = data.rewardRequests;
+        language = data.language;
+      }
+    });
+
     input.value = "";
     if (inputDe) {
       inputDe.value = "";
@@ -6825,8 +7311,11 @@
     pointsInput.value = "10";
     categoryInput.value = "cat_uncategorized";
 
-    saveData();
+    saveChildren();
     renderTasks();
+    renderRanking();
+    updatePoints();
+    saveToCloud();
   }
 
   function loadCleaningTemplate() {
@@ -6964,6 +7453,102 @@
     alert(shouldClearHistory ? "Баллы и история сброшены, задачи снова активны" : "Баллы сброшены, задачи снова активны");
   }
 
+  function addManualPointsToChild() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const childSelect = document.getElementById("manualPointsChildSelect");
+    const amountInput = document.getElementById("manualPointsAmountInput");
+    const reasonInput = document.getElementById("manualPointsReasonInput");
+    const child = childSelect ? childSelect.value : currentChild;
+    const amount = Math.floor(Number(amountInput ? amountInput.value : 0));
+    const reason = reasonInput && reasonInput.value.trim()
+      ? reasonInput.value.trim()
+      : "Ручное начисление";
+
+    if (!children.includes(child) || amount <= 0) {
+      alert("Выберите ребёнка и укажите количество баллов больше 0");
+      return;
+    }
+
+    if (child === currentChild) {
+      points = Math.max(0, Number(points) || 0) + amount;
+      saveData();
+    } else {
+      const storageKey = getStorageKey(child);
+      const data = normalizeChildData(safeParseJSON(localStorage.getItem(storageKey), getInitialChildData()));
+      data.points = Math.max(0, Number(data.points) || 0) + amount;
+      data.updatedAt = getNowIso();
+      localStorage.setItem(storageKey, JSON.stringify(data));
+      saveChildren();
+    }
+
+    addStarTransaction("adjust", amount, reason, child);
+
+    if (amountInput) {
+      amountInput.value = "10";
+    }
+
+    if (reasonInput) {
+      reasonInput.value = "";
+    }
+
+    renderChildren();
+    renderRanking();
+    renderStarTransactions();
+    updatePoints();
+    saveToCloud();
+  }
+
+  function deductManualPointsFromChild() {
+    if (!isParentMode) {
+      return;
+    }
+
+    const childSelect = document.getElementById("deductPointsChildSelect");
+    const amountInput = document.getElementById("deductPointsAmountInput");
+    const reasonInput = document.getElementById("deductPointsReasonInput");
+    const child = childSelect ? childSelect.value : currentChild;
+    const amount = Math.floor(Number(amountInput ? amountInput.value : 0));
+    const reason = reasonInput && reasonInput.value.trim()
+      ? reasonInput.value.trim()
+      : "Ручное списание";
+
+    if (!children.includes(child) || amount <= 0) {
+      alert("Выберите ребёнка и укажите количество баллов больше 0");
+      return;
+    }
+
+    if (child === currentChild) {
+      points = Math.max(0, (Number(points) || 0) - amount);
+      saveData();
+    } else {
+      const storageKey = getStorageKey(child);
+      const data = normalizeChildData(safeParseJSON(localStorage.getItem(storageKey), getInitialChildData()));
+      data.points = Math.max(0, (Number(data.points) || 0) - amount);
+      data.updatedAt = getNowIso();
+      localStorage.setItem(storageKey, JSON.stringify(data));
+      saveChildren();
+    }
+
+    addStarTransaction("deduct", -amount, reason, child);
+
+    if (amountInput) {
+      amountInput.value = "10";
+    }
+
+    if (reasonInput) {
+      reasonInput.value = "";
+    }
+
+    renderChildren();
+    renderRanking();
+    renderStarTransactions();
+    updatePoints();
+    saveToCloud();
+  }
+
   function shouldClearHistoryOnPointsReset() {
     const checkbox = document.getElementById("resetHistoryCheckbox");
     return Boolean(checkbox && checkbox.checked);
@@ -7005,6 +7590,7 @@
           category: templateCategoryName,
           icon: templateTask.icon || getTaskIcon(templateTask),
           done: Boolean(templateTask.completed),
+          completed: Boolean(templateTask.completed),
           lastCompletedAt: null,
           completedPoints: null,
           updatedAt: getNowIso()
@@ -7030,6 +7616,7 @@
           category: templateCategoryName,
           icon: currentTask.icon || templateTask.icon || getTaskIcon(templateTask),
           done: currentTask.done,
+          completed: Boolean(currentTask.done || currentTask.completed),
           lastCompletedAt: currentTask.lastCompletedAt || null,
           completedPoints: currentTask.completedPoints || null,
           updatedAt: getNowIso()
@@ -7078,6 +7665,7 @@
     if (wasDone) {
       const pointsToRemove = Number(tasks[index].completedPoints || taskPoints);
       tasks[index].done = false;
+      tasks[index].completed = false;
       tasks[index].lastCompletedAt = null;
       tasks[index].completedPoints = null;
       tasks[index].updatedAt = getNowIso();
@@ -7105,6 +7693,7 @@
       justCompletedTaskPoints = 0;
     } else {
       tasks[index].done = true;
+      tasks[index].completed = true;
       tasks[index].lastCompletedAt = getTodayString();
       tasks[index].completedPoints = taskPoints;
       tasks[index].updatedAt = getNowIso();
@@ -7612,11 +8201,7 @@
 
   function showPwaUpdateBanner(worker) {
     pendingServiceWorker = worker || pendingServiceWorker;
-    const banner = document.getElementById("updateBanner");
-
-    if (banner) {
-      banner.classList.add("active");
-    }
+    applyPwaUpdate();
   }
 
   function hidePwaUpdateBanner() {
@@ -7694,11 +8279,9 @@
     setSyncStatus("Работает локально", "local");
     await initializeCloudSync();
     loadChildren();
-    if (shouldRunDailyReset()) {
-      resetAllTasksForNewDay(false);
-    }
+    resetDueTasksByFrequency(false);
     loadData();
-    scheduleMidnightReset();
+    scheduleNextFrequencyCheck();
     registerServiceWorker();
   }
 
@@ -7707,4 +8290,3 @@
 
 </body>
 </html>
-

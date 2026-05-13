@@ -1,4 +1,4 @@
-const CACHE_NAME = "family-tasks-v57";
+const CACHE_NAME = "family-tasks-v65";
 const ASSETS = [
   "./",
   "index.html",
@@ -11,6 +11,8 @@ self.addEventListener("install", function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.addAll(ASSETS);
+    }).then(function() {
+      return self.skipWaiting();
     })
   );
 });
