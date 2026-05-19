@@ -4235,6 +4235,7 @@
       rewards: normalizeRewards(safeParseJSON(localStorage.getItem("rewards"), rewards)),
       taskHistory: normalizeHistory(safeParseJSON(localStorage.getItem("taskHistory"), taskHistory)),
       starTransactions: normalizeStarTransactions(safeParseJSON(localStorage.getItem("starTransactions"), starTransactions)),
+      starTransfers: safeParseJSON(localStorage.getItem("starTransfers"), []).filter(Boolean),
       categories: getAllCategoryObjects(),
       customCategories: uniqueCategories(safeParseJSON(localStorage.getItem("customCategories"), customCategories)),
       categoryRenames: normalizeCategoryRenames(safeParseJSON(localStorage.getItem("categoryRenames"), categoryRenames)),
@@ -4285,6 +4286,33 @@
     localStorage.setItem("categoryRenamesDe", JSON.stringify(categoryRenamesDe));
     localStorage.setItem("removedStandardCategories", JSON.stringify(removedStandardCategories));
     localStorage.setItem("lastDailyResetDate", snapshot.lastDailyResetDate || "");
+
+    var localRawTransfers = safeParseJSON(localStorage.getItem("starTransfers"), []);
+    var localAppliedIds = new Set((localRawTransfers || []).filter(function(t) { return t && t.applied; }).map(function(t) { return t.id; }));
+    var cloudRawTransfers = Array.isArray(snapshot.starTransfers) ? snapshot.starTransfers.filter(Boolean) : [];
+    var localOnlyTransfers = (localRawTransfers || []).filter(function(t) { return t && !cloudRawTransfers.some(function(ct) { return ct.id === t.id; }); });
+    var mergedRawTransfers = cloudRawTransfers.map(function(t) {
+      return localAppliedIds.has(t.id) ? Object.assign({}, t, { applied: true }) : t;
+    }).concat(localOnlyTransfers);
+    var incomingTransfers = mergedRawTransfers.filter(function(t) { return t.to === nextCurrentChild && !t.applied; });
+    if (incomingTransfers.length > 0) {
+      var transferTotal = incomingTransfers.reduce(function(sum, t) { return sum + (t.amount || 0); }, 0);
+      if (childData[nextCurrentChild]) {
+        childData[nextCurrentChild] = Object.assign({}, childData[nextCurrentChild], {
+          points: (childData[nextCurrentChild].points || 0) + transferTotal,
+          updatedAt: getNowIso()
+        });
+      }
+      var incomingIds = new Set(incomingTransfers.map(function(t) { return t.id; }));
+      mergedRawTransfers = mergedRawTransfers.map(function(t) {
+        return incomingIds.has(t.id) ? Object.assign({}, t, { applied: true }) : t;
+      });
+    }
+    localStorage.setItem("starTransfers", JSON.stringify(mergedRawTransfers));
+    starTransfers = mergedRawTransfers;
+    if (incomingTransfers.length > 0) {
+      setTimeout(function() { soundTransferReceive(); scheduleCloudSave(); }, 0);
+    }
 
     nextChildren.forEach(function(child) {
       localStorage.setItem(getStorageKey(child), JSON.stringify(normalizeChildData(childData[child] || getInitialChildData())));
@@ -4639,6 +4667,7 @@
       starTransactions: mergeByKey(localData.starTransactions || [], cloudData.starTransactions || [], function(entry) {
         return entry.id || [entry.child, entry.type, entry.amount, entry.title, entry.date].join("|");
       }),
+      starTransfers: mergeByKey(localData.starTransfers || [], cloudData.starTransfers || [], function(t) { return t.id; }),
       categories: getAllCategoryObjects(),
       customCategories: mergeCustomCategories(localData.customCategories, cloudData.customCategories),
       categoryRenames: Object.assign({}, cloudData.categoryRenames || {}, localData.categoryRenames || {}),
@@ -8749,7 +8778,7 @@
       to: selectedTransferChild,
       amount: amount,
       timestamp: timestamp,
-      synced: false
+      applied: false
     });
     saveStarTransfers();
 
