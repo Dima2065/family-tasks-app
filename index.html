@@ -2545,7 +2545,140 @@
         height: 36px;
       }
 
-    }
+      .transfer-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .transfer-section {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 14px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .transfer-section h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        color: #263238;
+      }
+
+      .qr-code-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        border: 2px solid #70c99b;
+      }
+
+      .qr-code-container canvas {
+        max-width: 100%;
+      }
+
+      .qr-info {
+        text-align: center;
+        font-size: 13px;
+        color: #666;
+        margin: 10px 0 0;
+      }
+
+      .transfer-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .scan-button {
+        background: linear-gradient(180deg, #70c99b 0%, #45ad7a 100%);
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .scan-button:active {
+        transform: scale(0.98);
+      }
+
+      #transferRecipientBlock label {
+        display: block;
+        font-weight: bold;
+        color: #526760;
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+
+      #transferAmount {
+        padding: 12px 14px;
+        border: 1px solid #d8e4de;
+        border-radius: 12px;
+        font-size: 16px;
+        background: white;
+        color: #263238;
+      }
+
+      #transferAmount:focus {
+        border-color: #78b99c;
+        outline: none;
+      }
+
+      .history-list .history-item {
+        background: white;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #e3ebe7;
+        margin: 8px 0;
+      }
+
+      .transfer-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .transfer-badge.sent {
+        background: #ffe0e0;
+        color: #c62828;
+      }
+
+      .transfer-badge.received {
+        background: #e0ffe0;
+        color: #28a745;
+      }
+
+      @media (max-width: 768px) {
+        .transfer-container {
+          gap: 15px;
+        }
+
+        .transfer-section {
+          padding: 12px;
+        }
+
+        #transferRecipientBlock {
+          display: flex !important;
+          flex-direction: column !important;
+        }
+
+        #transferRecipientBlock input,
+        #transferRecipientBlock div {
+          width: 100%;
+        }
+
+        .scan-button {
+          width: 100%;
+        }
+      }
+    
   </style>
 </head>
 
@@ -2555,6 +2688,7 @@
   <div class="top-bar">
     <span id="parentModeLabel" class="mode-label">Режим родителя</span>
     <span id="syncStatus" class="sync-status">Работает локально</span>
+    <button class="icon-button" id="refreshButton" onclick="refreshDataSafely()" title="Обновить данные">🔄</button>
     <button class="icon-button" onclick="toggleParentMode()" title="Родительский режим">🔒</button>
   </div>
 
@@ -2616,6 +2750,49 @@
     <div id="rankingList" class="ranking-list"></div>
     <h2 id="historyTitle" class="section-title">История</h2>
     <div id="progressHistoryList" class="history-list"></div>
+  </section>
+
+  <section id="transfersPanel" class="tab-panel">
+    <h2 id="transfersTitle" class="section-title">Переводы баллов</h2>
+    <div class="transfer-container">
+      <div class="transfer-section">
+        <h3>Мой QR код</h3>
+        <div id="myQrCode" class="qr-code-container"></div>
+        <p class="qr-info" id="myQrInfo">Покажи этот QR другому ребенку</p>
+      </div>
+
+      <div class="transfer-section">
+        <h3>Отправить баллы</h3>
+        <div class="transfer-form">
+          <button class="scan-button" onclick="startQrScanner()">📱 Сканировать QR</button>
+          <div id="qrScannerContainer" style="display: none;">
+            <video id="qrScannerVideo" style="width: 100%; border-radius: 12px; margin: 10px 0;"></video>
+            <button onclick="stopQrScanner()" class="secondary-button">Закрыть сканер</button>
+          </div>
+        </div>
+
+        <div id="transferRecipientBlock" style="display: none; margin-top: 15px;">
+          <label>Кому:</label>
+          <input id="transferRecipientName" type="text" readonly style="background: #f0f0f0;">
+          
+          <label style="margin-top: 10px;">Сколько баллов:</label>
+          <div style="display: flex; gap: 10px;">
+            <input id="transferAmount" type="number" min="1" placeholder="Введите кол-во" style="flex: 1;">
+            <span id="maxTransferAmount" style="align-self: center; color: #666; font-size: 14px;">макс: 0</span>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button class="add-task-button" onclick="confirmTransfer()" style="flex: 1;">Отправить</button>
+            <button class="secondary-button" onclick="cancelTransfer()" style="flex: 1;">Отмена</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="transfer-section">
+        <h3>История переводов</h3>
+        <div id="transferHistory" class="history-list"></div>
+      </div>
+    </div>
   </section>
 
   <section id="parentPanel" class="tab-panel">
@@ -2789,6 +2966,7 @@
 <nav class="bottom-nav">
   <button id="tabToday" class="active" onclick="setActiveTab('today')">✅ Сегодня</button>
   <button id="tabRewards" onclick="setActiveTab('rewards')">🎁 Награды</button>
+  <button id="tabTransfers" onclick="setActiveTab('transfers')">💸 Переводы</button>
   <button id="tabProgress" onclick="setActiveTab('progress')">📈 Прогресс</button>
   <button id="tabParent" onclick="setActiveTab('parent')">🔒 Родитель</button>
 </nav>
@@ -2802,6 +2980,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 <script>
   let children = [];
   let currentChild = "Марта";
@@ -2846,6 +3026,9 @@
   let midnightResetTimer = null;
   let pendingServiceWorker = null;
   let isRefreshingForPwaUpdate = false;
+  let starTransfers = [];
+  let qrScannerActive = false;
+  let selectedTransferChild = null;
 
   const firebaseConfig = {
     apiKey: "AIzaSyDSwL9Von29eA4JVLHDsJqr7rEtoBbqWGw",
@@ -3919,7 +4102,13 @@
 
       applyCloudSnapshotAndRender(cloudData);
       cloudInitialLoadComplete = true;
-    }, function() {
+    }, function(error) {
+      if (error && error.code === "permission-denied") {
+        setSyncStatus("Нет доступа к данным", "error");
+        setAuthStatus("Ошибка доступа", "error");
+        return;
+      }
+
       hasPendingOfflineChanges = true;
       hasShownOfflineMergePrompt = false;
       setSyncStatus("Работает офлайн", "error");
@@ -4651,7 +4840,7 @@
         }
 
         return {
-          id: String(request.id || "request_" + index + "_" + Date.now()),
+          id: String(request.id || "req_" + child + "_" + rewardId + "_" + createdAt),
           child: child,
           rewardId: rewardId,
           rewardTitle: rewardTitle,
@@ -4701,7 +4890,7 @@
         const amount = Number(entry && entry.amount);
         const title = String(entry && entry.title || "").trim();
         const date = String(entry && entry.date || "").trim();
-        const allowedTypes = ["earn", "spend", "reset", "refund", "adjust", "deduct"];
+        const allowedTypes = ["earn", "spend", "reset", "refund", "adjust", "deduct", "transfer"];
 
         if (child === "" || !allowedTypes.includes(type) || !Number.isFinite(amount) || title === "" || date === "") {
           return null;
@@ -4853,7 +5042,8 @@
       reset: "Сброс",
       refund: "Возврат",
       adjust: "Начислено родителем",
-      deduct: "Списано родителем"
+      deduct: "Списано родителем",
+      transfer: "Перевод баллов"
     };
 
     return labels[type] || type;
@@ -5125,9 +5315,9 @@
     if (category === "cat_morning" || title.includes("утро")) return "🌅";
     if (category === "cat_evening" || title.includes("вечер")) return "🌙";
     if (category === "cat_floor0" || title.includes("0 этаж")) return "🏠";
-    if (category === "cat_floor1_bath" || title.includes("1 этаж") && title.includes("санузел")) return "🚿";
+    if (category === "cat_floor1_bath" || (title.includes("1 этаж") && title.includes("санузел"))) return "🚿";
     if (category === "cat_floor1_living" || title.includes("1 этаж")) return "🍽️";
-    if (category === "cat_floor2_bath" || title.includes("2 этаж") && title.includes("ванная")) return "🛁";
+    if (category === "cat_floor2_bath" || (title.includes("2 этаж") && title.includes("ванная"))) return "🛁";
     if (category === "cat_floor2_bedrooms" || title.includes("2 этаж")) return "🛏️";
     if (category === "cat_common" || title.includes("общие")) return "👨‍👩‍👧‍👦";
     if (category === "cat_learning" || title.includes("учёба") || title.includes("учеба")) return "📚";
@@ -5974,7 +6164,7 @@
     }
 
     if (activeTaskFilter === "todo") {
-      return shouldTaskBeActiveToday(task);
+      return !task.done;
     }
 
     return true;
@@ -5996,7 +6186,7 @@
   function renderTabs() {
     renderAppText();
 
-    ["today", "rewards", "progress", "parent"].forEach(function(tabName) {
+    ["today", "rewards", "transfers", "progress", "parent"].forEach(function(tabName) {
       const panel = document.getElementById(tabName + "Panel");
       const button = document.getElementById("tab" + tabName.charAt(0).toUpperCase() + tabName.slice(1));
 
@@ -6009,12 +6199,21 @@
       }
     });
 
+    if (activeTab !== "transfers") {
+      stopQrScanner();
+    }
+
     document.body.classList.toggle("parent-tab", activeTab === "parent");
 
     if (activeTab === "progress") {
       renderHistory();
       renderRanking();
       renderProgressHistory();
+    }
+
+    if (activeTab === "transfers") {
+      generateMyQrCode();
+      renderTransfers();
     }
 
     renderRewards();
@@ -7752,6 +7951,8 @@
 
     if (!wasDone) {
       showTaskCompleteAnimation(taskPoints, buttonElement);
+      soundTaskDone();
+      setTimeout(soundPointsEarned, 300);
     }
 
     const refreshAfterToggle = function() {
@@ -7828,6 +8029,7 @@
 
     renderRewards();
     showRewardFirework();
+    soundRewardClaimed();
   }
 
   function claimReward(rewardId) {
@@ -7934,6 +8136,7 @@
     renderProgressHistory();
     updatePoints();
     showRewardFirework();
+    soundRewardClaimed();
     alert("Награда подтверждена");
   }
 
@@ -8160,17 +8363,28 @@
       return;
     }
 
-    tasks[index].text = titleRu;
-    tasks[index].titleRu = titleRu;
-    tasks[index].titleDe = titleDe;
-    tasks[index].points = taskPoints;
-    tasks[index].categoryId = taskCategoryId;
-    tasks[index].category = taskCategory;
-    tasks[index].icon = taskIcon || getTaskIcon({ text: titleRu, titleRu: titleRu, titleDe: titleDe });
-    tasks[index].updatedAt = getNowIso();
+    const previousTask = Object.assign({}, tasks[index]);
+
+    tasks[index] = Object.assign({}, tasks[index], {
+      text: titleRu,
+      titleRu: titleRu,
+      titleDe: titleDe,
+      points: taskPoints,
+      categoryId: taskCategoryId,
+      category: taskCategory,
+      icon: taskIcon || getTaskIcon({ text: titleRu, titleRu: titleRu, titleDe: titleDe }),
+      updatedAt: getNowIso()
+    });
     editingIndex = null;
 
-    saveData();
+    try {
+      saveData();
+    } catch (error) {
+      tasks[index] = previousTask;
+      editingIndex = index;
+      alert("Не удалось сохранить изменения. Попробуйте ещё раз.");
+    }
+
     renderTasks();
   }
 
@@ -8275,17 +8489,367 @@
     });
   }
 
+  async function refreshDataSafely() {
+    const btn = document.getElementById("refreshButton");
+    if (btn) {
+      btn.disabled = true;
+      btn.style.opacity = "0.5";
+    }
+
+    try {
+      saveData();
+      saveChildren();
+
+      if (currentFirebaseUser && cloudReady) {
+        await syncMergeData();
+      } else {
+        loadChildren();
+        loadData();
+      }
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.style.opacity = "";
+      }
+    }
+  }
+
+  // ===== SOUND SYSTEM =====
+
+  let audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
+  }
+
+  function playTone(frequency, duration, type, gainValue, startDelay) {
+    try {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = type || "sine";
+      osc.frequency.setValueAtTime(frequency, ctx.currentTime + (startDelay || 0));
+      gain.gain.setValueAtTime(gainValue || 0.18, ctx.currentTime + (startDelay || 0));
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (startDelay || 0) + duration);
+      osc.start(ctx.currentTime + (startDelay || 0));
+      osc.stop(ctx.currentTime + (startDelay || 0) + duration);
+    } catch (e) {}
+  }
+
+  function soundTaskDone() {
+    playTone(523, 0.12, "sine", 0.2, 0);
+    playTone(659, 0.12, "sine", 0.2, 0.1);
+    playTone(784, 0.22, "sine", 0.22, 0.2);
+  }
+
+  function soundPointsEarned() {
+    playTone(440, 0.08, "triangle", 0.15, 0);
+    playTone(554, 0.08, "triangle", 0.15, 0.07);
+    playTone(659, 0.08, "triangle", 0.15, 0.14);
+    playTone(880, 0.18, "sine", 0.2, 0.22);
+  }
+
+  function soundTransferSend() {
+    playTone(392, 0.1, "sine", 0.15, 0);
+    playTone(330, 0.1, "sine", 0.12, 0.1);
+    playTone(262, 0.2, "sine", 0.1, 0.2);
+  }
+
+  function soundTransferReceive() {
+    playTone(523, 0.1, "sine", 0.15, 0);
+    playTone(659, 0.1, "sine", 0.18, 0.1);
+    playTone(784, 0.1, "sine", 0.2, 0.2);
+    playTone(1047, 0.25, "sine", 0.22, 0.3);
+  }
+
+  function soundRewardClaimed() {
+    playTone(523, 0.1, "sine", 0.18, 0);
+    playTone(659, 0.1, "sine", 0.18, 0.08);
+    playTone(784, 0.1, "sine", 0.18, 0.16);
+    playTone(1047, 0.12, "sine", 0.22, 0.24);
+    playTone(1319, 0.3, "sine", 0.2, 0.36);
+  }
+
+  // ===== END SOUND SYSTEM =====
+
   async function startApp() {
     setSyncStatus("Работает локально", "local");
     await initializeCloudSync();
     loadChildren();
+    loadStarTransfers();
     resetDueTasksByFrequency(false);
     loadData();
     scheduleNextFrequencyCheck();
     registerServiceWorker();
+    generateMyQrCode();
+  }
+
+  // ===== QR & TRANSFER FUNCTIONS =====
+
+  function loadStarTransfers() {
+    starTransfers = safeParseJSON(localStorage.getItem("starTransfers"), []);
+  }
+
+  function saveStarTransfers() {
+    localStorage.setItem("starTransfers", JSON.stringify(starTransfers));
+    scheduleCloudSave();
+  }
+
+  function generateMyQrCode() {
+    const qrContainer = document.getElementById("myQrCode");
+    if (!qrContainer) return;
+    
+    qrContainer.innerHTML = "";
+    const qrData = "FAMILY_TASKS_QR:" + currentChild;
+    
+    try {
+      const qr = new QRCode(qrContainer, {
+        text: qrData,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    } catch (error) {
+      console.log("QR generation error:", error);
+    }
+  }
+
+  function startQrScanner() {
+    qrScannerActive = true;
+    const video = document.getElementById("qrScannerVideo");
+    const container = document.getElementById("qrScannerContainer");
+    
+    if (!video || !container) return;
+    
+    container.style.display = "block";
+    
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+      .then(function(stream) {
+        video.srcObject = stream;
+        video.play();
+        scanQrFromVideo(video);
+      })
+      .catch(function(error) {
+        alert("Не удалось получить доступ к камере: " + error.message);
+        qrScannerActive = false;
+        container.style.display = "none";
+      });
+  }
+
+  function scanQrFromVideo(video) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    function scan() {
+      if (!qrScannerActive || !video.srcObject) return;
+
+      if (video.readyState < 2 || video.videoWidth === 0) {
+        requestAnimationFrame(scan);
+        return;
+      }
+
+      if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+      }
+
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+      if (code && code.data.startsWith("FAMILY_TASKS_QR:")) {
+        const childName = code.data.replace("FAMILY_TASKS_QR:", "").trim();
+        if (childName && childName !== currentChild && children.includes(childName)) {
+          selectTransferRecipient(childName);
+          stopQrScanner();
+        }
+      }
+
+      if (qrScannerActive) {
+        requestAnimationFrame(scan);
+      }
+    }
+
+    scan();
+  }
+
+  function stopQrScanner() {
+    qrScannerActive = false;
+    const video = document.getElementById("qrScannerVideo");
+    const container = document.getElementById("qrScannerContainer");
+    
+    if (video && video.srcObject) {
+      const tracks = video.srcObject.getTracks();
+      tracks.forEach(function(track) {
+        track.stop();
+      });
+      video.srcObject = null;
+    }
+    
+    if (container) {
+      container.style.display = "none";
+    }
+  }
+
+  function selectTransferRecipient(childName) {
+    selectedTransferChild = childName;
+    document.getElementById("transferRecipientName").value = childName;
+    document.getElementById("transferRecipientBlock").style.display = "block";
+    document.getElementById("maxTransferAmount").innerText = "макс: " + Math.floor(points);
+    document.getElementById("transferAmount").value = "";
+  }
+
+  function cancelTransfer() {
+    selectedTransferChild = null;
+    document.getElementById("transferRecipientBlock").style.display = "none";
+    document.getElementById("transferAmount").value = "";
+  }
+
+  function confirmTransfer() {
+    const amount = Number(document.getElementById("transferAmount").value);
+    
+    if (!selectedTransferChild) {
+      alert("Не выбран получатель");
+      return;
+    }
+
+    if (amount <= 0) {
+      alert("Введите положительное количество баллов");
+      return;
+    }
+
+    if (amount > points) {
+      alert("Недостаточно баллов. Максимум: " + Math.floor(points));
+      return;
+    }
+
+    if (amount % 1 !== 0) {
+      alert("Количество баллов должно быть целым числом");
+      return;
+    }
+
+    const transferId = "transfer_" + Date.now() + "_" + Math.random().toString(16).slice(2);
+    const timestamp = new Date().toISOString();
+
+    // Отправитель теряет баллы
+    points = Math.max(0, points - amount);
+    saveData();
+
+    // Сохранить передачу
+    starTransfers.push({
+      id: transferId,
+      from: currentChild,
+      to: selectedTransferChild,
+      amount: amount,
+      timestamp: timestamp,
+      synced: false
+    });
+    saveStarTransfers();
+
+    // Добавить в историю звезд
+    addStarTransaction("transfer", -amount, "Передано " + selectedTransferChild, currentChild);
+    soundTransferSend();
+
+    alert("✅ Вы передали " + amount + " баллов " + selectedTransferChild);
+    
+    cancelTransfer();
+    renderTransfers();
+    renderTransfersPanel();
+  }
+
+  function receiveTransferFromCloud(from, amount, transferId) {
+    if (currentChild !== from && currentChild !== selectedTransferChild) {
+      return;
+    }
+
+    const existingTransfer = starTransfers.find(function(t) {
+      return t.id === transferId;
+    });
+
+    if (existingTransfer && existingTransfer.synced) {
+      return;
+    }
+
+    points = Math.max(0, points + amount);
+    saveData();
+
+    if (existingTransfer) {
+      existingTransfer.synced = true;
+      saveStarTransfers();
+    }
+
+    addStarTransaction("transfer", amount, "Получено от " + from, currentChild);
+    soundTransferReceive();
+  }
+
+  function renderTransfers() {
+    const historyDiv = document.getElementById("transferHistory");
+    if (!historyDiv) return;
+
+    const myTransfers = starTransfers.filter(function(t) {
+      return t.from === currentChild || t.to === currentChild;
+    }).sort(function(a, b) {
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
+
+    if (myTransfers.length === 0) {
+      historyDiv.innerHTML = "<div class='history-empty'>Переводов нет</div>";
+      return;
+    }
+
+    historyDiv.innerHTML = "";
+
+    myTransfers.forEach(function(transfer) {
+      const item = document.createElement("div");
+      item.className = "history-item";
+
+      const isSent = transfer.from === currentChild;
+      const badge = document.createElement("span");
+      badge.className = "transfer-badge " + (isSent ? "sent" : "received");
+      badge.innerText = isSent ? "Отправлено" : "Получено";
+
+      const info = document.createElement("div");
+      info.className = "history-info";
+      info.style.display = "flex";
+      info.style.justifyContent = "space-between";
+      info.style.alignItems = "center";
+      info.style.width = "100%";
+
+      const text = document.createElement("span");
+      text.innerText = (isSent ? "→ " : "← ") + (isSent ? transfer.to : transfer.from) + " · " + transfer.amount + " баллов";
+      text.style.flex = "1";
+
+      const time = document.createElement("span");
+      time.style.fontSize = "12px";
+      time.style.color = "#999";
+      const date = new Date(transfer.timestamp);
+      time.innerText = date.toLocaleTimeString("ru-RU").slice(0, 5);
+
+      info.appendChild(text);
+      info.appendChild(time);
+
+      item.appendChild(badge);
+      item.appendChild(info);
+      historyDiv.appendChild(item);
+    });
+  }
+
+  function renderTransfersPanel() {
+    if (activeTab === "transfers") {
+      generateMyQrCode();
+      renderTransfers();
+    }
   }
 
   startApp();
+
 </script>
 
 </body>
